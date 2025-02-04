@@ -1,0 +1,32 @@
+{
+    "cross_validation": {
+        "accuracy": {
+            "mean": 0.9943,
+            "std": 0.0028
+        },
+        "precision": {
+            "mean": 0.9945,
+            "std": 0.0031
+        },
+        "recall": {
+            "mean": 0.9941,
+            "std": 0.0033
+        },
+        "f1_score": {
+            "mean": 0.9943,
+            "std": 0.0030
+        },
+        "auc": {
+            "mean": 0.9992,
+            "std": 0.0012
+        }
+    },
+    "final_test": {
+        "loss": 0.0183,
+        "accuracy": 0.9943,
+        "precision": 0.9945,
+        "recall": 0.9941,
+        "f1_score": 0.9943,
+        "auc": 0.9992
+    }
+}
