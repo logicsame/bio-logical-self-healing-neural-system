@@ -32,8 +32,7 @@ dataclasses>=0.6
 ```
 
 ### Step-by-Step Installation
-
-1. **Create a Virtual Environment**
+1. **Create a Virtual Environment (Optional)**
 ```bash
 # Using venv
 python -m venv biolayer-env
@@ -266,7 +265,7 @@ MIT License. See [LICENSE](LICENSE) for details.
 
 ## Contact
 
-- **Main Developer**: [Your Name]
+- **Main Developer**: [MD. Azizul Hakim]
 - **Email**: your.email@institution.edu
 - **Research Group**: [Institution Name]
 - **Project Website**: https://github.com/yourusername/Bioneural
