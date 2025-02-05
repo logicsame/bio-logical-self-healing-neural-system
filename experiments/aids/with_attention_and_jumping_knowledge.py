@@ -2,6 +2,7 @@ import os
 import torch
 import numpy as np
 import wandb
+import argparse
 import datetime
 import json
 from tqdm import tqdm
@@ -79,12 +80,13 @@ from torch_geometric.nn import GATConv, global_mean_pool, global_add_pool, Jumpi
 from torch.nn.utils import spectral_norm
 
 class GraphBioNetwork(nn.Module):
-    def __init__(self, num_node_features, num_classes=2):
+    def __init__(self, num_node_features, num_classes=2,enable_monitoring=False, disable_monitoring=False):
         super().__init__()
         
         # Increased complexity and capacity
         hidden_dim = 512  # Doubled hidden dimension
-        
+        monitoring_state = enable_monitoring and not disable_monitoring
+
         # Deeper GAT layers with more heads
         self.gat1 = GATConv(num_node_features, hidden_dim // 16, heads=16, dropout=0.15)
         self.gat2 = GATConv(hidden_dim, hidden_dim // 16, heads=16, dropout=0.15)
@@ -105,11 +107,11 @@ class GraphBioNetwork(nn.Module):
         # Enhanced biological layers with finer-tuned parameters
         jk_dim = hidden_dim * 2
         self.bio_layers = nn.ModuleList([
-            BioLogicalNeuron(jk_dim, 2048, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001),
-            BioLogicalNeuron(2048, 1024, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001),
-            BioLogicalNeuron(1024, 512, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001),
-            BioLogicalNeuron(512, 256, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001),
-            BioLogicalNeuron(256, 128, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001)
+            BioLogicalNeuron(jk_dim, 2048, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001,enable_monitoring=monitoring_state,log_file='bio_layer_1.log'),
+            BioLogicalNeuron(2048, 1024, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001,enable_monitoring=monitoring_state,log_file='bio_layer_2.log'),
+            BioLogicalNeuron(1024, 512, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001,enable_monitoring=monitoring_state,log_file='bio_layer_3.log'),
+            BioLogicalNeuron(512, 256, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001,enable_monitoring=monitoring_state,log_file='bio_layer_4.log'),
+            BioLogicalNeuron(256, 128, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001,enable_monitoring=monitoring_state,log_file='bio_layer_5.log'),
         ])
         
         # Advanced classifier with skip connections
@@ -239,14 +241,21 @@ class EarlyStopping:
         return self.early_stop
 from sklearn.model_selection import StratifiedShuffleSplit
 class PublicationTrainer:
-    def __init__(self, dataset_name='AIDS', n_splits=10, seed=42, wandb_logging=False):  # Changed n_splits to 10
-        self.dataset_name = dataset_name
+    def __init__(self, dataset_name='AIDS', n_splits=10, seed=42, wandb_logging=False, 
+                 enable_monitoring=False, disable_monitoring=False):
+        self.dataset_name = dataset_name 
         self.n_splits = n_splits
         self.seed = seed
         self.wandb_logging = wandb_logging
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-        self.label_smoothing = 0.01  # Reduced from 0.3
-        self.gradient_clip = 0.5  # Reduced from 1.0
+        
+        # Monitoring parameters
+        self.enable_monitoring = enable_monitoring
+        self.disable_monitoring = disable_monitoring
+        
+        # Added parameters for robust training
+        self.label_smoothing = 0.1
+        self.gradient_clip = 0.5
         
         # Prepare dataset
         self.dataset = self._prepare_dataset()
@@ -319,9 +328,11 @@ class PublicationTrainer:
 
             # Model and training components
             model = GraphBioNetwork(
-                num_node_features=self.dataset.num_node_features, 
-                num_classes=self.dataset.num_classes
-            ).to(self.device)
+            num_node_features=self.dataset.num_node_features, 
+            num_classes=self.dataset.num_classes,
+            enable_monitoring=self.enable_monitoring,
+            disable_monitoring=self.disable_monitoring
+                ).to(self.device)
 
             # Use get_training_components to get criterion, optimizer, and scheduler
             criterion, optimizer, scheduler = get_training_components(model)
@@ -495,7 +506,40 @@ class PublicationTrainer:
             'auc': auc
         }
 
-if __name__ == "__main__":
-    trainer = PublicationTrainer()
+def main():
+    # Create argument parser
+    parser = argparse.ArgumentParser(description='Publication Trainer with Biological Neural Network')
+    
+    # Monitoring arguments with mutually exclusive group
+    monitoring_group = parser.add_mutually_exclusive_group()
+    monitoring_group.add_argument('--enable-monitoring', action='store_true', 
+                        help='Enable monitoring for biological layers')
+    monitoring_group.add_argument('--disable-monitoring', action='store_true', 
+                        help='Explicitly disable monitoring for biological layers')
+    
+    # Other existing arguments can be added here
+    parser.add_argument('--dataset', type=str, default='AIDS', 
+                        help='Name of the dataset to train on')
+    parser.add_argument('--n-splits', type=int, default=10, 
+                        help='Number of cross-validation splits')
+    parser.add_argument('--wandb', action='store_true', 
+                        help='Enable Weights & Biases logging')
+    
+    # Parse arguments
+    args = parser.parse_args()
+    
+    # Create trainer with parsed arguments
+    trainer = PublicationTrainer(
+        dataset_name=args.dataset, 
+        n_splits=args.n_splits, 
+        wandb_logging=args.wandb,
+        enable_monitoring=args.enable_monitoring,
+        disable_monitoring=args.disable_monitoring
+    )
+    
+    # Train and evaluate
     results = trainer.train_and_evaluate()
     print("Publication Results:", results)
+
+if __name__ == "__main__":
+    main()
