@@ -21,16 +21,16 @@ import torch.nn.functional as F
 from ..utils.logging import HealthLogger
 from ..metrics.healthtracker import HealthTracker
 import logging
-from ..visualization.biosysvisualization import BioNeuronVisualizer
+from ..visualization.biosysvisualization2 import BioNeuronVisualizer
 
-class BioLogicalVisionNeuron(nn.Module):
-    """Enhanced Biological Neuron with improved repair mechanism and monitoring"""
+class BioLogicalNeuron(nn.Module):
+    """Enhanced Biological Neuron with advanced repair mechanisms and multi-strategy monitoring"""
     def __init__(
         self,
         in_features: int,
         out_features: int,
         plasticity_rate: float = 0.008,
-        repair_threshold: float = 0.8,
+        repair_threshold: float = 0.5,
         repair_intensity: float = 0.08,
         enable_monitoring: bool = True,
         log_file: Optional[str] = "bioneuron_health.log",
@@ -46,17 +46,23 @@ class BioLogicalVisionNeuron(nn.Module):
         self.repair_count = 0
         self.repair_cooldown = 0
         
-        
         self.health_tracker = HealthTracker() if enable_monitoring else None
         self.logger = self._setup_logger(log_file) if enable_monitoring else None
         self.visualizer = BioNeuronVisualizer(save_dir="bio_vis") if enable_monitoring else None
         self.step_counter = 0
         self.summary_interval = summary_interval
         
-      
         self.epoch_health_logs = defaultdict(list)
         self.current_epoch = 0
         self.epoch_metrics = defaultdict(list)
+        
+        # New advanced repair tracking
+        self.repair_strategies = {
+            'adaptive_noise': 0,
+            'targeted_repair': 0,
+            'gradient_aware_repair': 0,
+            'periodic_reset': 0
+        }
         
     def _setup_logger(self, log_file: Optional[str]) -> logging.Logger:
         """Setup logging configuration"""
@@ -64,7 +70,7 @@ class BioLogicalVisionNeuron(nn.Module):
         logger.setLevel(logging.INFO)
         
         if logger.hasHandlers():
-            logger.handlers.clear()
+            logger.handlers.clear() 
             
         formatter = logging.Formatter(
             '[%(asctime)s] %(levelname)s - %(message)s',
@@ -193,37 +199,57 @@ class BioLogicalVisionNeuron(nn.Module):
         # Reset metrics for next epoch
         self.epoch_metrics = defaultdict(list)
 
-    def adaptive_repair(self, health_report: Dict[str, torch.Tensor]) -> bool:
-        """Perform adaptive repair based on health report"""
+    def adaptive_repair(self, health_report: Dict[str, torch.Tensor], gradients: Optional[torch.Tensor] = None) -> bool:
         if self.repair_cooldown > 0:
             self.repair_cooldown -= 1
-            return False
-            
+            return False 
+        
         current_health = health_report['current_health'].mean().item()
         if current_health < self.repair_threshold:
-            base_intensity = self.repair_intensity * (1 - health_report['stability'].item())
-            calcium_factor = torch.sigmoid(torch.tensor(health_report['calcium_trend'])).item()
-            intensity = base_intensity * (1 + calcium_factor)
-            
-            weight_mean = self.linear.weight.mean()
-            weight_std = self.linear.weight.std()
+            # 1. Adaptive Noise Injection
+            noise_scale = 1.0 - health_report['stability'].item()
+            training_progress = min(1.0, self.step_counter / 10000)
+            adaptive_noise_intensity = self.repair_intensity * (1 - training_progress * 0.5)
+        
             repair_noise = torch.randn_like(self.linear.weight, device=self.linear.weight.device)
-            repair_noise = repair_noise * weight_std + weight_mean
-            
-            self.linear.weight.data += intensity * repair_noise
+            repair_noise = repair_noise * noise_scale * adaptive_noise_intensity
+            self.repair_strategies['adaptive_noise'] += 1
+        
+            # 2. Targeted Repair Zones
+            weight_variance = torch.var(self.linear.weight, dim=1)
+            low_variance_mask = weight_variance < self.repair_threshold
+            targeted_repair_noise = torch.randn_like(self.linear.weight)
+            targeted_repair_noise[low_variance_mask] *= 0.5
+            self.repair_strategies['targeted_repair'] += 1
+
+            # Apply combined repairs
+            self.linear.weight.data += repair_noise + targeted_repair_noise
+        
+            # Repair tracking
             self.repair_cooldown = 40
             self.repair_count += 1
-            
+        
             self.homeostasis.repair_history.append({
-                'intensity': intensity,
+                'intensity': adaptive_noise_intensity,
                 'health': current_health,
                 'stability': health_report['stability'].item()
             })
             return True
         return False
+    
+    
+    def get_adaptive_learning_rate(self, health_report):
+        """Dynamically adjust learning rate based on neuron health"""
+        base_lr = 0.001
+        health_factor = health_report['current_health'].mean().item()
+        stability_factor = health_report['stability'].mean().item()
+        
+        # Adaptive learning rate based on neuron health
+        adaptive_lr = base_lr * health_factor * stability_factor
+        return adaptive_lr
 
-    def forward(self, x: torch.Tensor) -> tuple[torch.Tensor, Dict[str, float]]:
-        """Forward pass with health monitoring and repair"""
+    def forward(self, x: torch.Tensor, gradients: Optional[torch.Tensor] = None) -> tuple[torch.Tensor, Dict[str, float]]:
+        """Forward pass with advanced health monitoring and multi-strategy repair"""
         pre_synaptic = x
         post_synaptic = F.gelu(self.linear(x))
         
@@ -236,8 +262,12 @@ class BioLogicalVisionNeuron(nn.Module):
                 self.homeostasis.synaptic_strengths = self.homeostasis.synaptic_strengths[-self.homeostasis.window:]
             
             health_report = self.homeostasis.predict_health()
-            performed_repair = self.adaptive_repair(health_report)
+            performed_repair = self.adaptive_repair(health_report, gradients)
             health_report['repair_performed'] = performed_repair
+            
+            # Compute adaptive learning rate
+            adaptive_lr = self.get_adaptive_learning_rate(health_report)
+            health_report['adaptive_lr'] = adaptive_lr
             
             self._log_health_status(health_report)
             self.step_counter += 1
@@ -246,7 +276,8 @@ class BioLogicalVisionNeuron(nn.Module):
                 self.visualizer.update(
                     step=self.step_counter,
                     health_report=health_report,
-                    calcium_level=calcium_level
+                    calcium_level=calcium_level,
+                    repair_strategies=self.repair_strategies
                 )
                 
                 if self.step_counter % 400 == 0:
@@ -255,11 +286,12 @@ class BioLogicalVisionNeuron(nn.Module):
         return post_synaptic, health_report
     
     def get_health_stats(self) -> Dict[str, float]:
-        """Get current health statistics"""
+        """Get comprehensive health statistics"""
         stats = {
             **self.homeostasis.get_health_summary(),
             "repair_count": self.repair_count,
-            "cooldown": self.repair_cooldown
+            "cooldown": self.repair_cooldown,
+            "repair_strategies": self.repair_strategies
         }
         
         if self.health_tracker:
