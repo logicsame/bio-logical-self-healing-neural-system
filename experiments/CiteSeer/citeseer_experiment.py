@@ -465,8 +465,6 @@ def main():
                         help='Explicitly disable monitoring for biological layers')
     
     # Other existing arguments can be added here
-    parser.add_argument('--dataset', type=str, default='AIDS', 
-                        help='Name of the dataset to train on')
     parser.add_argument('--n-splits', type=int, default=10, 
                         help='Number of cross-validation splits')
     parser.add_argument('--wandb', action='store_true', 
