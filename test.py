@@ -14,7 +14,7 @@ from torch_geometric.nn import GATConv, global_mean_pool, global_add_pool, Jumpi
 from torch.nn.utils import spectral_norm
 from torch_geometric.data import DataLoader
 from torch.utils.data import random_split, Subset
-from bioneural.core.biololgicallayer2 import BioLogicalNeuron
+from bioneural.core.biololgicallayer import BioLogicalNeuron
 from torch_geometric.datasets import TUDataset
 
 from sklearn.model_selection import StratifiedKFold
