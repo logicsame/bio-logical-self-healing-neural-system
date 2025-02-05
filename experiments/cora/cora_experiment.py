@@ -168,7 +168,7 @@ class EarlyStopping:
         return self.early_stop
 
 class CoraCVTrainer:
-    def __init__(self, n_splits=10, seed=42, wandb_logging=False, enable_monitoring=False, disable_monitoring=False):
+    def __init__(self, n_splits=15, seed=42, wandb_logging=False, enable_monitoring=False, disable_monitoring=False):
         self.n_splits = n_splits
         self.seed = seed
         self.wandb_logging = wandb_logging
@@ -475,7 +475,7 @@ def main():
     args = parser.parse_args()
 
     trainer = CoraCVTrainer(
-        n_splits=args.n_splits, 
+        n_splits=15, 
         wandb_logging=args.wandb, 
         enable_monitoring=args.enable_monitoring, 
         disable_monitoring=args.disable_monitoring
