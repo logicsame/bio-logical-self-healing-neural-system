@@ -36,71 +36,57 @@ import torch.nn.functional as F
 from torch_geometric.nn import GATConv, global_mean_pool, global_add_pool, JumpingKnowledge
 from torch.nn.utils import spectral_norm
 
-class GraphBioNetwork(nn.Module):
+class BioOnlyNetwork(nn.Module):
     def __init__(self, num_node_features, num_classes=2,enable_monitoring=False, disable_monitoring=False):
         super().__init__()
         
-        # Increased capacity
-        hidden_dim = 768
+        # Define dimensions for the network
+        self.input_dim = 2 * num_node_features  # Adjusted input dimension due to pooling
         monitoring_state = enable_monitoring and not disable_monitoring
-        # Deeper GAT layers with more heads and improved dropout
-        self.gat1 = GATConv(num_node_features, hidden_dim // 4, heads=4, dropout=0.15)
-        self.gat2 = GATConv(hidden_dim, hidden_dim // 4, heads=4, dropout=0.15)
-        self.gat3 = GATConv(hidden_dim, hidden_dim // 4, heads=4, dropout=0.15)
-        self.gat4 = GATConv(hidden_dim, hidden_dim // 4, heads=4, dropout=0.15)
-        
-        # Layer normalization instead of batch norm
-        self.layer_norm1 = nn.LayerNorm(hidden_dim)
-        self.layer_norm2 = nn.LayerNorm(hidden_dim)
-        self.layer_norm3 = nn.LayerNorm(hidden_dim)
-        self.layer_norm4 = nn.LayerNorm(hidden_dim)
-        
-        # JK connection with concatenation
-        self.jk = JumpingKnowledge(mode='cat', channels=hidden_dim, num_layers=4)
-        
-        # Optimized biological layers
-        jk_dim = hidden_dim * 4  # Increased due to concatenation
+
+        # Stack of biological layers with carefully tuned parameters
         self.bio_layers = nn.ModuleList([
-            BioLogicalNeuron(jk_dim, 1024, repair_threshold=0.98, repair_intensity=0.015, plasticity_rate=0.0015,enable_monitoring=monitoring_state,log_file='full_architecture_bio_layer1_cox2.log'),
-            BioLogicalNeuron(1024, 512, repair_threshold=0.98, repair_intensity=0.015, plasticity_rate=0.0015,enable_monitoring=monitoring_state,log_file='full_architecture_bio_layer2_cox2.log'),
-            BioLogicalNeuron(512, 256, repair_threshold=0.98, repair_intensity=0.015, plasticity_rate=0.0015,enable_monitoring=monitoring_state,log_file='full_architecture_bio_layer3_cox2.log'),
+            BioLogicalNeuron(self.input_dim, 2048, 
+                repair_threshold=0.95, repair_intensity=0.02, 
+                plasticity_rate=0.001, enable_monitoring=monitoring_state,log_file='full_architecture_bio_layer1_cox2.log'),
+            
+            BioLogicalNeuron(2048, 1024, 
+                repair_threshold=0.9, repair_intensity=0.02, 
+                plasticity_rate=0.001, enable_monitoring=monitoring_state,log_file='full_architecture_bio_layer2_cox2.log'),
+            
+            BioLogicalNeuron(1024, 512, 
+                repair_threshold=0.85, repair_intensity=0.03, 
+                plasticity_rate=0.002,enable_monitoring=monitoring_state,log_file='full_architecture_bio_layer3_cox2.log'),
+            
+            BioLogicalNeuron(512, 256, 
+                repair_threshold=0.8, repair_intensity=0.01, 
+                plasticity_rate=0.003, enable_monitoring=False, 
+                log_file='bio_layer_4.log'),
+            
+            BioLogicalNeuron(256, num_classes, 
+                repair_threshold=0.75, repair_intensity=0.03, 
+                plasticity_rate=0.002, enable_monitoring=False, 
+                log_file='bio_layer_5.log')
         ])
-        
-        # Improved classifier
-        self.classifier = nn.Sequential(
-            nn.LayerNorm(256),
-            nn.Dropout(0.2),
-            nn.Linear(256, 512),
-            nn.GELU(),
-            nn.LayerNorm(512),
-            nn.Dropout(0.2),
-            nn.Linear(512, num_classes)
-        )
 
     def forward(self, data):
-        x, edge_index, batch = data.x, data.edge_index, data.batch
+        # Extract node features and batch information
+        x, batch = data.x, data.batch
         
-        # Enhanced feature extraction
-        x1 = F.elu(self.layer_norm1(self.gat1(x, edge_index)))
-        x2 = F.elu(self.layer_norm2(self.gat2(x1, edge_index))) + x1
-        x3 = F.elu(self.layer_norm3(self.gat3(x2, edge_index))) + x2
-        x4 = F.elu(self.layer_norm4(self.gat4(x3, edge_index))) + x3
-        
-        # Improved pooling
-        x = self.jk([x1, x2, x3, x4])
+        # Global pooling to handle variable graph sizes
         x_mean = global_mean_pool(x, batch)
         x_sum = global_add_pool(x, batch)
-        x = x_mean + 0.5 * x_sum
         
-        # Biological processing with residual connections
+        # Combine pooled features
+        x = torch.cat([x_mean, x_sum], dim=1)
+        
+        # Pass through biological layers
+        health_reports = []
         for bio_layer in self.bio_layers:
-            x_prev = x
-            x, _ = bio_layer(x)
-            if x.shape == x_prev.shape:
-                x = x + 0.2 * x_prev
+            x, health_report = bio_layer(x)
+            health_reports.append(health_report)
         
-        x = self.classifier(x)
-        return x, None
+        return x, health_reports
 
 def get_training_components(model, num_epochs=500, steps_per_epoch=50):
     criterion = nn.CrossEntropyLoss(label_smoothing=0.05)
@@ -247,11 +233,11 @@ class Cox2Trainer:
             test_loader = DataLoader(test_subset, batch_size=32)
 
             # Model and training components
-            model = GraphBioNetwork(
-            num_node_features=self.dataset.num_node_features, 
-            num_classes=self.dataset.num_classes,
-            enable_monitoring=self.enable_monitoring,
-            disable_monitoring=self.disable_monitoring
+            model = BioOnlyNetwork(
+                num_node_features=self.dataset.num_node_features, 
+                num_classes=self.dataset.num_classes,
+                enable_monitoring=self.enable_monitoring,
+                disable_monitoring=self.disable_monitoring
                 ).to(self.device)
 
             # Use get_training_components to get criterion, optimizer, and scheduler
@@ -344,7 +330,7 @@ class Cox2Trainer:
             wandb.finish()
 
         # Save results to JSON
-        with open('full_architecture_cox2_results.json', 'w') as f:
+        with open('base_bio_layer_cox2_results.json', 'w') as f:
             json.dump(publication_results, f, indent=4)
 
         return publication_results
@@ -425,7 +411,8 @@ class Cox2Trainer:
             'f1_score': f1,
             'auc': auc
         }
-
+        
+    
 import argparse
 
 def main():
@@ -465,4 +452,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
