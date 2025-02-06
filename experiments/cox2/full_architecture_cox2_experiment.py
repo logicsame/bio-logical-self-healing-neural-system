@@ -427,7 +427,6 @@ class Cox2Trainer:
         }
 
 import argparse
-
 def main():
     # Create argument parser
     parser = argparse.ArgumentParser(description='Publication Trainer with Biological Neural Network')
