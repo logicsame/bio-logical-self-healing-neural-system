@@ -495,7 +495,6 @@ def main():
     
     # Create trainer with parsed arguments
     trainer = HIVTrainer(
-        dataset_name=args.dataset, 
         n_splits=args.n_splits, 
         wandb_logging=args.wandb,
         enable_monitoring=args.enable_monitoring,
