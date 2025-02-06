@@ -136,7 +136,7 @@ class GraphBioNetwork(nn.Module):
             BioLogicalNeuron(pooled_dim, 2048, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001, enable_monitoring=monitoring_state, log_file='base_bio_hiv_layer_1.log'),
             BioLogicalNeuron(2048, 1024, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001, enable_monitoring=monitoring_state, log_file='base_bio_layer_hiv_2.log'),
             BioLogicalNeuron(1024, 512, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001, enable_monitoring=monitoring_state, log_file='base_bio_layer_3.log'),
-            BioLogicalNeuron(512, 256, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001, enable_monitoring=monitoring_state, log_file='base_bio_layer_hiv_4.log'),
+            BioLogicalNeuron(512, 128, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001, enable_monitoring=monitoring_state, log_file='base_bio_layer_hiv_4.log'),
         ])
         
         # Advanced classifier with skip connections
