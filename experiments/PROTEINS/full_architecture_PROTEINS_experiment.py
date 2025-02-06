@@ -7,18 +7,16 @@ import json
 from tqdm import tqdm
 import matplotlib.pyplot as plt
 import seaborn as sns
+from bioneural.core.biololgicallayer import BioLogicalNeuron
 import matplotlib
 matplotlib.use('Agg')
-
-
 import torch.nn as nn
 import torch.nn.functional as F
-from torch_geometric.nn import GATConv, global_mean_pool, global_add_pool, JumpingKnowledge, BatchNorm,GCNConv
+from torch_geometric.nn import GATConv, global_mean_pool, global_add_pool, JumpingKnowledge, BatchNorm
 from torch.nn.utils import spectral_norm
 from torch_geometric.data import DataLoader
 from torch.utils.data import random_split, Subset
 from torch_geometric.datasets import TUDataset
-from bioneural.core.biololgicallayer import BioLogicalNeuron
 from sklearn.model_selection import StratifiedKFold
 from sklearn.metrics import (
     confusion_matrix, 
@@ -26,8 +24,9 @@ from sklearn.metrics import (
     precision_recall_fscore_support,
     roc_auc_score
 )
-
 import random
+
+
 def augment_batch(batch):
     """Enhanced augmentation strategy"""
     # Node feature augmentation
@@ -75,120 +74,144 @@ def get_training_components(model, num_epochs=400, steps_per_epoch=50):
     
     return criterion, optimizer, scheduler
 
-
-
-
-# Set default tensor type to float to prevent dtype issues
-torch.set_default_tensor_type(torch.FloatTensor)
-
-import os
 import torch
-import numpy as np
-import wandb
-import datetime
-import json
-from tqdm import tqdm
-import matplotlib.pyplot as plt
-import seaborn as sns
-import matplotlib
-matplotlib.use('Agg')
-
 import torch.nn as nn
 import torch.nn.functional as F
-from torch_geometric.nn import GATConv, global_mean_pool, global_add_pool, JumpingKnowledge, BatchNorm, GCNConv
+from torch_geometric.nn import GATConv, global_mean_pool, global_add_pool, JumpingKnowledge
 from torch.nn.utils import spectral_norm
-from torch_geometric.data import DataLoader
-from torch.utils.data import random_split, Subset
-from torch_geometric.datasets import TUDataset
-from sklearn.model_selection import StratifiedKFold
-from sklearn.metrics import (
-    confusion_matrix, 
-    classification_report, 
-    precision_recall_fscore_support,
-    roc_auc_score
-)
 
-class BioOnlyNetwork(nn.Module):
-    def __init__(self, num_node_features, num_classes=2,enable_monitoring=False, disable_monitoring=False):
+class GraphBioNetwork(nn.Module):
+    def __init__(self, num_node_features, num_classes=2, enable_monitoring = False, disable_monitoring = False):
         super().__init__()
         
-        # Define dimensions for the network
-        self.input_dim = 2 * num_node_features  # Adjusted input dimension due to pooling
-
+        # Increased complexity and capacity
+        hidden_dim = 512  # Doubled hidden dimension
         monitoring_state = enable_monitoring and not disable_monitoring
-
-        # Stack of biological layers with carefully tuned parameters
+        
+        # Deeper GAT layers with more heads
+        self.gat1 = GATConv(num_node_features, hidden_dim // 16, heads=16, dropout=0.15)
+        self.gat2 = GATConv(hidden_dim, hidden_dim // 16, heads=16, dropout=0.15)
+        self.gat3 = GATConv(hidden_dim, hidden_dim // 16, heads=16, dropout=0.15)
+        self.gat4 = GATConv(hidden_dim, hidden_dim // 16, heads=16, dropout=0.15)
+        self.gat5 = GATConv(hidden_dim, hidden_dim // 16, heads=16, dropout=0.15)
+        
+        # Enhanced normalization
+        self.batch_norm1 = nn.BatchNorm1d(hidden_dim)
+        self.batch_norm2 = nn.BatchNorm1d(hidden_dim)
+        self.batch_norm3 = nn.BatchNorm1d(hidden_dim)
+        self.batch_norm4 = nn.BatchNorm1d(hidden_dim)
+        self.batch_norm5 = nn.BatchNorm1d(hidden_dim)
+        
+        # Advanced JK connection
+        self.jk = JumpingKnowledge(mode='max', channels=hidden_dim, num_layers=5)
+        
+        # Enhanced biological layers with finer-tuned parameters
+        jk_dim = hidden_dim * 2
         self.bio_layers = nn.ModuleList([
-            BioLogicalNeuron(self.input_dim, 2048, 
-                repair_threshold=0.95, repair_intensity=0.02, 
-                plasticity_rate=0.001, enable_monitoring=monitoring_state, 
-                log_file='base_bio_layer_aids_1.log'),
-            
-            BioLogicalNeuron(2048, 1024, 
-                repair_threshold=0.9, repair_intensity=0.02, 
-                plasticity_rate=0.001, enable_monitoring=monitoring_state, 
-                log_file='base_bio_layer_aids_2.log'),
-            
-            BioLogicalNeuron(1024, 512, 
-                repair_threshold=0.85, repair_intensity=0.03, 
-                plasticity_rate=0.002,enable_monitoring=monitoring_state, 
-                log_file='base_bio_layer_aids_3.log'),
-            
-            BioLogicalNeuron(512, 256, 
-                repair_threshold=0.8, repair_intensity=0.01, 
-                plasticity_rate=0.003, enable_monitoring=monitoring_state, 
-                log_file='base_bio_layer_aids_4.log'),
-            
-            BioLogicalNeuron(256, num_classes, 
-                repair_threshold=0.75, repair_intensity=0.03, 
-                plasticity_rate=0.002, enable_monitoring=monitoring_state, 
-                log_file='base_bio_layer_aids_5.log')
+            BioLogicalNeuron(jk_dim, 2048, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001, enable_monitoring=monitoring_state,log_file='full_architecture_bio_layer_protrein_1.log'),
+            BioLogicalNeuron(2048, 1024, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001, enable_monitoring=monitoring_state,log_file='full_architecture_bio_layer_protrein_2.log'),
+            BioLogicalNeuron(1024, 512, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001, enable_monitoring=monitoring_state,log_file='full_architecture_bio_layer_protrein_3.log'),
+            BioLogicalNeuron(512, 256, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001, enable_monitoring=monitoring_state,log_file='full_architecture_bio_layer_protrein_4.log'),
+            BioLogicalNeuron(256, 128, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001, enable_monitoring=monitoring_state,log_file='full_architecture_bio_layer_protrein_5.log'),
         ])
+        
+        # Advanced classifier with skip connections
+        self.classifier = nn.Sequential(
+            nn.LayerNorm(128),
+            spectral_norm(nn.Linear(128, 512)),
+            nn.GELU(),
+            nn.Dropout(0.1),
+            nn.LayerNorm(512),
+            spectral_norm(nn.Linear(512, 256)),
+            nn.GELU(),
+            nn.Dropout(0.1),
+            nn.LayerNorm(256),
+            spectral_norm(nn.Linear(256, num_classes))
+        )
 
     def forward(self, data):
-        # Extract node features and batch information
-        x, batch = data.x, data.batch
+        x, edge_index, batch = data.x, data.edge_index, data.batch
         
-        # Global pooling to handle variable graph sizes
+        # Enhanced feature extraction with skip connections
+        x1 = self.batch_norm1(F.elu(self.gat1(x, edge_index)))
+        x2 = self.batch_norm2(F.elu(self.gat2(x1, edge_index))) + x1
+        x3 = self.batch_norm3(F.elu(self.gat3(x2, edge_index))) + x2
+        x4 = self.batch_norm4(F.elu(self.gat4(x3, edge_index))) + x3
+        x5 = self.batch_norm5(F.elu(self.gat5(x4, edge_index))) + x4
+        
+        # Advanced pooling with JK
+        x = self.jk([x1, x2, x3, x4, x5])
+        
+        # Multi-scale pooling
         x_mean = global_mean_pool(x, batch)
         x_sum = global_add_pool(x, batch)
-        
-        # Combine pooled features
         x = torch.cat([x_mean, x_sum], dim=1)
         
-        # Pass through biological layers
+        # Enhanced biological processing
+        prev_x = x
         health_reports = []
-        for bio_layer in self.bio_layers:
+        for i, bio_layer in enumerate(self.bio_layers):
             x, health_report = bio_layer(x)
+            if x.shape == prev_x.shape:
+                x = x + prev_x * (0.1 / (i + 1))  # Decaying residual connections
+            prev_x = x
             health_reports.append(health_report)
         
+        x = self.classifier(x)
         return x, health_reports
 
-
-
-def get_training_components(model):
-    criterion = nn.CrossEntropyLoss(label_smoothing=0.3)
+def get_enhanced_training_components(model, num_epochs=500, steps_per_epoch=50):
+    criterion = nn.CrossEntropyLoss(label_smoothing=0.02)  # Reduced smoothing
     
     optimizer = torch.optim.AdamW(
         params=model.parameters(),
-        lr=0.005,  # Slightly increased learning rate
-        weight_decay=0.05,  # Increased weight decay for better regularization
+        lr=0.0002,  # Lower initial learning rate
+        weight_decay=0.02,
         betas=(0.9, 0.999)
     )
     
-    # one cycle lr scheduler with more flexibility
+    # Advanced learning rate scheduler
     scheduler = torch.optim.lr_scheduler.OneCycleLR(
         optimizer,
-        max_lr=0.005,
-        epochs=250,  # Increased epochs
-        steps_per_epoch=50,
-        pct_start=0.3,  # Adjusted percentage of increase
-        anneal_strategy='cos',
-        div_factor=10.0,  # Reduced div factor
-        final_div_factor=100.0  # Reduced final div factor
+        max_lr=0.002,
+        epochs=num_epochs,
+        steps_per_epoch=steps_per_epoch,
+        pct_start=0.05,  # Shorter warmup
+        anneal_strategy='linear',
+        div_factor=100.0,
+        final_div_factor=10000.0,
+        three_phase=True
     )
     
     return criterion, optimizer, scheduler
+
+def enhanced_augment_batch(batch):
+    """More sophisticated augmentation strategy"""
+    if random.random() < 0.8:  # Higher probability
+        # Adaptive noise based on feature magnitude
+        feature_magnitude = torch.mean(torch.abs(batch.x))
+        noise_scale = random.uniform(0.005, 0.02) * feature_magnitude
+        noise = torch.randn_like(batch.x) * noise_scale
+        batch.x = batch.x + noise
+    
+    # Selective feature masking
+    if random.random() < 0.25:
+        feature_importance = torch.sum(torch.abs(batch.x), dim=0)
+        mask_prob = torch.softmax(-feature_importance, dim=0)
+        mask = torch.bernoulli(torch.ones_like(batch.x) * 0.95 * mask_prob)
+        batch.x = batch.x * mask
+    
+    # Smart edge dropout
+    if random.random() < 0.15:
+        edge_weights = torch.ones(batch.edge_index.size(1))
+        for i in range(batch.edge_index.size(1)):
+            src, dst = batch.edge_index[:, i]
+            edge_weights[i] = torch.sum(torch.abs(batch.x[src] - batch.x[dst]))
+        drop_prob = torch.softmax(-edge_weights, dim=0)
+        edge_mask = torch.bernoulli(torch.ones_like(edge_weights) * (0.98 - drop_prob))
+        batch.edge_index = batch.edge_index[:, edge_mask.bool()]
+    
+    return batch
 
 class EarlyStopping:
     def __init__(self, patience=25, min_delta=0.0005):
@@ -218,22 +241,19 @@ class EarlyStopping:
         
         return self.early_stop
 from sklearn.model_selection import StratifiedShuffleSplit
-class PublicationTrainer:
-    def __init__(self, dataset_name='AIDS', n_splits=10, seed=42, wandb_logging=False, 
-                 enable_monitoring=False, disable_monitoring=False):
-        self.dataset_name = dataset_name 
+class PROTEINSTrainer:
+    def __init__(self, dataset_name='PROTEINS', n_splits=10, seed=42, wandb_logging=False,
+                 enable_monitoring = False, disable_monitoring = False):  # Changed n_splits to 10
+        self.dataset_name = dataset_name
         self.n_splits = n_splits
         self.seed = seed
         self.wandb_logging = wandb_logging
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-        # Monitoring parameters
         self.enable_monitoring = enable_monitoring
         self.disable_monitoring = disable_monitoring
-        # Added parameters for robust training
-        self.label_smoothing = 0.1
-        self.gradient_clip = 0.5
+        self.label_smoothing = 0.01 
+        self.gradient_clip = 0.5  
         
-        # Prepare dataset
         self.dataset = self._prepare_dataset()
         
     def _prepare_dataset(self):
@@ -303,12 +323,12 @@ class PublicationTrainer:
             test_loader = DataLoader(test_subset, batch_size=32)
 
             # Model and training components
-            model = BioOnlyNetwork(
-            num_node_features=self.dataset.num_node_features, 
-            num_classes=self.dataset.num_classes,
-            enable_monitoring=self.enable_monitoring,
-            disable_monitoring=self.disable_monitoring
-                ).to(self.device)
+            model = GraphBioNetwork(
+                num_node_features=self.dataset.num_node_features, 
+                num_classes=self.dataset.num_classes,
+                enable_monitoring = self.enable_monitoring,
+                disable_monitoring = self.disable_monitoring
+            ).to(self.device)
 
             # Use get_training_components to get criterion, optimizer, and scheduler
             criterion, optimizer, scheduler = get_training_components(model)
@@ -410,7 +430,9 @@ class PublicationTrainer:
         total_loss = 0
         
         for batch in loader:
+            batch = augment_batch(batch)
             batch = batch.to(self.device)
+    
             optimizer.zero_grad()
             outputs, _ = model(batch)
             loss = criterion(outputs, batch.y)
@@ -479,7 +501,7 @@ class PublicationTrainer:
             'f1_score': f1,
             'auc': auc
         }
-        
+
 import argparse
 
 def main():
@@ -494,7 +516,7 @@ def main():
                         help='Explicitly disable monitoring for biological layers')
     
     # Other existing arguments can be added here
-    parser.add_argument('--dataset', type=str, default='AIDS', 
+    parser.add_argument('--dataset', type=str, default='PROTEINS', 
                         help='Name of the dataset to train on')
     parser.add_argument('--n-splits', type=int, default=10, 
                         help='Number of cross-validation splits')
@@ -505,7 +527,7 @@ def main():
     args = parser.parse_args()
     
     # Create trainer with parsed arguments
-    trainer = PublicationTrainer(
+    trainer = PROTEINSTrainer(
         dataset_name=args.dataset, 
         n_splits=args.n_splits, 
         wandb_logging=args.wandb,
