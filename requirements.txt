@@ -5,4 +5,7 @@ numpy
 pandas
 matplotlib
 seaborn
+wandb
+tqdm
+torch_geometric==2.5.0
 -e .
