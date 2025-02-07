@@ -388,7 +388,37 @@ Run the base bio layer experiment on the Mutag dataset without monitoring:
 python experiments/mutag/base_bio_layer_mutag_experiment.py --disable-monitoring
 ```
 
+### Cora Dataset Experiments
 
+Run the full architecture experiment on the Cora dataset:
+```bash
+python experiments/cora/cora_experiment.py
+```
+
+### Citeseer Dataset Experiment
+
+Run the full architecture experiment on the Citeseer dataset:
+```bash
+python experiments/CiteSeer/citeseer_experiment.py
+```
+
+### Pubmed Dataset Experiment
+
+Run the full architecture experiment on the Pubmed dataset:
+```bash
+python experiments/PubMed/full_architecture_pubmed_experiment.py
+```
+
+### Cifar10 Dataset Experiments
+
+Run the full architecture experiment on the Cifar10 dataset with monitoring :
+```bash
+python experiments/ciraf10/full_architecture_cifar10_experiment.py --enable-monitoring
+```
+Run only with attention mechanism on cifar10 dataset 
+```bash
+python experiments/ciraf10/with_attention_cifar10_experiment.py
+```
 
 
 
@@ -401,25 +431,13 @@ Based on the performance analysis tables in the documentation, experiments can a
 python experiments/<dataset_name>/full_architecture_<dataset_name>_experiment.py [--enable-monitoring]
 ```
 
-### Experiment Configuration
 
-You can customize various parameters for the experiments:
-
-```bash
-python experiments/aids/full_architecture_aids_experiment.py \
-    --enable-monitoring \
-    --batch-size 32 \
-    --learning-rate 0.001 \
-    --epochs 100 \
-    --plasticity-rate 0.008 \
-    --repair-threshold 0.5
-```
-
-The experiment results and monitoring data (if enabled) will be saved in the respective output directories under each experiment folder.
 
 ### Notes
 - The `--enable-monitoring` flag is optional and disabled by default
 - Experiment results are automatically logged and saved
+- The experiment results, Bio Layer lo file during training and  monitoring data (if enabled) will be saved in the respective output directories under each experiment folder.
+
 - For reproducibility, use the same random seed across experiments
 - Monitor GPU memory usage when running large-scale experiments
 
