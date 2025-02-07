@@ -289,7 +289,7 @@ Run the base bio layer experiment on the COX2 dataset without monitoring :
 python experiments/cox2/base_bio_layer_cox2_experiment.py --disable-monitoring 
 ```
 
-# HIV Dataset Experiments
+### HIV Dataset Experiments
 
 Run the full architecture experiment on the HIV dataset with monitoring enabled:
 ```bash
@@ -411,6 +411,18 @@ Run only with attention mechanism on cifar10 dataset
 python experiments/ciraf10/with_attention_cifar10_experiment.py
 ```
 
+## FashionMNIST dataset Experiments
+
+Run only with attention mechanism on FashionMNIST dataset 
+```bash
+python experiments/Fashion mnist/full_architecture_fashionmnist_experiment.py --enable-monitoring
+```
+### MNIST Dataset Experiment
+
+Run only with attention mechanism on FashionMNIST dataset 
+```bash
+python experiments/mnist/full_architecture_mnist_experiment.py --enable-monitoring
+```
 
 
 
