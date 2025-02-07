@@ -13,11 +13,9 @@ A sophisticated biological neural network layer implementing advanced homeostati
 - [Research Applications](#research-applications)
 - [Troubleshooting](#troubleshooting)
 - [Run Experiments](#run-experiments)
-- [Contributing](#contributing)
 - [License](#license)
-- [Citation](#citation)
 - [Contact](#contact)
-- [Acknowledgments](#acknowledgments)
+
 
 ## Overview
 
@@ -29,17 +27,17 @@ Our comprehensive evaluation demonstrates the effectiveness of BioLogicalNeuron 
 
 ### Comprehensive Performance Analysis On Graph, Molecular, Protein structure, Node classification Datasets
 
-| Dataset | Fold | BioLogicalNeuron | BioLogicalNeuron + Attn + Jumping | Previous SOTA | vs. Base | vs. SOTA |
-|---------|------|------------------|-----------------------------------|---------------|-----------|-----------|
-| AIDS | 10 | **99.80 ± 0.004** | **99.63 ± 0.007** | 99.55 | +0.10 | +0.15 |
-| HIV | 5 | **96.95 ± 0.0013** | **97.15 ± 0.001** | 96.86 | +0.20 | +0.29 |
-| COX2 | 5 | 79.57 ± 0.017 | **83.25 ± 0.031** | 82.86 | +3.68 | +0.39 |
-| Protein | 10 | **75.89 ± 0.04** | **74.65 ± 0.045** | 72.07 | -1.24 | +3.89 |
-| DD | 10 | 80.33 ± 0.06 | 76.94 ± 0.059 | **95.67** | -4.00 | -19.00 |
-| MUTAG | 10 | 83.33 ± 0.07 | 78.00 ± 0.12 | **100.00** | -5.33 | -22.00 |
-| Cora | 15 | -- | **90.48 ± 0.019** | 90.16 | -- | +0.32 |
-| Citeseer | 10 | -- | 78.58 ± 0.02 | **82.07** | -- | -4.00 |
-| PubMed | 10 | -- | 87.88 ± 0.01 | **91.64** | -- | -4.64 |
+| Dataset  | Fold | BioLogicalNeuron   | BioLogicalNeuron + Attn + Jumping | Previous SOTA | vs. SOTA |
+|----------|------|--------------------|-----------------------------------|---------------|----------|
+| AIDS     | 10   | **99.80 ± 0.004**  | **99.63 ± 0.007**                | 99.55         | +0.25    |
+| HIV      | 5    | **96.95 ± 0.0013** | **97.15 ± 0.001**                | 96.86         | +0.29    |
+| COX2     | 5    | 79.57 ± 0.017      | **83.25 ± 0.031**                | 82.86         | +0.39    |
+| Protein  | 10   | **75.89 ± 0.04**   | **74.65 ± 0.045**                | 72.07         | +3.89    |
+| DD       | 10   | 80.33 ± 0.06       | 76.94 ± 0.059                    | **95.67**     | -19.00   |
+| MUTAG    | 10   | 83.33 ± 0.07       | 78.00 ± 0.12                     | **100.00**    | -22.00   |
+| Cora     | 15   | --                 | **90.48 ± 0.019**                | 90.16         | +0.32    |
+| Citeseer | 10   | --                 | 78.58 ± 0.02                     | **82.07**     | -4.00    |
+| PubMed   | 10   | --                 | 87.88 ± 0.01                     | **91.64**     | -4.64    |
 
 
 
@@ -91,24 +89,23 @@ biolayer-env\Scripts\activate
 source biolayer-env/bin/activate
 ```
 
-2. **Install Required Dependencies**
+2. **Clone the Repository**
+```bash
+git clone https://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@github.com/logicsame/bio-logical-self-healing-neural-system.git
+
+cd bio-logical-self-healing-neural-system
+```
+
+3. **Install Required Dependencies**
 ```bash
 pip install -r requirements.txt
 ```
 
-3. **Clone the Repository**
-```bash
-git clone https://github.com/yourusername/Bioneural.git
-cd Bioneural
-```
 
 4. **Install the Package**
 ```bash
 # Install in development mode
 pip install -e .
-
-# Or install directly
-pip install .
 ```
 
 5. **Verify Installation**
@@ -141,7 +138,7 @@ docker run -it --gpus all biolayer
 - Real-time health monitoring
 - Dynamic learning rate adjustment
 - Comprehensive logging system
-- Advanced visualization tools
+- Advanced visualization tools  
 
 ### Technical Specifications
 - Multi-strategy repair system
@@ -218,13 +215,7 @@ bio_layer = BioLogicalNeuron(
 )
 ```
 
-## Research Applications
 
-### Suitable for:
-- Neuromorphic computing research
-- Stability analysis
-- Homeostatic regulation studies
-- Neural plasticity investigation
 
 ## Troubleshooting
 
@@ -436,61 +427,20 @@ python experiments/<dataset_name>/full_architecture_<dataset_name>_experiment.py
 ### Notes
 - The `--enable-monitoring` flag is optional and disabled by default
 - Experiment results are automatically logged and saved
-- The experiment results, Bio Layer lo file during training and  monitoring data (if enabled) will be saved in the respective output directories under each experiment folder.
+- The experiment results, Bio Layer log file during training and  monitoring data (if enabled) will be saved in the respective output directories under each experiment folder.
 
 - For reproducibility, use the same random seed across experiments
 - Monitor GPU memory usage when running large-scale experiments
 
 
-## Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Implement your changes
-4. Add tests
-5. Submit a pull request
-
-### Development Setup
-```bash
-# Clone your fork
-git clone https://github.com/yourusername/Bioneural.git
-
-# Set up development environment
-python -m venv dev-env
-source dev-env/bin/activate
-pip install -r requirements-dev.txt
-
-# Run tests
-pytest tests/
-```
 
 ## License
 
 MIT License. See [LICENSE](LICENSE) for details.
 
-## Citation
-
-```bibtex
-@article{biologicalneuron2024,
-    title={BioLogicalNeuron: A Biologically-Inspired Self-Regulating Neural Network Layer},
-    author={Your Name},
-    journal={Nature Machine Intelligence},
-    year={2024},
-    volume={},
-    number={},
-    pages={},
-    publisher={Nature Publishing Group},
-    doi={}
-}
-```
 
 ## Contact
 
-- **Main Developer**: [MD. Azizul Hakim]
-- **Email**: your.email@institution.edu
-- **Research Group**: [Institution Name]
-- **Project Website**: https://github.com/yourusername/Bioneural
-
-## Acknowledgments
-
-This work was supported by [funding sources/institutions].
+- **Main Developer**: MD. Azizul Hakim
+- **Email**: azizulhakim8291@gmail.com
