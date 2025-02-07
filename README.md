@@ -366,6 +366,33 @@ python experiments/D&D/base_bio_layer_dd_experiment.py --disable-monitoring
 ```
 
 
+### Mutag Dataset Experiments
+
+Run the full architecture experiment on the Mutag dataset with monitoring enabled:
+```bash
+python experiments/mutag/full_architecture_mutag_experiment.py --enable-monitoring
+```
+
+Run the full architecture experiment on the Mutag dataset without monitoring:
+```bash
+python experiments/mutag/full_architecture_mutag_experiment.py --disable-monitoring 
+```
+
+Run the base bio layer experiment on the Mutag dataset with monitoring enabled:
+```bash
+python experiments/mutag/base_bio_layer_mutag_experiment.py --enable-monitoring
+```
+
+Run the base bio layer experiment on the Mutag dataset without monitoring:
+```bash
+python experiments/mutag/base_bio_layer_mutag_experiment.py --disable-monitoring
+```
+
+
+
+
+
+
 ### Additional Dataset Experiments
 
 Based on the performance analysis tables in the documentation, experiments can also be run on other datasets such as HIV, COX2, Protein, and DD. The corresponding experiment scripts would follow a similar pattern:
