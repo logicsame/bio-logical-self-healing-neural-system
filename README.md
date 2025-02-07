@@ -12,6 +12,7 @@ A sophisticated biological neural network layer implementing advanced homeostati
 - [Monitoring System](#monitoring-system)
 - [Research Applications](#research-applications)
 - [Troubleshooting](#troubleshooting)
+- [Run Experiments](#run-experiments)
 - [Contributing](#contributing)
 - [License](#license)
 - [Citation](#citation)
@@ -266,14 +267,14 @@ Run the full architecture experiment on the AIDS dataset without monitoring:
 python experiments/aids/full_architecture_aids_experiment.py
 ```
 
-Run the only baseitecture experiment on the AIDS dataset with monitoring enabled:
+Run the only base bio layer experiment on the AIDS dataset with monitoring enabled:
 ```bash
-python experiments/aids/full_architecture_aids_experiment.py --enable-monitoring
+python experiments/aids/aids_experiments_base_bio_layer.py --enable-monitoring
 ```
 
-Run the full architecture experiment on the AIDS dataset without monitoring:
+Run the only base bio layer experiment on the AIDS dataset without monitoring:
 ```bash
-python experiments/aids/full_architecture_aids_experiment.py
+python experiments/aids/aids_experiments_base_bio_layer.py
 ```
 
 
@@ -283,6 +284,32 @@ Run the full architecture experiment on the COX2 dataset with monitoring enabled
 ```bash
 python experiments/cox2/full_architecture_cox2_experiment.py --enable-monitoring
 ```
+Run the full architecture experiment on the COX2 dataset without monitoring :
+```bash
+python experiments/cox2/full_architecture_cox2_experiment.py 
+```
+# HIV Dataset Experiments
+
+Run the full architecture experiment on the HIV dataset with monitoring enabled:
+```bash
+python experiments/HIV/full_architecture_bio_layer_hiv_experiment.py --enable-monitoring
+```
+
+Run the full architecture experiment on the HIV dataset without monitoring:
+```bash
+python experiments/HIV/full_architecture_bio_layer_hiv_experiment.py 
+```
+
+Run the base bio layer experiment on the HIV dataset with monitoring enabled:
+```bash
+python experiments/HIV/base_bio_layer_hiv_experiment.py --enable-monitoring
+```
+
+Run the base bio layer experiment on the HIV dataset without monitoring:
+```bash
+python experiments/HIV/base_bio_layer_hiv_experiment.py 
+```
+
 
 ### Additional Dataset Experiments
 
