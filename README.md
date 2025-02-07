@@ -424,18 +424,6 @@ Run only with attention mechanism on FashionMNIST dataset
 python experiments/mnist/full_architecture_mnist_experiment.py --enable-monitoring
 ```
 
-
-
-### Additional Dataset Experiments
-
-Based on the performance analysis tables in the documentation, experiments can also be run on other datasets such as HIV, COX2, Protein, and DD. The corresponding experiment scripts would follow a similar pattern:
-
-```bash
-python experiments/<dataset_name>/full_architecture_<dataset_name>_experiment.py [--enable-monitoring]
-```
-
-
-
 ### Notes
 - The `--enable-monitoring` flag is optional and disabled by default
 - Experiment results are automatically logged and saved
