@@ -288,6 +288,16 @@ Run the full architecture experiment on the COX2 dataset without monitoring :
 ```bash
 python experiments/cox2/full_architecture_cox2_experiment.py --disable-monitoring 
 ```
+
+Run the base bio layer experiment on the COX2 dataset with monitoring enabled:
+```bash
+python experiments/cox2/base_bio_layer_cox2_experiment.py --enable-monitoring
+```
+Run the base bio layer experiment on the COX2 dataset without monitoring :
+```bash
+python experiments/cox2/base_bio_layer_cox2_experiment.py --disable-monitoring 
+```
+
 # HIV Dataset Experiments
 
 Run the full architecture experiment on the HIV dataset with monitoring enabled:
@@ -311,10 +321,6 @@ python experiments/HIV/base_bio_layer_hiv_experiment.py --disable-monitoring
 ```
 
 
-Run the base bio layer experiment on the HIV dataset without monitoring:
-```bash
-python experiments/HIV/base_bio_layer_hiv_experiment.py --disable-monitoring 
-```
 
 
 ### Additional Dataset Experiments
