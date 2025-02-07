@@ -320,7 +320,50 @@ Run the base bio layer experiment on the HIV dataset without monitoring:
 python experiments/HIV/base_bio_layer_hiv_experiment.py --disable-monitoring
 ```
 
+### PROTEINS Dataset Experiments
 
+Run the full architecture experiment on the PROTEINS dataset with monitoring enabled:
+```bash
+python experiments/PROTEINS/full_architecture_PROTEINS_experiment.py --enable-monitoring
+```
+
+Run the full architecture experiment on the PROTEINS dataset without monitoring:
+```bash
+python experiments/PROTEINS/full_architecture_PROTEINS_experiment.py --disable-monitoring 
+```
+
+Run the base bio layer experiment on the PROTEINS dataset with monitoring enabled:
+```bash
+python experiments/PROTEINS/base_bio_protrein_experiment.py --enable-monitoring
+```
+
+Run the base bio layer experiment on the PROTEINS dataset without monitoring:
+```bash
+python experiments/PROTEINS/base_bio_protrein_experiment.py --disable-monitoring
+```
+
+
+### D&D Dataset Experiments
+
+Run the full architecture experiment on the D&D dataset with monitoring enabled:
+```bash
+python experiments/D&D/full_architecture_dd_experiment.py --enable-monitoring
+```
+
+Run the full architecture experiment on the D&D dataset without monitoring:
+```bash
+python experiments/D&D/full_architecture_dd_experiment.py --disable-monitoring 
+```
+
+Run the base bio layer experiment on the D&D dataset with monitoring enabled:
+```bash
+python experiments/D&D/base_bio_layer_dd_experiment.py --enable-monitoring
+```
+
+Run the base bio layer experiment on the D&D dataset without monitoring:
+```bash
+python experiments/D&D/base_bio_layer_dd_experiment.py --disable-monitoring
+```
 
 
 ### Additional Dataset Experiments
