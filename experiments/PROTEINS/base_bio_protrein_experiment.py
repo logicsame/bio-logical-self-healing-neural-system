@@ -2,7 +2,6 @@ import os
 import torch
 import numpy as np
 import wandb
-import datetime
 import json
 from tqdm import tqdm
 import matplotlib.pyplot as plt
@@ -25,7 +24,7 @@ from sklearn.metrics import (
     roc_auc_score
 )
 import random
-
+import shutil
 
 def augment_batch(batch):
     """Enhanced augmentation strategy"""
@@ -74,6 +73,15 @@ def get_training_components(model, num_epochs=400, steps_per_epoch=50):
     
     return criterion, optimizer, scheduler
 
+
+def create_results_directory():
+    results_dir = 'proteins_results_base_bio_layer'
+    os.makedirs(results_dir, exist_ok=True)
+    os.makedirs(os.path.join(results_dir, 'models'), exist_ok=True)
+    os.makedirs(os.path.join(results_dir, 'logs'), exist_ok=True)
+    return results_dir
+
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -81,39 +89,39 @@ from torch_geometric.nn import GATConv, global_mean_pool, global_add_pool, Jumpi
 from torch.nn.utils import spectral_norm
 
 class BioOnlyNetwork(nn.Module):
-    def __init__(self, num_node_features, num_classes=2,enable_monitoring=True,disable_monitoring=False):
+    def __init__(self, num_node_features, num_classes=2,enable_monitoring=True,disable_monitoring=False,results_dir = 'proteins_results_base_bio_layer'):
         super().__init__()
         
         # Define dimensions for the network
         self.input_dim = 2 * num_node_features  # Adjusted input dimenenable_monitoring = monitoring_statemonitoring_state = enable_monitoring and not disable_monitoring
         monitoring_state = enable_monitoring and not disable_monitoring
-
+        log_base_path = os.path.join(results_dir, 'logs')
         # Stack of biological layers with carefully tuned parameters
         self.bio_layers = nn.ModuleList([
             BioLogicalNeuron(self.input_dim, 2048, 
                 repair_threshold=0.95, repair_intensity=0.02, 
                 plasticity_rate=0.001, enable_monitoring = monitoring_state, 
-                log_file='bio_layer_1.log'),
+                log_file=os.path.join(log_base_path, 'base_bio_layer_PROTEINS_1.log')),
             
             BioLogicalNeuron(2048, 1024, 
                 repair_threshold=0.9, repair_intensity=0.02, 
                 plasticity_rate=0.001, enable_monitoring = monitoring_state, 
-                log_file='base_bio_layer_PROTEINS_2.log'),
+                log_file=os.path.join(log_base_path, 'base_bio_layer_PROTEINS_2.log')),
             
             BioLogicalNeuron(1024, 512, 
                 repair_threshold=0.85, repair_intensity=0.03, 
                 plasticity_rate=0.002, enable_monitoring = monitoring_state, 
-                log_file='base_bio_layer_PROTEINS_3.log'),
+                log_file=os.path.join(log_base_path, 'base_bio_layer_PROTEINS_3.log')),
             
             BioLogicalNeuron(512, 256, 
                 repair_threshold=0.8, repair_intensity=0.01, 
                 plasticity_rate=0.003, enable_monitoring = monitoring_state, 
-                log_file='base_bio_layer_PROTEINS_4.log'),
+                log_file=os.path.join(log_base_path, 'base_bio_layer_PROTEINS_4.log')),
             
             BioLogicalNeuron(256, num_classes, 
                 repair_threshold=0.75, repair_intensity=0.03, 
                 plasticity_rate=0.002, enable_monitoring = monitoring_state, 
-                log_file='base_bio_layer_PROTEINS_5.log')
+                log_file=os.path.join(log_base_path, 'base_bio_layer_PROTEINS_5.log')),
         ])
 
     def forward(self, data):
@@ -230,7 +238,7 @@ class PROTEINSTrainer:
         self.gradient_clip = 0.5  
         
         self.dataset = self._prepare_dataset()
-        
+        self.results_dir = create_results_directory()
     def _prepare_dataset(self):
         dataset = TUDataset(root=f'data/{self.dataset_name}', name=self.dataset_name)
     
@@ -348,13 +356,14 @@ class PROTEINSTrainer:
                 if val_metrics['accuracy'] > best_val_acc:
                     best_val_acc = val_metrics['accuracy']
                     best_val_loss = val_metrics['loss']
-                    torch.save(model.state_dict(), f'best_model_fold{fold}.pth')
+                    model_path = os.path.join(self.results_dir, 'models', f'best_model_fold{fold}.pth')
+                    torch.save(model.state_dict(), model_path)
 
                 # Step the scheduler
                 scheduler.step()
 
             # Test evaluation with best model
-            model.load_state_dict(torch.load(f'best_model_fold{fold}.pth'))
+            model.load_state_dict(torch.load(model_path))
             test_progress = tqdm(desc=f"Fold {fold+1} Testing", total=1)
             test_metrics = self._evaluate(model, test_loader, criterion)
             test_progress.update(1)
@@ -398,6 +407,17 @@ class PROTEINSTrainer:
         # Save results to JSON
         with open('publication_results.json', 'w') as f:
             json.dump(publication_results, f, indent=4)
+            
+            
+            
+        #Move bio_vis folder if it exists
+        if self.enable_monitoring:
+            bio_vis_src = 'bio_vis'
+            if os.path.exists(bio_vis_src):
+                bio_vis_dest = os.path.join(self.results_dir, 'bio_vis')
+                if os.path.exists(bio_vis_dest):
+                    shutil.rmtree(bio_vis_dest)
+                shutil.move(bio_vis_src, bio_vis_dest)
 
         return publication_results
     

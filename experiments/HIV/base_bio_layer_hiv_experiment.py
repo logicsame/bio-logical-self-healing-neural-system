@@ -78,7 +78,7 @@ def get_training_components(model, num_epochs=400, steps_per_epoch=50):
     return criterion, optimizer, scheduler
 
 def create_results_directory():
-    results_dir = 'hiv_results_full_architecture'
+    results_dir = 'hiv_results_base_bio_layer'
     os.makedirs(results_dir, exist_ok=True)
     os.makedirs(os.path.join(results_dir, 'models'), exist_ok=True)
     os.makedirs(os.path.join(results_dir, 'logs'), exist_ok=True)
@@ -116,7 +116,7 @@ from sklearn.metrics import (
 torch.set_default_tensor_type(torch.FloatTensor)
 
 class GraphBioNetwork(nn.Module):
-    def __init__(self, num_node_features, num_classes=2,enable_monitoring=False,disable_monitoring=False,results_dir = 'hiv_results_full_architecture'):
+    def __init__(self, num_node_features, num_classes=2,enable_monitoring=False,disable_monitoring=False,results_dir = 'hiv_results_base_bio_layer'):
         super().__init__()
         
         
