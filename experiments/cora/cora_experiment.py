@@ -2,7 +2,6 @@ import os
 import torch
 import numpy as np
 import wandb
-import datetime
 import json
 from tqdm import tqdm
 import matplotlib.pyplot as plt
@@ -51,13 +50,22 @@ from sklearn.metrics import (
 )
 from sklearn.model_selection import train_test_split
 
+
+def create_results_directory():
+    results_dir = 'cora_results_full_architecture'
+    os.makedirs(results_dir, exist_ok=True)
+    os.makedirs(os.path.join(results_dir, 'models'), exist_ok=True)
+    os.makedirs(os.path.join(results_dir, 'logs'), exist_ok=True)
+    return results_dir
+
+
 class GraphBioNetwork(nn.Module):
-    def __init__(self, num_node_features, num_classes=7,enable_monitoring=False, disable_monitoring=False):
+    def __init__(self, num_node_features, num_classes=7, enable_monitoring=False, disable_monitoring=False, results_dir='cora_results_full_architecture'):
         super().__init__()
         
         # Increased capacity with wider hidden dimensions
         hidden_dim = 768
-        monitoring_state = enable_monitoring and not disable_monitoring
+        
         # Deeper architecture with residual connections
         self.gat1 = GATConv(num_node_features, hidden_dim // 8, heads=8, dropout=0.2)
         self.gat2 = GATConv(hidden_dim, hidden_dim // 8, heads=8, dropout=0.2)
@@ -77,31 +85,28 @@ class GraphBioNetwork(nn.Module):
         # Added concatenation-based JK connection
         self.jk = JumpingKnowledge(mode='cat', channels=hidden_dim, num_layers=6)
         
-        # More robust biological layers with adjusted parameters
-        self.bio_layers = nn.ModuleList([
-            BioLogicalNeuron(hidden_dim * 6, 1024, repair_threshold=0.95, repair_intensity=0.015, plasticity_rate=0.0015,summary_interval=5,enable_monitoring=monitoring_state),
-            BioLogicalNeuron(1024, 512, repair_threshold=0.95, repair_intensity=0.015, plasticity_rate=0.0015,summary_interval=5,enable_monitoring=monitoring_state),
-            BioLogicalNeuron(512, 256, repair_threshold=0.95, repair_intensity=0.015, plasticity_rate=0.0015,summary_interval=5,enable_monitoring=monitoring_state),
-        ])
-        
         # Enhanced classifier with deeper architecture
         self.classifier = nn.Sequential(
-            nn.LayerNorm(256),
-            spectral_norm(nn.Linear(256, 128)),
+            nn.LayerNorm(hidden_dim * 6),  # Adjusted input dimension
+            spectral_norm(nn.Linear(hidden_dim * 6, 1024)),
             nn.GELU(),
             nn.Dropout(0.2),
-            nn.LayerNorm(128),
-            spectral_norm(nn.Linear(128, 64)),
+            nn.LayerNorm(1024),
+            spectral_norm(nn.Linear(1024, 512)),
+            nn.GELU(),
+            nn.Dropout(0.2),
+            nn.LayerNorm(512),
+            spectral_norm(nn.Linear(512, 256)),
             nn.GELU(),
             nn.Dropout(0.1),
-            nn.LayerNorm(64),
-            nn.Linear(64, num_classes)
+            nn.LayerNorm(256),
+            nn.Linear(256, num_classes)
         )
 
     def forward(self, data):
         x, edge_index = data.x, data.edge_index
         
-        # Enhanced forward pass with stronger residual connections
+        # Enhanced forward pass with residual connections
         x1 = self.layer_norm1(F.elu(self.gat1(x, edge_index)))
         x2 = self.layer_norm2(F.elu(self.gat2(x1, edge_index))) + x1
         x3 = self.layer_norm3(F.elu(self.gat3(x2, edge_index))) + x2
@@ -112,15 +117,9 @@ class GraphBioNetwork(nn.Module):
         # Concatenative aggregation of multi-scale features
         x = self.jk([x1, x2, x3, x4, x5, x6])
         
-        # Biological processing
-        health_reports = []
-        for bio_layer in self.bio_layers:
-            x, health_report = bio_layer(x)
-            health_reports.append(health_report)
-        
         # Final classification
         x = self.classifier(x)
-        return x, health_reports
+        return x, None  # Return None for health_reports to maintain compatibility
 
 def get_training_components(model):
     # Use weighted cross entropy if classes are imbalanced
@@ -179,7 +178,8 @@ class CoraCVTrainer:
         # Load dataset
         self.dataset = Planetoid(root='/tmp/Cora', name='Cora')
         self.data = self.dataset[0].to(self.device)
-        
+        self.results_dir = create_results_directory()
+
         # Training parameters
         self.gradient_clip = 0.5
         self.epochs = 200
@@ -282,42 +282,46 @@ class CoraCVTrainer:
         train_mask = torch.zeros(self.data.x.size(0), dtype=torch.bool)
         val_mask = torch.zeros(self.data.x.size(0), dtype=torch.bool)
         test_mask = torch.zeros(self.data.x.size(0), dtype=torch.bool)
-        
+    
         train_mask[train_idx] = True
         val_mask[val_idx] = True
         test_mask[test_idx] = True
-        
+    
         self.data.train_mask = train_mask.to(self.device)
         self.data.val_mask = val_mask.to(self.device)
         self.data.test_mask = test_mask.to(self.device)
-        
+    
         # Initialize model and training components
         model = GraphBioNetwork(
             num_node_features=self.dataset.num_node_features,
-            num_classes=self.dataset.num_classes, enable_monitoring=self.enable_monitoring, disable_monitoring=self.disable_monitoring 
+            num_classes=self.dataset.num_classes,
+            enable_monitoring=self.enable_monitoring,
+            disable_monitoring=self.disable_monitoring,
+            results_dir=self.results_dir  # Pass results_dir to model
         ).to(self.device)
-        
+    
         criterion, optimizer, scheduler = get_training_components(model)
         early_stopping = EarlyStopping(patience=20, min_delta=0.001)
-        
+    
         # Training loop with progress tracking
         best_val_acc = 0
+        best_model_state = None
         epoch_progress = tqdm(range(self.epochs), desc=f"Fold {fold_idx + 1}/{self.n_splits}")
-        
+    
         for epoch in epoch_progress:
             # Training phase
             train_loss, train_acc = self._train_epoch(model, train_mask, criterion, optimizer)
-            
+        
             # Validation phase
             val_metrics = self._validate(model, val_mask, criterion)
-            
+        
             # Update progress bar
             epoch_progress.set_postfix({
                 'Train Loss': f'{train_loss:.4f}',
                 'Train Acc': f'{train_acc:.4f}',
                 'Val Acc': f'{val_metrics["accuracy"]:.4f}'
             })
-            
+        
             # Wandb logging
             if self.wandb_logging:
                 wandb.log({
@@ -326,31 +330,38 @@ class CoraCVTrainer:
                     f'fold_{fold_idx}_val_loss': val_metrics['loss'],
                     f'fold_{fold_idx}_val_acc': val_metrics['accuracy']
                 })
-            
+        
             # Learning rate scheduling
             scheduler.step()
-            
+        
             # Early stopping check
             if early_stopping(val_metrics['loss']):
                 print(f"\nEarly stopping triggered at epoch {epoch + 1}")
                 break
-            
+        
             # Save best model
             if val_metrics['accuracy'] > best_val_acc:
                 best_val_acc = val_metrics['accuracy']
-                torch.save(model.state_dict(), f'best_model_fold_{fold_idx}.pth')
-        
-        # Test evaluation with best model
-        model.load_state_dict(torch.load(f'best_model_fold_{fold_idx}.pth'))
+                best_model_state = model.state_dict()
+                # Save model with correct fold_idx
+                model_path = os.path.join(self.results_dir, 'models', f'best_model_fold_{fold_idx}.pth')
+                torch.save(best_model_state, model_path)
+    
+        # Load best model for final evaluation
+        model.load_state_dict(best_model_state)
         test_metrics = self._evaluate(model, test_mask, criterion)
-        
+    
         print(f"\nFold {fold_idx + 1} Results:")
         print(f"Test Accuracy: {test_metrics['accuracy']:.4f}")
         print(f"Test F1-Score: {test_metrics['f1_score']:.4f}")
-        
-        return test_metrics
+    
+        return test_metrics, best_model_state
     
     def train_and_evaluate(self):
+        """
+        Performs full training and evaluation using cross-validation and a held-out test set.
+        Returns final results including cross-validation statistics and final test performance.
+        """
         if self.wandb_logging:
             wandb.init(project="Cora_GraphBiological_CV")
 
@@ -362,43 +373,60 @@ class CoraCVTrainer:
             stratify=self.data.y.cpu().numpy()
         )
 
-        # Cross validation results (excluding final test set)
-        cv_results = {'accuracy': [], 'precision': [], 'recall': [], 'f1_score': [], 'auc': []}
-        
+        # Initialize cross validation results storage
+        cv_results = {
+            'accuracy': [], 
+            'precision': [], 
+            'recall': [], 
+            'f1_score': [], 
+            'auc': []
+        }
+    
+        # Initialize best model tracking
+        best_val_metrics = {'accuracy': 0}
+        best_model_state = None
+    
         # Perform cross-validation on training data
         kfold = KFold(n_splits=self.n_splits, shuffle=True, random_state=self.seed)
         cv_progress = tqdm(enumerate(kfold.split(train_val_indices)), 
-                         total=self.n_splits, 
-                         desc="Cross-Validation Progress")
-        
-        best_val_metrics = {'accuracy': 0}
-        best_model_state = None
-        
+                      total=self.n_splits, 
+                        desc="Cross-Validation Progress")
+    
         for fold_idx, (train_idx, val_idx) in cv_progress:
             # Map indices back to original dataset indices
             train_idx = train_val_indices[train_idx]
             val_idx = train_val_indices[val_idx]
-            
+        
             # Train and evaluate fold
-            fold_metrics = self.train_fold(fold_idx, train_idx, val_idx, val_idx)  # Use val_idx for validation
-            
+            fold_metrics, fold_model_state = self.train_fold(
+                fold_idx, 
+                train_idx, 
+                val_idx, 
+                final_test_idx  # Pass final test indices for consistent evaluation
+            )
+        
             # Store cross-validation results
             for metric in cv_results:
                 cv_results[metric].append(fold_metrics[metric])
-            
-            # Save best model based on validation accuracy
+        
+            # Update best model if current fold performs better
             if fold_metrics['accuracy'] > best_val_metrics['accuracy']:
-                best_val_metrics = fold_metrics
-                best_model_state = torch.load(f'best_model_fold_{fold_idx}.pth')
-            
+                best_val_metrics = fold_metrics.copy()
+                best_model_state = fold_model_state
+        
+            # Update progress bar with current fold's performance
             cv_progress.set_postfix({
-                'Val Acc': f'{fold_metrics["accuracy"]:.4f}'
+                'Best Val Acc': f'{best_val_metrics["accuracy"]:.4f}',
+                'Current Val Acc': f'{fold_metrics["accuracy"]:.4f}'
             })
 
-        # Load best model from cross-validation
+        # Initialize and load best model for final evaluation
         final_model = GraphBioNetwork(
             num_node_features=self.dataset.num_node_features,
-            num_classes=self.dataset.num_classes
+            num_classes=self.dataset.num_classes,
+            enable_monitoring=self.enable_monitoring,
+            disable_monitoring=self.disable_monitoring,
+            results_dir=self.results_dir
         ).to(self.device)
         final_model.load_state_dict(best_model_state)
 
@@ -414,18 +442,21 @@ class CoraCVTrainer:
         # Calculate cross-validation statistics
         cv_statistics = {
             metric: {
-                'mean': np.mean(values),
-                'std': np.std(values)
+                'mean': float(np.mean(values)),  # Convert to float for JSON serialization
+                'std': float(np.std(values))
             } for metric, values in cv_results.items()
         }
 
-        # Combine results
+        # Combine all results
         final_results = {
             'cross_validation': cv_statistics,
-            'final_test': final_test_metrics
+            'final_test': {
+                k: float(v) if isinstance(v, (np.float32, np.float64)) else v 
+                for k, v in final_test_metrics.items()
+            }
         }
 
-        # Log and save results
+        # Log results to wandb if enabled
         if self.wandb_logging:
             for metric, stats in cv_statistics.items():
                 wandb.summary[f"cv_{metric}_mean"] = stats['mean']
@@ -435,15 +466,20 @@ class CoraCVTrainer:
             wandb.finish()
 
         # Save results to JSON
-        with open('cora_cv_results.json', 'w') as f:
+        results_path = os.path.join(self.results_dir, 'cora_cv_results.json')
+        with open(results_path, 'w') as f:
             json.dump(final_results, f, indent=4)
+
+        # Save best model state
+        best_model_path = os.path.join(self.results_dir, 'models', 'best_model_final.pth')
+        torch.save(best_model_state, best_model_path)
 
         # Print final results
         print("\nCross-Validation Results")
         print("=" * 50)
         for metric, stats in cv_statistics.items():
             print(f"CV {metric}: {stats['mean']:.4f} ± {stats['std']:.4f}")
-        
+    
         print("\nFinal Test Set Results")
         print("=" * 50)
         for metric, value in final_test_metrics.items():
