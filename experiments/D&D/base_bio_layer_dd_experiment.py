@@ -24,6 +24,7 @@ from sklearn.metrics import (
     precision_recall_fscore_support,
     roc_auc_score
 )
+import shutil
 import random
 
 
@@ -401,6 +402,15 @@ class DDTrainer:
         # Save results to JSON
         with open('publication_results.json', 'w') as f:
             json.dump(publication_results, f, indent=4)
+
+        #Move bio_vis folder if it exists
+        if self.enable_monitoring:
+            bio_vis_src = 'bio_vis'
+            if os.path.exists(bio_vis_src):
+                bio_vis_dest = os.path.join(self.results_dir, 'bio_vis')
+                if os.path.exists(bio_vis_dest):
+                    shutil.rmtree(bio_vis_dest)
+                shutil.move(bio_vis_src, bio_vis_dest)
 
         return publication_results
     
