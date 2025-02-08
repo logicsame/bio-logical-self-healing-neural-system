@@ -74,6 +74,15 @@ def get_training_components(model, num_epochs=400, steps_per_epoch=50):
     
     return criterion, optimizer, scheduler
 
+
+def create_results_directory():
+    results_dir = 'base_bio_layer_dd_results_bio_layer'
+    os.makedirs(results_dir, exist_ok=True)
+    os.makedirs(os.path.join(results_dir, 'models'), exist_ok=True)
+    os.makedirs(os.path.join(results_dir, 'logs'), exist_ok=True)
+    return results_dir
+
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -81,34 +90,34 @@ from torch_geometric.nn import GATConv, global_mean_pool, global_add_pool, Jumpi
 from torch.nn.utils import spectral_norm
 
 class BioOnlyNetwork(nn.Module):
-    def __init__(self, num_node_features, num_classes=2,enable_monitoring=False, disable_monitoring=False):
+    def __init__(self, num_node_features, num_classes=2,enable_monitoring=False, disable_monitoring=False,results_dir='base_bio_layer_dd_results_bio_layer'):
         super().__init__()
         
         # Define dimensions for the network
         self.input_dim = 2 * num_node_features  # Adjusted input dimension due to pooling
         monitoring_state = enable_monitoring and not disable_monitoring
-        
+        log_base_path = os.path.join(results_dir, 'logs')
         self.bio_layers = nn.ModuleList([
             BioLogicalNeuron(self.input_dim, 2048, 
                 repair_threshold=0.95, repair_intensity=0.02, 
-                plasticity_rate=0.001, enable_monitoring=True, 
-                log_file='bio_layer_1.log'),
+                plasticity_rate=0.001, enable_monitoring=monitoring_state, 
+                log_file=os.path.join(log_base_path, 'base_bio_layer1_dd.log')),
             
             BioLogicalNeuron(2048, 1024, 
                 repair_threshold=0.9, repair_intensity=0.02, 
-                plasticity_rate=0.001, enable_monitoring=monitoring_state,log_file='base_bio_layer1_dd.log'),
+                plasticity_rate=0.001, enable_monitoring=monitoring_state,log_file=os.path.join(log_base_path,'base_bio_layer2_dd.log')),
             
             BioLogicalNeuron(1024, 512, 
                 repair_threshold=0.85, repair_intensity=0.03, 
-                plasticity_rate=0.002,enable_monitoring=monitoring_state,log_file='base_bio_layer2_dd.log' ),
+                plasticity_rate=0.002,enable_monitoring=monitoring_state,log_file=os.path.join(log_base_path,'base_bio_layer3_dd.log') ),
             
             BioLogicalNeuron(512, 256, 
                 repair_threshold=0.8, repair_intensity=0.01, 
-                plasticity_rate=0.003,enable_monitoring=monitoring_state,log_file='base_bio_layer3_dd.log' ),
+                plasticity_rate=0.003,enable_monitoring=monitoring_state,log_file=os.path.join(log_base_path,'base_bio_layer4_dd.log') ),
             
             BioLogicalNeuron(256, num_classes, 
                 repair_threshold=0.75, repair_intensity=0.03, 
-                plasticity_rate=0.002,enable_monitoring=monitoring_state,log_file='base_bio_layer4_dd.log' )
+                plasticity_rate=0.002,enable_monitoring=monitoring_state,log_file=os.path.join(log_base_path,'base_bio_layer5_dd.log') )
         ])
 
     def forward(self, data):
@@ -217,12 +226,12 @@ class DDTrainer:
         self.n_splits = n_splits
         self.seed = seed
         self.wandb_logging = wandb_logging
-        self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         self.enable_monitoring = enable_monitoring
         self.disable_monitoring = disable_monitoring
+        self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         self.label_smoothing = 0.01 
         self.gradient_clip = 0.5  
-        
+        self.results_dir = create_results_directory()
         self.dataset = self._prepare_dataset()
         
     def _prepare_dataset(self):
@@ -341,7 +350,8 @@ class DDTrainer:
                 if val_metrics['accuracy'] > best_val_acc:
                     best_val_acc = val_metrics['accuracy']
                     best_val_loss = val_metrics['loss']
-                    torch.save(model.state_dict(), f'best_model_fold{fold}.pth')
+                    model_path = os.path.join(self.results_dir, 'models', f'best_model_fold{fold}.pth')
+                    torch.save(model.state_dict(), model_path)
 
                 # Step the scheduler
                 scheduler.step()
