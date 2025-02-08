@@ -8,7 +8,7 @@ from tqdm import tqdm
 import matplotlib.pyplot as plt
 import seaborn as sns
 from ogb.graphproppred import PygGraphPropPredDataset
-
+import shutil
 import torch.nn as nn
 import torch.nn.functional as F
 from torch_geometric.nn import GATConv, global_mean_pool,GCNConv, global_add_pool, JumpingKnowledge, BatchNorm
@@ -77,6 +77,12 @@ def get_training_components(model, num_epochs=400, steps_per_epoch=50):
     
     return criterion, optimizer, scheduler
 
+def create_results_directory():
+    results_dir = 'hiv_results_full_architecture'
+    os.makedirs(results_dir, exist_ok=True)
+    os.makedirs(os.path.join(results_dir, 'models'), exist_ok=True)
+    os.makedirs(os.path.join(results_dir, 'logs'), exist_ok=True)
+    return results_dir
 
 import os
 import torch
@@ -110,12 +116,17 @@ from sklearn.metrics import (
 torch.set_default_tensor_type(torch.FloatTensor)
 
 class GraphBioNetwork(nn.Module):
-    def __init__(self, num_node_features, num_classes=2,enable_monitoring=False,disable_monitoring=False):
+    def __init__(self, num_node_features, num_classes=2,enable_monitoring=False,disable_monitoring=False,results_dir = 'hiv_results_full_architecture'):
         super().__init__()
+        
+        
         
         # Increased complexity and capacity
         hidden_dim = 512  # Doubled hidden dimension
         monitoring_state = enable_monitoring and not disable_monitoring
+        
+        log_base_path = os.path.join(results_dir, 'logs')
+        
         # Regular GCN layers instead of GAT
         self.conv1 = GCNConv(num_node_features, hidden_dim)
         self.conv2 = GCNConv(hidden_dim, hidden_dim)
@@ -133,10 +144,10 @@ class GraphBioNetwork(nn.Module):
         # Enhanced biological layers with finer-tuned parameters
         pooled_dim = hidden_dim * 2  # For concatenated pooling
         self.bio_layers = nn.ModuleList([
-            BioLogicalNeuron(pooled_dim, 2048, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001, enable_monitoring=monitoring_state, log_file='base_bio_hiv_layer_1.log'),
-            BioLogicalNeuron(2048, 1024, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001, enable_monitoring=monitoring_state, log_file='base_bio_layer_hiv_2.log'),
-            BioLogicalNeuron(1024, 512, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001, enable_monitoring=monitoring_state, log_file='base_bio_layer_3.log'),
-            BioLogicalNeuron(512, 128, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001, enable_monitoring=monitoring_state, log_file='base_bio_layer_hiv_4.log'),
+            BioLogicalNeuron(pooled_dim, 2048, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001, enable_monitoring=monitoring_state, log_file=os.path.join(log_base_path, 'base_bio_layer_hiv.log')),
+            BioLogicalNeuron(2048, 1024, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001, enable_monitoring=monitoring_state, log_file=os.path.join(log_base_path, 'base_bio_layer_hiv.log')),
+            BioLogicalNeuron(1024, 512, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001, enable_monitoring=monitoring_state, log_file=os.path.join(log_base_path, 'base_bio_layer_hiv.log')),
+            BioLogicalNeuron(512, 128, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001, enable_monitoring=monitoring_state, log_file=os.path.join(log_base_path, 'base_bio_layer_hiv.log')),
         ])
         
         # Advanced classifier with skip connections
@@ -225,7 +236,7 @@ class HIVTrainer:
         
         # Prepare dataset
         self.dataset = self._prepare_dataset()
-        
+        self.results_dir = create_results_directory()
     def _prepare_dataset(self):
         dataset = PygGraphPropPredDataset(root=f'data/{self.dataset_name}', name=self.dataset_name)
     
@@ -346,13 +357,14 @@ class HIVTrainer:
                 if val_metrics['accuracy'] > best_val_acc:
                     best_val_acc = val_metrics['accuracy']
                     best_val_loss = val_metrics['loss']
-                    torch.save(model.state_dict(), f'best_model_fold{fold}.pth')
+                    model_path = os.path.join(self.results_dir, 'models', f'best_model_fold{fold}.pth')
+                    torch.save(model.state_dict(), model_path)
 
                 # Step the scheduler
                 scheduler.step()
 
             # Test evaluation with best model
-            model.load_state_dict(torch.load(f'best_model_fold{fold}.pth'))
+            model.load_state_dict(torch.load(model_path))
             test_progress = tqdm(desc=f"Fold {fold+1} Testing", total=1)
             test_metrics = self._evaluate(model, test_loader, criterion)
             test_progress.update(1)
@@ -396,6 +408,15 @@ class HIVTrainer:
         # Save results to JSON
         with open('publication_results.json', 'w') as f:
             json.dump(publication_results, f, indent=4)
+
+
+        if self.enable_monitoring:
+                bio_vis_src = 'bio_vis'
+                if os.path.exists(bio_vis_src):
+                    bio_vis_dest = os.path.join(self.results_dir, 'bio_vis')
+                    if os.path.exists(bio_vis_dest):
+                        shutil.rmtree(bio_vis_dest)
+                    shutil.move(bio_vis_src, bio_vis_dest)
 
         return publication_results
     
