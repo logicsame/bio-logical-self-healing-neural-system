@@ -25,7 +25,7 @@ from sklearn.metrics import (
     roc_auc_score
 )
 import random
-
+import shutil
 
 def augment_batch(batch):
     """Enhanced augmentation strategy"""
@@ -74,6 +74,16 @@ def get_training_components(model, num_epochs=400, steps_per_epoch=50):
     
     return criterion, optimizer, scheduler
 
+
+def create_results_directory():
+    results_dir = 'proteins_results_full_architecture'
+    os.makedirs(results_dir, exist_ok=True)
+    os.makedirs(os.path.join(results_dir, 'models'), exist_ok=True)
+    os.makedirs(os.path.join(results_dir, 'logs'), exist_ok=True)
+    return results_dir
+
+
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -81,13 +91,13 @@ from torch_geometric.nn import GATConv, global_mean_pool, global_add_pool, Jumpi
 from torch.nn.utils import spectral_norm
 
 class GraphBioNetwork(nn.Module):
-    def __init__(self, num_node_features, num_classes=2, enable_monitoring = False, disable_monitoring = False):
+    def __init__(self, num_node_features, num_classes=2, enable_monitoring = False, disable_monitoring = False,results_dir = 'proteins_results_full_architecture'):
         super().__init__()
         
         # Increased complexity and capacity
         hidden_dim = 512  # Doubled hidden dimension
         monitoring_state = enable_monitoring and not disable_monitoring
-        
+        log_base_path = os.path.join(results_dir, 'logs')
         # Deeper GAT layers with more heads
         self.gat1 = GATConv(num_node_features, hidden_dim // 16, heads=16, dropout=0.15)
         self.gat2 = GATConv(hidden_dim, hidden_dim // 16, heads=16, dropout=0.15)
@@ -108,11 +118,11 @@ class GraphBioNetwork(nn.Module):
         # Enhanced biological layers with finer-tuned parameters
         jk_dim = hidden_dim * 2
         self.bio_layers = nn.ModuleList([
-            BioLogicalNeuron(jk_dim, 2048, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001, enable_monitoring=monitoring_state,log_file='full_architecture_bio_layer_protrein_1.log'),
-            BioLogicalNeuron(2048, 1024, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001, enable_monitoring=monitoring_state,log_file='full_architecture_bio_layer_protrein_2.log'),
-            BioLogicalNeuron(1024, 512, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001, enable_monitoring=monitoring_state,log_file='full_architecture_bio_layer_protrein_3.log'),
-            BioLogicalNeuron(512, 256, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001, enable_monitoring=monitoring_state,log_file='full_architecture_bio_layer_protrein_4.log'),
-            BioLogicalNeuron(256, 128, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001, enable_monitoring=monitoring_state,log_file='full_architecture_bio_layer_protrein_5.log'),
+            BioLogicalNeuron(jk_dim, 2048, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001, enable_monitoring=monitoring_state,log_file=os.path.join(log_base_path,'full_architecture_protein_layer_1.log')),
+            BioLogicalNeuron(2048, 1024, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001, enable_monitoring=monitoring_state,log_file=os.path.join(log_base_path,'full_architecture_protein_layer_1.log')),
+            BioLogicalNeuron(1024, 512, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001, enable_monitoring=monitoring_state,log_file=os.path.join(log_base_path,'full_architecture_protein_layer_2.log')),
+            BioLogicalNeuron(512, 256, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001, enable_monitoring=monitoring_state,log_file=os.path.join(log_base_path,'full_architecture_protein_layer_3.log')),
+            BioLogicalNeuron(256, 128, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001, enable_monitoring=monitoring_state,log_file=os.path.join(log_base_path,'full_architecture_protein_layer_4.log')),
         ])
         
         # Advanced classifier with skip connections
@@ -255,7 +265,7 @@ class PROTEINSTrainer:
         self.gradient_clip = 0.5  
         
         self.dataset = self._prepare_dataset()
-        
+        self.results_dir = create_results_directory()
     def _prepare_dataset(self):
         dataset = TUDataset(root=f'data/{self.dataset_name}', name=self.dataset_name)
     
@@ -372,13 +382,15 @@ class PROTEINSTrainer:
                 if val_metrics['accuracy'] > best_val_acc:
                     best_val_acc = val_metrics['accuracy']
                     best_val_loss = val_metrics['loss']
-                    torch.save(model.state_dict(), f'best_model_fold{fold}.pth')
+                    model_path = os.path.join(self.results_dir, 'models', f'best_model_fold{fold}.pth')
+                    torch.save(model.state_dict(), model_path)
+
 
                 # Step the scheduler
                 scheduler.step()
 
             # Test evaluation with best model
-            model.load_state_dict(torch.load(f'best_model_fold{fold}.pth'))
+            model.load_state_dict(torch.load(model_path))
             test_progress = tqdm(desc=f"Fold {fold+1} Testing", total=1)
             test_metrics = self._evaluate(model, test_loader, criterion)
             test_progress.update(1)
@@ -422,6 +434,16 @@ class PROTEINSTrainer:
         # Save results to JSON
         with open('publication_results.json', 'w') as f:
             json.dump(publication_results, f, indent=4)
+
+
+        if self.enable_monitoring:
+                bio_vis_src = 'bio_vis'
+                if os.path.exists(bio_vis_src):
+                    bio_vis_dest = os.path.join(self.results_dir, 'bio_vis')
+                    if os.path.exists(bio_vis_dest):
+                        shutil.rmtree(bio_vis_dest)
+                    shutil.move(bio_vis_src, bio_vis_dest)
+
 
         return publication_results
     

@@ -404,6 +404,8 @@ class PROTEINSTrainer:
                 wandb.summary[f"Overall_{metric}_Std"] = stats['std']
             wandb.finish()
 
+        
+        
         # Save results to JSON
         with open('publication_results.json', 'w') as f:
             json.dump(publication_results, f, indent=4)
