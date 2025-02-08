@@ -25,10 +25,15 @@ from sklearn.metrics import (
     roc_auc_score
 )
 import random
+import shutil
 
 
-
-
+def create_results_directory():
+    results_dir = 'cox2_results_base_layer'
+    os.makedirs(results_dir, exist_ok=True)
+    os.makedirs(os.path.join(results_dir, 'models'), exist_ok=True)
+    os.makedirs(os.path.join(results_dir, 'logs'), exist_ok=True)
+    return results_dir
 
 import torch
 import torch.nn as nn
@@ -37,36 +42,36 @@ from torch_geometric.nn import GATConv, global_mean_pool, global_add_pool, Jumpi
 from torch.nn.utils import spectral_norm
 
 class BioOnlyNetwork(nn.Module):
-    def __init__(self, num_node_features, num_classes=2,enable_monitoring=False, disable_monitoring=False):
+    def __init__(self, num_node_features, num_classes=2,enable_monitoring=False, disable_monitoring=False,results_dir='cox2_results_base_layer'):
         super().__init__()
         
         # Define dimensions for the network
         self.input_dim = 2 * num_node_features  # Adjusted input dimension due to pooling
         monitoring_state = enable_monitoring and not disable_monitoring
-
+        log_base_path = os.path.join(results_dir, 'logs')
         # Stack of biological layers with carefully tuned parameters
         self.bio_layers = nn.ModuleList([
             BioLogicalNeuron(self.input_dim, 2048, 
                 repair_threshold=0.95, repair_intensity=0.02, 
-                plasticity_rate=0.001, enable_monitoring=monitoring_state,log_file='full_architecture_bio_layer1_cox2.log'),
+                plasticity_rate=0.001, enable_monitoring=monitoring_state,log_file=os.path.join(log_base_path,'base_bio_layer1.log')),
             
             BioLogicalNeuron(2048, 1024, 
                 repair_threshold=0.9, repair_intensity=0.02, 
-                plasticity_rate=0.001, enable_monitoring=monitoring_state,log_file='full_architecture_bio_layer2_cox2.log'),
+                plasticity_rate=0.001, enable_monitoring=monitoring_state,log_file=os.path.join(log_base_path,'base_bio_layer2.log')),
             
             BioLogicalNeuron(1024, 512, 
                 repair_threshold=0.85, repair_intensity=0.03, 
-                plasticity_rate=0.002,enable_monitoring=monitoring_state,log_file='full_architecture_bio_layer3_cox2.log'),
+                plasticity_rate=0.002,enable_monitoring=monitoring_state,log_file=os.path.join(log_base_path,'base_bio_layer3.log')),
             
             BioLogicalNeuron(512, 256, 
                 repair_threshold=0.8, repair_intensity=0.01, 
-                plasticity_rate=0.003, enable_monitoring=False, 
-                log_file='bio_layer_4.log'),
+                plasticity_rate=0.003, enable_monitoring=monitoring_state, 
+                log_file=os.path.join(log_base_path, 'base_bio_layer4.log')),
             
             BioLogicalNeuron(256, num_classes, 
                 repair_threshold=0.75, repair_intensity=0.03, 
-                plasticity_rate=0.002, enable_monitoring=False, 
-                log_file='bio_layer_5.log')
+                plasticity_rate=0.002, enable_monitoring=monitoring_state, 
+                log_file=os.path.join(log_base_path, 'base_bio_layer5.log'))
         ])
 
     def forward(self, data):
@@ -165,7 +170,7 @@ class Cox2Trainer:
         
         # Prepare dataset
         self.dataset = self._prepare_dataset()
-        
+        self.results_dir = create_results_directory()
     def _prepare_dataset(self):
         dataset = TUDataset(root=f'data/{self.dataset_name}', name=self.dataset_name)
     
@@ -282,13 +287,15 @@ class Cox2Trainer:
                 if val_metrics['accuracy'] > best_val_acc:
                     best_val_acc = val_metrics['accuracy']
                     best_val_loss = val_metrics['loss']
-                    torch.save(model.state_dict(), f'best_model_fold{fold}.pth')
+                    model_path = os.path.join(self.results_dir, 'models', f'best_model_fold{fold}.pth')
+                    torch.save(model.state_dict(), model_path)
+
 
                 # Step the scheduler
                 scheduler.step()
 
             # Test evaluation with best model
-            model.load_state_dict(torch.load(f'best_model_fold{fold}.pth'))
+            model_path = os.path.join(self.results_dir, 'models', f'best_model_fold{fold}.pth')
             test_progress = tqdm(desc=f"Fold {fold+1} Testing", total=1)
             test_metrics = self._evaluate(model, test_loader, criterion)
             test_progress.update(1)
@@ -332,6 +339,16 @@ class Cox2Trainer:
         # Save results to JSON
         with open('base_bio_layer_cox2_results.json', 'w') as f:
             json.dump(publication_results, f, indent=4)
+
+        #Move bio_vis folder if it exists
+        if self.enable_monitoring:
+            bio_vis_src = 'bio_vis'
+            if os.path.exists(bio_vis_src):
+                bio_vis_dest = os.path.join(self.results_dir, 'bio_vis')
+                if os.path.exists(bio_vis_dest):
+                    shutil.rmtree(bio_vis_dest)
+                shutil.move(bio_vis_src, bio_vis_dest)
+
 
         return publication_results
     
@@ -429,7 +446,7 @@ def main():
     # Other existing arguments can be added here
     parser.add_argument('--dataset', type=str, default='COX2', 
                         help='Name of the dataset to train on')
-    parser.add_argument('--n-splits', type=int, default=10, 
+    parser.add_argument('--n-splits', type=int, default=5, 
                         help='Number of cross-validation splits')
     parser.add_argument('--wandb', action='store_true', 
                         help='Enable Weights & Biases logging')
