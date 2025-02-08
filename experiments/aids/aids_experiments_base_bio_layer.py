@@ -10,7 +10,7 @@ import seaborn as sns
 import matplotlib
 matplotlib.use('Agg')
 
-
+import shutil
 import torch.nn as nn
 import torch.nn.functional as F
 from torch_geometric.nn import GATConv, global_mean_pool, global_add_pool, JumpingKnowledge, BatchNorm,GCNConv
@@ -76,7 +76,12 @@ def get_training_components(model, num_epochs=400, steps_per_epoch=50):
     return criterion, optimizer, scheduler
 
 
-
+def create_results_directory():
+    results_dir = 'aids_results_base_bio_layer'
+    os.makedirs(results_dir, exist_ok=True)
+    os.makedirs(os.path.join(results_dir, 'models'), exist_ok=True)
+    os.makedirs(os.path.join(results_dir, 'logs'), exist_ok=True)
+    return results_dir
 
 # Set default tensor type to float to prevent dtype issues
 torch.set_default_tensor_type(torch.FloatTensor)
@@ -109,40 +114,40 @@ from sklearn.metrics import (
 )
 
 class BioOnlyNetwork(nn.Module):
-    def __init__(self, num_node_features, num_classes=2,enable_monitoring=False, disable_monitoring=False):
+    def __init__(self, num_node_features, num_classes=2,enable_monitoring=False, disable_monitoring=False,results_dir='aids_results_base_bio_layer'):
         super().__init__()
         
         # Define dimensions for the network
         self.input_dim = 2 * num_node_features  # Adjusted input dimension due to pooling
 
         monitoring_state = enable_monitoring and not disable_monitoring
-
+        log_base_path = os.path.join(results_dir, 'logs')
         # Stack of biological layers with carefully tuned parameters
         self.bio_layers = nn.ModuleList([
             BioLogicalNeuron(self.input_dim, 2048, 
                 repair_threshold=0.95, repair_intensity=0.02, 
                 plasticity_rate=0.001, enable_monitoring=monitoring_state, 
-                log_file='base_bio_layer_aids_1.log'),
+                log_file=os.path.join(log_base_path, 'base_bio_layer_aids_1.log')),
             
             BioLogicalNeuron(2048, 1024, 
                 repair_threshold=0.9, repair_intensity=0.02, 
                 plasticity_rate=0.001, enable_monitoring=monitoring_state, 
-                log_file='base_bio_layer_aids_2.log'),
+                log_file=os.path.join(log_base_path, 'base_bio_layer_aids_2.log')),
             
             BioLogicalNeuron(1024, 512, 
                 repair_threshold=0.85, repair_intensity=0.03, 
                 plasticity_rate=0.002,enable_monitoring=monitoring_state, 
-                log_file='base_bio_layer_aids_3.log'),
+                log_file=os.path.join(log_base_path, 'base_bio_layer_aids_3.log')),
             
             BioLogicalNeuron(512, 256, 
                 repair_threshold=0.8, repair_intensity=0.01, 
                 plasticity_rate=0.003, enable_monitoring=monitoring_state, 
-                log_file='base_bio_layer_aids_4.log'),
+                log_file=os.path.join(log_base_path, 'base_bio_layer_aids_4.log')),
             
             BioLogicalNeuron(256, num_classes, 
                 repair_threshold=0.75, repair_intensity=0.03, 
                 plasticity_rate=0.002, enable_monitoring=monitoring_state, 
-                log_file='base_bio_layer_aids_5.log')
+                log_file=os.path.join(log_base_path, 'base_bio_layer_aids_5.log')),
         ])
 
     def forward(self, data):
@@ -219,17 +224,21 @@ class EarlyStopping:
         return self.early_stop
 from sklearn.model_selection import StratifiedShuffleSplit
 class PublicationTrainer:
-    def __init__(self, dataset_name='AIDS', n_splits=10, seed=42, wandb_logging=False, 
+    def __init__(self, dataset_name='AIDS', n_splits=2, seed=42, wandb_logging=False, 
                  enable_monitoring=False, disable_monitoring=False):
         self.dataset_name = dataset_name 
         self.n_splits = n_splits
         self.seed = seed
         self.wandb_logging = wandb_logging
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+        
+        # Create results directory
+        self.results_dir = create_results_directory()
+        
         # Monitoring parameters
         self.enable_monitoring = enable_monitoring
         self.disable_monitoring = disable_monitoring
-        # Added parameters for robust training
+        
         self.label_smoothing = 0.1
         self.gradient_clip = 0.5
         
@@ -352,7 +361,8 @@ class PublicationTrainer:
                 if val_metrics['accuracy'] > best_val_acc:
                     best_val_acc = val_metrics['accuracy']
                     best_val_loss = val_metrics['loss']
-                    torch.save(model.state_dict(), f'best_model_fold{fold}.pth')
+                    model_path = os.path.join(self.results_dir, 'models', f'best_model_fold{fold}.pth')
+                    torch.save(model.state_dict(), model_path)
 
                 # Step the scheduler
                 scheduler.step()
@@ -402,6 +412,15 @@ class PublicationTrainer:
         # Save results to JSON
         with open('publication_results.json', 'w') as f:
             json.dump(publication_results, f, indent=4)
+            
+        #Move bio_vis folder if it exists
+        if self.enable_monitoring:
+            bio_vis_src = 'bio_vis'
+            if os.path.exists(bio_vis_src):
+                bio_vis_dest = os.path.join(self.results_dir, 'bio_vis')
+                if os.path.exists(bio_vis_dest):
+                    shutil.rmtree(bio_vis_dest)
+                shutil.move(bio_vis_src, bio_vis_dest)
 
         return publication_results
     

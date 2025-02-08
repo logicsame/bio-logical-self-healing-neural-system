@@ -25,6 +25,7 @@ from sklearn.metrics import (
     precision_recall_fscore_support,
     roc_auc_score
 )
+import shutil
 import random
 def augment_batch(batch):
     """Enhanced augmentation strategy"""
@@ -73,6 +74,14 @@ def get_training_components(model, num_epochs=400, steps_per_epoch=50):
     
     return criterion, optimizer, scheduler
 
+def create_results_directory():
+    results_dir = 'aids_results_full_architecture'
+    os.makedirs(results_dir, exist_ok=True)
+    os.makedirs(os.path.join(results_dir, 'models'), exist_ok=True)
+    os.makedirs(os.path.join(results_dir, 'logs'), exist_ok=True)
+    return results_dir
+
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -80,41 +89,48 @@ from torch_geometric.nn import GATConv, global_mean_pool, global_add_pool, Jumpi
 from torch.nn.utils import spectral_norm
 
 class GraphBioNetwork(nn.Module):
-    def __init__(self, num_node_features, num_classes=2,enable_monitoring=False, disable_monitoring=False):
+    def __init__(self, num_node_features, num_classes=2, enable_monitoring=False, disable_monitoring=False, results_dir='aids_results_full_architecture'):
         super().__init__()
         
-        # Increased complexity and capacity
-        hidden_dim = 512  # Doubled hidden dimension
+        hidden_dim = 512
         monitoring_state = enable_monitoring and not disable_monitoring
 
-        # Deeper GAT layers with more heads
+        # Update log file paths to use results directory
+        log_base_path = os.path.join(results_dir, 'logs')
+        
         self.gat1 = GATConv(num_node_features, hidden_dim // 16, heads=16, dropout=0.15)
         self.gat2 = GATConv(hidden_dim, hidden_dim // 16, heads=16, dropout=0.15)
         self.gat3 = GATConv(hidden_dim, hidden_dim // 16, heads=16, dropout=0.15)
         self.gat4 = GATConv(hidden_dim, hidden_dim // 16, heads=16, dropout=0.15)
         self.gat5 = GATConv(hidden_dim, hidden_dim // 16, heads=16, dropout=0.15)
         
-        # Enhanced normalization
         self.batch_norm1 = nn.BatchNorm1d(hidden_dim)
         self.batch_norm2 = nn.BatchNorm1d(hidden_dim)
         self.batch_norm3 = nn.BatchNorm1d(hidden_dim)
         self.batch_norm4 = nn.BatchNorm1d(hidden_dim)
         self.batch_norm5 = nn.BatchNorm1d(hidden_dim)
         
-        # Advanced JK connection
         self.jk = JumpingKnowledge(mode='max', channels=hidden_dim, num_layers=5)
         
-        # Enhanced biological layers with finer-tuned parameters
         jk_dim = hidden_dim * 2
         self.bio_layers = nn.ModuleList([
-            BioLogicalNeuron(jk_dim, 2048, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001,enable_monitoring=monitoring_state,log_file='full_architecture_bio_layer_aids_1.log'),
-            BioLogicalNeuron(2048, 1024, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001,enable_monitoring=monitoring_state,log_file='full_architecture_bio_layer_aids_2.log'),
-            BioLogicalNeuron(1024, 512, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001,enable_monitoring=monitoring_state,log_file='full_architecture_bio_layer_aids_3.log'),
-            BioLogicalNeuron(512, 256, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001,enable_monitoring=monitoring_state,log_file='full_architecture_bio_layer_aids_4.log'),
-            BioLogicalNeuron(256, 128, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001,enable_monitoring=monitoring_state,log_file='full_architecture_bio_layer_aids_5.log'),
+            BioLogicalNeuron(jk_dim, 2048, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001,
+                           enable_monitoring=monitoring_state,
+                           log_file=os.path.join(log_base_path, 'full_architecture_bio_layer_aids_1.log')),
+            BioLogicalNeuron(2048, 1024, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001,
+                           enable_monitoring=monitoring_state,
+                           log_file=os.path.join(log_base_path, 'full_architecture_bio_layer_aids_2.log')),
+            BioLogicalNeuron(1024, 512, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001,
+                           enable_monitoring=monitoring_state,
+                           log_file=os.path.join(log_base_path, 'full_architecture_bio_layer_aids_3.log')),
+            BioLogicalNeuron(512, 256, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001,
+                           enable_monitoring=monitoring_state,
+                           log_file=os.path.join(log_base_path, 'full_architecture_bio_layer_aids_4.log')),
+            BioLogicalNeuron(256, 128, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001,
+                           enable_monitoring=monitoring_state,
+                           log_file=os.path.join(log_base_path, 'full_architecture_bio_layer_aids_5.log')),
         ])
         
-        # Advanced classifier with skip connections
         self.classifier = nn.Sequential(
             nn.LayerNorm(128),
             spectral_norm(nn.Linear(128, 512)),
@@ -241,7 +257,7 @@ class EarlyStopping:
         return self.early_stop
 from sklearn.model_selection import StratifiedShuffleSplit
 class PublicationTrainer:
-    def __init__(self, dataset_name='AIDS', n_splits=10, seed=42, wandb_logging=False, 
+    def __init__(self, dataset_name='AIDS', n_splits=2, seed=42, wandb_logging=False, 
                  enable_monitoring=False, disable_monitoring=False):
         self.dataset_name = dataset_name 
         self.n_splits = n_splits
@@ -249,11 +265,13 @@ class PublicationTrainer:
         self.wandb_logging = wandb_logging
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         
+        # Create results directory
+        self.results_dir = create_results_directory()
+        
         # Monitoring parameters
         self.enable_monitoring = enable_monitoring
         self.disable_monitoring = disable_monitoring
         
-        # Added parameters for robust training
         self.label_smoothing = 0.1
         self.gradient_clip = 0.5
         
@@ -310,124 +328,121 @@ class PublicationTrainer:
         return splits
     
     def train_and_evaluate(self):
-        results = {'accuracy': [], 'precision': [], 'recall': [], 'f1_score': [], 'auc': []}
+            results = {'accuracy': [], 'precision': [], 'recall': [], 'f1_score': [], 'auc': []}
     
-        if self.wandb_logging:
-            wandb.init(project=f"{self.dataset_name}_GraphBiological",
-                    config={"dataset": self.dataset_name, "n_splits": self.n_splits, "seed": self.seed})
+            if self.wandb_logging:
+                wandb.init(project=f"{self.dataset_name}_GraphBiological",
+                        config={"dataset": self.dataset_name, "n_splits": self.n_splits, "seed": self.seed})
 
-        cv_progress = tqdm(list(self._create_data_splits()), desc="Cross-Validation Folds")
-        for fold, (train_idx, val_idx, test_idx) in enumerate(cv_progress):
-            train_subset = Subset(self.dataset, train_idx)
-            val_subset = Subset(self.dataset, val_idx)
-            test_subset = Subset(self.dataset, test_idx)
+            cv_progress = tqdm(list(self._create_data_splits()), desc="Cross-Validation Folds")
+            for fold, (train_idx, val_idx, test_idx) in enumerate(cv_progress):
+                train_subset = Subset(self.dataset, train_idx)
+                val_subset = Subset(self.dataset, val_idx)
+                test_subset = Subset(self.dataset, test_idx)
 
-            train_loader = DataLoader(train_subset, batch_size=32, shuffle=True)
-            val_loader = DataLoader(val_subset, batch_size=32)
-            test_loader = DataLoader(test_subset, batch_size=32)
+                train_loader = DataLoader(train_subset, batch_size=32, shuffle=True)
+                val_loader = DataLoader(val_subset, batch_size=32)
+                test_loader = DataLoader(test_subset, batch_size=32)
 
-            # Model and training components
-            model = GraphBioNetwork(
-            num_node_features=self.dataset.num_node_features, 
-            num_classes=self.dataset.num_classes,
-            enable_monitoring=self.enable_monitoring,
-            disable_monitoring=self.disable_monitoring
+                # Update model initialization to include results directory
+                model = GraphBioNetwork(
+                    num_node_features=self.dataset.num_node_features, 
+                    num_classes=self.dataset.num_classes,
+                    enable_monitoring=self.enable_monitoring,
+                    disable_monitoring=self.disable_monitoring,
+                    results_dir=self.results_dir
                 ).to(self.device)
 
-            # Use get_training_components to get criterion, optimizer, and scheduler
-            criterion, optimizer, scheduler = get_training_components(model)
+                criterion, optimizer, scheduler = get_training_components(model)
+                early_stopping = EarlyStopping(patience=25, min_delta=0.0005)
 
-            # Early Stopping
-            early_stopping = EarlyStopping(patience=25, min_delta=0.0005)
+                best_val_acc = 0
+                best_val_loss = float('inf')
+                epoch_progress = tqdm(range(250), desc=f"Fold {fold+1} Training", leave=False)
 
-            # Training loop with progress bar
-            best_val_acc = 0
-            best_val_loss = float('inf')
-            epoch_progress = tqdm(range(250), desc=f"Fold {fold+1} Training", leave=False)
+                for epoch in epoch_progress:
+                    train_loss = self._train_epoch(model, train_loader, optimizer, criterion)
+                    val_metrics = self._validate(model, val_loader, criterion)
 
-            for epoch in epoch_progress:
-                # Training phase
-                model.train()
-                train_loss = self._train_epoch(model, train_loader, optimizer, criterion)
-
-                # Validation phase
-                val_metrics = self._validate(model, val_loader, criterion)
-
-                # Update progress bar description
-                epoch_progress.set_postfix({
-                    'Train Loss': f'{train_loss:.4f}', 
-                    'Val Acc': f'{val_metrics["accuracy"]:.4f}'
-                })
-
-                # Wandb logging if enabled
-                if self.wandb_logging:
-                    wandb.log({
-                        f"Fold_{fold+1}/Train_Loss": train_loss,
-                        f"Fold_{fold+1}/Val_Loss": val_metrics['loss'],
-                        f"Fold_{fold+1}/Val_Accuracy": val_metrics['accuracy']
+                    epoch_progress.set_postfix({
+                        'Train Loss': f'{train_loss:.4f}', 
+                        'Val Acc': f'{val_metrics["accuracy"]:.4f}'
                     })
 
-                # Early Stopping Check
-                if early_stopping(val_metrics['loss']):
-                    print(f"Early stopping triggered in fold {fold+1} at epoch {epoch}")
-                    break
+                    if self.wandb_logging:
+                        wandb.log({
+                            f"Fold_{fold+1}/Train_Loss": train_loss,
+                            f"Fold_{fold+1}/Val_Loss": val_metrics['loss'],
+                            f"Fold_{fold+1}/Val_Accuracy": val_metrics['accuracy']
+                        })
 
-                # Model checkpoint
-                if val_metrics['accuracy'] > best_val_acc:
-                    best_val_acc = val_metrics['accuracy']
-                    best_val_loss = val_metrics['loss']
-                    torch.save(model.state_dict(), f'best_model_fold{fold}.pth')
+                    if early_stopping(val_metrics['loss']):
+                        print(f"Early stopping triggered in fold {fold+1} at epoch {epoch}")
+                        break
 
-                # Step the scheduler
-                scheduler.step()
+                    if val_metrics['accuracy'] > best_val_acc:
+                        best_val_acc = val_metrics['accuracy']
+                        best_val_loss = val_metrics['loss']
+                        # Update model saving path
+                        model_path = os.path.join(self.results_dir, 'models', f'best_model_fold{fold}.pth')
+                        torch.save(model.state_dict(), model_path)
 
-            # Test evaluation with best model
-            model.load_state_dict(torch.load(f'best_model_fold{fold}.pth'))
-            test_progress = tqdm(desc=f"Fold {fold+1} Testing", total=1)
-            test_metrics = self._evaluate(model, test_loader, criterion)
-            test_progress.update(1)
-            test_progress.close()
+                    scheduler.step()
 
-            # Store results
-            for metric in results:
-                results[metric].append(test_metrics[metric])
+                # Load best model from new path
+                model_path = os.path.join(self.results_dir, 'models', f'best_model_fold{fold}.pth')
+                model.load_state_dict(torch.load(model_path))
+            
+                test_progress = tqdm(desc=f"Fold {fold+1} Testing", total=1)
+                test_metrics = self._evaluate(model, test_loader, criterion)
+                test_progress.update(1)
+                test_progress.close()
 
-            # Update cross-validation progress
-            cv_progress.set_postfix({
-                'Best Val Acc': f'{best_val_acc:.4f}',
-                'Test Acc': f'{test_metrics["accuracy"]:.4f}'
-            })
+                for metric in results:
+                    results[metric].append(test_metrics[metric])
 
-            # Wandb log test metrics if enabled
-            if self.wandb_logging:
-                wandb.log({
-                    f"Fold_{fold+1}/Test_Accuracy": test_metrics['accuracy'],
-                    f"Fold_{fold+1}/Test_Precision": test_metrics['precision'],
-                    f"Fold_{fold+1}/Test_Recall": test_metrics['recall'],
-                    f"Fold_{fold+1}/Test_F1_Score": test_metrics['f1_score'],
-                    f"Fold_{fold+1}/Test_AUC": test_metrics['auc']
+                cv_progress.set_postfix({
+                    'Best Val Acc': f'{best_val_acc:.4f}',
+                    'Test Acc': f'{test_metrics["accuracy"]:.4f}'
                 })
 
-        # Compute final statistics
-        publication_results = {
-            metric: {
-                'mean': np.mean(values),
-                'std': np.std(values)
-            } for metric, values in results.items()
-        }
+                if self.wandb_logging:
+                    wandb.log({
+                        f"Fold_{fold+1}/Test_Accuracy": test_metrics['accuracy'],
+                        f"Fold_{fold+1}/Test_Precision": test_metrics['precision'],
+                        f"Fold_{fold+1}/Test_Recall": test_metrics['recall'],
+                        f"Fold_{fold+1}/Test_F1_Score": test_metrics['f1_score'],
+                        f"Fold_{fold+1}/Test_AUC": test_metrics['auc']
+                    })
 
-        # Wandb summary if enabled
-        if self.wandb_logging:
-            for metric, stats in publication_results.items():
-                wandb.summary[f"Overall_{metric}_Mean"] = stats['mean']
-                wandb.summary[f"Overall_{metric}_Std"] = stats['std']
-            wandb.finish()
+            publication_results = {
+                metric: {
+                    'mean': np.mean(values),
+                    'std': np.std(values)
+                } for metric, values in results.items()
+            }
 
-        # Save results to JSON
-        with open('full_architecture_aids_result.json', 'w') as f:
-            json.dump(publication_results, f, indent=4)
+            if self.wandb_logging:
+                for metric, stats in publication_results.items():
+                    wandb.summary[f"Overall_{metric}_Mean"] = stats['mean']
+                    wandb.summary[f"Overall_{metric}_Std"] = stats['std']
+                wandb.finish()
 
-        return publication_results
+            # Update results JSON path
+            results_json_path = os.path.join(self.results_dir, 'aids_results.json')
+            with open(results_json_path, 'w') as f:
+                json.dump(publication_results, f, indent=4)
+
+            # Move bio_vis folder if it exists
+            if self.enable_monitoring:
+                bio_vis_src = 'bio_vis'
+                if os.path.exists(bio_vis_src):
+                    bio_vis_dest = os.path.join(self.results_dir, 'bio_vis')
+                    if os.path.exists(bio_vis_dest):
+                        shutil.rmtree(bio_vis_dest)
+                    shutil.move(bio_vis_src, bio_vis_dest)
+
+            return publication_results
     
     def _train_epoch(self, model, loader, optimizer, criterion):
         model.train()
@@ -537,9 +552,7 @@ def main():
         disable_monitoring=args.disable_monitoring
     )
     
-    # Train and evaluate
     results = trainer.train_and_evaluate()
     print("Publication Results:", results)
-
 if __name__ == "__main__":
     main()
