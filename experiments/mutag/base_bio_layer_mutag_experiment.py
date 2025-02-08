@@ -26,40 +26,49 @@ from sklearn.metrics import (
     precision_recall_fscore_support,
     roc_auc_score
 )
+import shutil
+
+def create_results_directory():
+    results_dir = 'base_bio_layer_mutag_results_bio_layer'
+    os.makedirs(results_dir, exist_ok=True)
+    os.makedirs(os.path.join(results_dir, 'models'), exist_ok=True)
+    os.makedirs(os.path.join(results_dir, 'logs'), exist_ok=True)
+    return results_dir
 
 class BioOnlyNetwork(nn.Module):
-    def __init__(self, num_node_features, num_classes=2,enable_monitoring=False, disable_monitoring=False):
+    def __init__(self, num_node_features, num_classes=2,enable_monitoring=False, disable_monitoring=False,results_dir = 'base_bio_layer_mutag_results_bio_layer'):
         super().__init__()
         
         # Define dimensions for the network
         self.input_dim = 2 * num_node_features  # Adjusted input dimension due to pooling
         monitoring_state = enable_monitoring and not disable_monitoring
+        log_base_path = os.path.join(results_dir, 'logs')
         # Stack of biological layers with carefully tuned parameters
         self.bio_layers = nn.ModuleList([
             BioLogicalNeuron(self.input_dim, 2048, 
                 repair_threshold=0.95, repair_intensity=0.02, 
                 plasticity_rate=0.001, enable_monitoring=monitoring_state, 
-                log_file='base_bio_layer_mutag_1.log'),
+                log_file=os.path.join(log_base_path, 'base_bio_layer_mutag_1.log')),
             
             BioLogicalNeuron(2048, 1024, 
                 repair_threshold=0.9, repair_intensity=0.02, 
                 plasticity_rate=0.001, enable_monitoring=monitoring_state, 
-                log_file='base_bio_layer_mutag_2.log'),
+                log_file=os.path.join(log_base_path, 'base_bio_layer_mutag_2.log')),
             
             BioLogicalNeuron(1024, 512, 
                 repair_threshold=0.85, repair_intensity=0.03, 
                 plasticity_rate=0.002, enable_monitoring=monitoring_state, 
-                log_file='base_bio_layer_mutag_3.log'),
+                log_file=os.path.join(log_base_path, 'base_bio_layer_mutag_3.log')),
             
             BioLogicalNeuron(512, 256, 
                 repair_threshold=0.8, repair_intensity=0.01, 
                 plasticity_rate=0.003, enable_monitoring=monitoring_state, 
-                log_file='base_bio_layer_mutag_4.log'),
+                log_file=os.path.join(log_base_path, 'base_bio_layer_mutag_4.log')),
             
             BioLogicalNeuron(256, num_classes, 
                 repair_threshold=0.75, repair_intensity=0.03, 
                 plasticity_rate=0.002, enable_monitoring=monitoring_state, 
-                log_file='base_bio_layer_mutag_5.log')
+                log_file=os.path.join(log_base_path, 'base_bio_layer_mutag_5.log')),
         ])
 
     def forward(self, data):
@@ -152,7 +161,7 @@ class PublicationTrainer:
         
         # Prepare dataset
         self.dataset = self._prepare_dataset()
-        
+        self.results_dir = create_results_directory()
     def _prepare_dataset(self):
         dataset = TUDataset(root=f'data/{self.dataset_name}', name=self.dataset_name)
     
@@ -221,7 +230,9 @@ class PublicationTrainer:
             # Model and training components
             model = BioOnlyNetwork(
                 num_node_features=self.dataset.num_node_features, 
-                num_classes=self.dataset.num_classes
+                num_classes=self.dataset.num_classes,
+                enable_monitoring=self.enable_monitoring,
+                disable_monitoring=self.disable_monitoring,
             ).to(self.device)
 
             # Use get_training_components to get criterion, optimizer, and scheduler
@@ -266,13 +277,14 @@ class PublicationTrainer:
                 if val_metrics['accuracy'] > best_val_acc:
                     best_val_acc = val_metrics['accuracy']
                     best_val_loss = val_metrics['loss']
-                    torch.save(model.state_dict(), f'best_model_fold{fold}.pth')
+                    model_path = os.path.join(self.results_dir, 'models', f'best_model_fold{fold}.pth')
+                    torch.save(model.state_dict(), model_path)
 
                 # Step the scheduler
                 scheduler.step()
 
             # Test evaluation with best model
-            model.load_state_dict(torch.load(f'best_model_fold{fold}.pth'))
+            model.load_state_dict(torch.load(model_path))
             test_progress = tqdm(desc=f"Fold {fold+1} Testing", total=1)
             test_metrics = self._evaluate(model, test_loader, criterion)
             test_progress.update(1)
@@ -316,6 +328,17 @@ class PublicationTrainer:
         # Save results to JSON
         with open('publication_results.json', 'w') as f:
             json.dump(publication_results, f, indent=4)
+
+
+        #Move bio_vis folder if it exists
+        if self.enable_monitoring:
+            bio_vis_src = 'bio_vis'
+            if os.path.exists(bio_vis_src):
+                bio_vis_dest = os.path.join(self.results_dir, 'bio_vis')
+                if os.path.exists(bio_vis_dest):
+                    shutil.rmtree(bio_vis_dest)
+                shutil.move(bio_vis_src, bio_vis_dest)
+
 
         return publication_results
     

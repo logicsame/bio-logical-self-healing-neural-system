@@ -25,11 +25,20 @@ from sklearn.metrics import (
     roc_auc_score
 )
 
+import shutil
+
+def create_results_directory():
+    results_dir = 'full_architecture_mutag_results_bio_layer'
+    os.makedirs(results_dir, exist_ok=True)
+    os.makedirs(os.path.join(results_dir, 'models'), exist_ok=True)
+    os.makedirs(os.path.join(results_dir, 'logs'), exist_ok=True)
+    return results_dir
+
 class GraphBiologicalNetwork(nn.Module):
-    def __init__(self, num_node_features, num_classes=2, enable_monitoring=False, disable_monitoring=False):
+    def __init__(self, num_node_features, num_classes=2, enable_monitoring=False, disable_monitoring=False,results_dir = 'full_architecture_mutag_results_bio_layer'):
         super().__init__()
         monitoring_state = enable_monitoring and not disable_monitoring
-
+        log_base_path = os.path.join(results_dir, 'logs')
         # Graph attention layers
         self.gat1 = GATConv(num_node_features, 64 // 4, heads=4, dropout=0.3)
         self.gat2 = GATConv(64, 128 // 4, heads=4, dropout=0.3)
@@ -47,9 +56,9 @@ class GraphBiologicalNetwork(nn.Module):
         jk_dim = (64 + 128 + 256) * 2
         # Biological layers
         self.bio_layers = nn.ModuleList([
-            BioLogicalNeuron(jk_dim, 256, repair_threshold=0.8,repair_intensity=0.07 ,plasticity_rate=0.005,enable_monitoring=monitoring_state,log_file='full_architecture_bio_layer_mutag_1.log'),
-            BioLogicalNeuron(256, 128, repair_threshold=0.8,repair_intensity=0.07 ,plasticity_rate=0.005,enable_monitoring=monitoring_state,log_file='full_architecture_bio_layer_mutag_2.log'),
-            BioLogicalNeuron(128, 64, repair_threshold=0.8,repair_intensity=0.07 ,plasticity_rate=0.005,enable_monitoring=monitoring_state,log_file='full_architecture_bio_layer_mutag_3.log')
+            BioLogicalNeuron(jk_dim, 256, repair_threshold=0.8,repair_intensity=0.07 ,plasticity_rate=0.005,enable_monitoring=monitoring_state,log_file=os.path.join(log_base_path,'full_architecture_mutag_bio_layer_1.log')),
+            BioLogicalNeuron(256, 128, repair_threshold=0.8,repair_intensity=0.07 ,plasticity_rate=0.005,enable_monitoring=monitoring_state,log_file=os.path.join(log_base_path,'full_architecture_mutag_bio_layer_2.log')),
+            BioLogicalNeuron(128, 64, repair_threshold=0.8,repair_intensity=0.07 ,plasticity_rate=0.005,enable_monitoring=monitoring_state,log_file=os.path.join(log_base_path,'full_architecture_mutag_bio_layer_3.log'))
         ])
         
         # Classifier
@@ -155,7 +164,7 @@ class PublicationTrainer:
         # Added parameters for robust training
         self.label_smoothing = 0.3
         self.gradient_clip = 1.0
-        
+        self.results_dir = create_results_directory()
         # Prepare dataset
         self.dataset = self._prepare_dataset()
         
@@ -274,13 +283,14 @@ class PublicationTrainer:
                 if val_metrics['accuracy'] > best_val_acc:
                     best_val_acc = val_metrics['accuracy']
                     best_val_loss = val_metrics['loss']
-                    torch.save(model.state_dict(), f'best_model_fold{fold}.pth')
+                    model_path = os.path.join(self.results_dir, 'models', f'best_model_fold{fold}.pth')
+                    torch.save(model.state_dict(), model_path)
 
                 # Step the scheduler
                 scheduler.step()
 
             # Test evaluation with best model
-            model.load_state_dict(torch.load(f'best_model_fold{fold}.pth'))
+            model.load_state_dict(torch.load(model_path))
             test_progress = tqdm(desc=f"Fold {fold+1} Testing", total=1)
             test_metrics = self._evaluate(model, test_loader, criterion)
             test_progress.update(1)
@@ -325,6 +335,16 @@ class PublicationTrainer:
         with open('publication_results.json', 'w') as f:
             json.dump(publication_results, f, indent=4)
 
+        #Move bio_vis folder if it exists
+        if self.enable_monitoring:
+            bio_vis_src = 'bio_vis'
+            if os.path.exists(bio_vis_src):
+                bio_vis_dest = os.path.join(self.results_dir, 'bio_vis')
+                if os.path.exists(bio_vis_dest):
+                    shutil.rmtree(bio_vis_dest)
+                shutil.move(bio_vis_src, bio_vis_dest)
+        
+        
         return publication_results
     
     def _train_epoch(self, model, loader, optimizer, criterion):

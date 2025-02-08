@@ -295,7 +295,7 @@ class Cox2Trainer:
                 scheduler.step()
 
             # Test evaluation with best model
-            model_path = os.path.join(self.results_dir, 'models', f'best_model_fold{fold}.pth')
+            model.load_state_dict(torch.load(model_path))
             test_progress = tqdm(desc=f"Fold {fold+1} Testing", total=1)
             test_metrics = self._evaluate(model, test_loader, criterion)
             test_progress.update(1)
