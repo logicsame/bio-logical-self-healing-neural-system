@@ -383,8 +383,20 @@ python experiments/mutag/base_bio_layer_mutag_experiment.py --disable-monitoring
 
 Run the full architecture experiment on the Cora dataset:
 ```bash
-python experiments/cora/cora_experiment.py
+python experiments/cora/cora_experiment.py --enable-monitoring
 ```
+
+Run only with gat attention architecture experiment on the Cora dataset:
+```bash
+python experiments/cora/with_gatconnection_only_cora.py --enable-monitoring
+```
+
+Run only with gat attention architecture experiment on the Cora dataset:
+```bash
+python experiments/cora/base_bio_layer_cora_experiment.py --enable-monitoring
+```
+
+
 
 ### Citeseer Dataset Experiment
 
