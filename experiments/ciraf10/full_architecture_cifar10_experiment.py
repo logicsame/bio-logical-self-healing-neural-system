@@ -91,8 +91,8 @@ class ModernBionetwork(nn.Module):
         
         # Only 2 bio layers
         self.bio_layers = nn.ModuleList([
-            BioLogicalNeuron(4096, 1024, repair_threshold=0.8, log_file='Cifar10_neuron_1', repair_intensity=0.015, plasticity_rate=0.0015, enable_monitoring=monitoring_state,log_file = os.path.join(log_base_path, 'bio_layer_1.log')),
-            BioLogicalNeuron(1024, 512, repair_threshold=0.8, log_file='Cifar10_neuron_2', repair_intensity=0.015, plasticity_rate=0.0015, enable_monitoring=monitoring_state,log_file = os.path.join(log_base_path, 'bio_layer_2.log'))
+            BioLogicalNeuron(4096, 1024, repair_threshold=0.8, log_file=os.path.join(log_base_path,'bio_layer_1.log'), repair_intensity=0.015, plasticity_rate=0.0015, enable_monitoring=monitoring_state),
+            BioLogicalNeuron(1024, 512, repair_threshold=0.8, log_file=os.path.join(log_base_path,'bio_layer_2.log'), repair_intensity=0.015, plasticity_rate=0.0015, enable_monitoring=monitoring_state)
         ])
         
         # Classifier remains the same
@@ -506,7 +506,7 @@ def main():
                         help='Explicitly disable monitoring for biological layers')
     
   
-    parser.add_argument('--n-splits', type=int, default=10, 
+    parser.add_argument('--n-splits', type=int, default=2, 
                         help='Number of cross-validation splits')
     parser.add_argument('--wandb', action='store_true', 
                         help='Enable Weights & Biases logging')
