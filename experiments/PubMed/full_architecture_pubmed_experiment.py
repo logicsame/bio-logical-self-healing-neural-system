@@ -53,7 +53,7 @@ from sklearn.model_selection import train_test_split
 
 
 def create_results_directory():
-    results_dir = 'pubmed_results_full_architecture'
+    results_dir = 'pubmed_results_Gat_attention_only'
     os.makedirs(results_dir, exist_ok=True)
     os.makedirs(os.path.join(results_dir, 'models'), exist_ok=True)
     os.makedirs(os.path.join(results_dir, 'logs'), exist_ok=True)
@@ -61,7 +61,7 @@ def create_results_directory():
 
 
 class GraphBioNetwork(nn.Module):
-    def __init__(self, num_node_features, num_classes=7,enable_monitoring=False, disable_monitoring=False,results_dir = 'pubmed_results_full_architecture'):
+    def __init__(self, num_node_features, num_classes=7,enable_monitoring=False, disable_monitoring=False,results_dir = 'pubmed_results_Gat_attention_only'):
         super().__init__()
         
         # Increased capacity with wider hidden dimensions
