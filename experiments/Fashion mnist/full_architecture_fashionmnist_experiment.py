@@ -4,6 +4,16 @@ import torch.nn.functional as F
 from torch.nn.utils import weight_norm
 from bioneural.core.biololgicallayer import BioLogicalNeuron
 
+import shutil
+
+def create_results_directory():
+    results_dir = 'fashionmnsit_results_full_architecture'
+    os.makedirs(results_dir, exist_ok=True)
+    os.makedirs(os.path.join(results_dir, 'models'), exist_ok=True)
+    os.makedirs(os.path.join(results_dir, 'logs'), exist_ok=True)
+    return results_dir
+
+
 class SEBlock(nn.Module):
     """Squeeze-and-Excitation Block for attention"""
     def __init__(self, channels, reduction=16):
@@ -58,11 +68,11 @@ class ResidualBioBlock(nn.Module):
     
 class ModernBioNetwork(nn.Module):
     """Enhanced Bio-Inspired Network with improved architecture"""
-    def __init__(self, num_classes=10,enable_monitoring = False,disable_monitoring = False):
+    def __init__(self, num_classes=10,enable_monitoring = False,disable_monitoring = False,results_dir = 'fashionmnsit_results_full_architecture'):
         super().__init__()
         
         monitoring_state = enable_monitoring and not disable_monitoring
-        
+        log_base_paath = os.path.join(results_dir, 'logs')
         # Enhanced Feature Extractor
         self.features = nn.Sequential(
             ConvBioBlock(3, 64),
@@ -81,9 +91,9 @@ class ModernBioNetwork(nn.Module):
         
         # Biological Layers with increased width
         self.bio_layers = nn.ModuleList([
-            BioLogicalNeuron(4096, 2048, repair_threshold=0.8, log_file='full_architecture_fahionmnist_1.log', repair_intensity=0.015, plasticity_rate=0.0015,enable_monitoring =monitoring_state),
-            BioLogicalNeuron(2048, 1024,repair_threshold=0.8, log_file='full_architecture_fahionmnist_2.log',repair_intensity=0.015, plasticity_rate=0.0015,enable_monitoring =monitoring_state),
-            BioLogicalNeuron(1024, 512,repair_threshold=0.8, log_file='full_architecture_fahionmnist_3.log',repair_intensity=0.015, plasticity_rate=0.0015,enable_monitoring =monitoring_state)
+            BioLogicalNeuron(4096, 2048, repair_threshold=0.8, log_file=os.path.join(log_base_paath, 'bio_layer_fashionmnsit1.log'), repair_intensity=0.015, plasticity_rate=0.0015,enable_monitoring =monitoring_state),
+            BioLogicalNeuron(2048, 1024,repair_threshold=0.8, log_file=os.path.join(log_base_paath, 'bio_layer_fashionmnsit2.log'),repair_intensity=0.015, plasticity_rate=0.0015,enable_monitoring =monitoring_state),
+            BioLogicalNeuron(1024, 512,repair_threshold=0.8, log_file=os.path.join(log_base_paath, 'bio_layer_fashionmnsit3.log'),repair_intensity=0.015, plasticity_rate=0.0015,enable_monitoring =monitoring_state)
         ])
         
         # Enhanced classifier
@@ -209,7 +219,7 @@ class FashionMNISTrainer:
         
         # Prepare dataset
         self.dataset = self._prepare_dataset()
-        
+        self.results_dir = create_results_directory()
     def _prepare_dataset(self):
         return datasets.FashionMNIST(root='./data', train=True, download=True)
     
@@ -301,10 +311,12 @@ class FashionMNISTrainer:
                 # Save best model
                 if val_metrics['accuracy'] > best_val_acc:
                     best_val_acc = val_metrics['accuracy']
-                    torch.save(model.state_dict(), f'best_model_fold{fold}.pth')
+                    model_path = os.path.join(self.results_dir, 'models', f'best_model_fold{fold}.pth')
+                    torch.save(model.state_dict(), model_path)
+
 
             # Test evaluation
-            model.load_state_dict(torch.load(f'best_model_fold{fold}.pth'))
+            model.load_state_dict(torch.load(model_path))
             test_metrics = self._evaluate(model, test_loader, criterion)
 
             # Store results
@@ -327,6 +339,17 @@ class FashionMNISTrainer:
         # Save results
         with open('cifar10_results.json', 'w') as f:
             json.dump(final_results, f, indent=4)
+
+        #Move bio_vis folder if it exists
+        if self.enable_monitoring:
+            bio_vis_src = 'bio_vis'
+            if os.path.exists(bio_vis_src):
+                bio_vis_dest = os.path.join(self.results_dir, 'bio_vis')
+                if os.path.exists(bio_vis_dest):
+                    shutil.rmtree(bio_vis_dest)
+                shutil.move(bio_vis_src, bio_vis_dest)
+
+
 
         return final_results
 
