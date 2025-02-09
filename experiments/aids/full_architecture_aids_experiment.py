@@ -27,6 +27,15 @@ from sklearn.metrics import (
 )
 import shutil
 import random
+
+def create_results_directory():
+    results_dir = 'cifar10_results_with_attention_only'
+    os.makedirs(results_dir, exist_ok=True)
+    os.makedirs(os.path.join(results_dir, 'models'), exist_ok=True)
+    os.makedirs(os.path.join(results_dir, 'logs'), exist_ok=True)
+    return results_dir
+
+
 def augment_batch(batch):
     """Enhanced augmentation strategy"""
     # Node feature augmentation

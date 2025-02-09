@@ -3,7 +3,12 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.nn.utils import weight_norm
 
-
+def create_results_directory():
+    results_dir = 'cifar10_results_attetion_only'
+    os.makedirs(results_dir, exist_ok=True)
+    os.makedirs(os.path.join(results_dir, 'models'), exist_ok=True)
+    os.makedirs(os.path.join(results_dir, 'logs'), exist_ok=True)
+    return results_dir
 
 class SEBlock(nn.Module):
     """Squeeze-and-Excitation Block for attention"""
@@ -182,7 +187,7 @@ class CIFAR10Trainer:
         
         # Prepare dataset
         self.dataset = self._prepare_dataset()
-        
+        self.results_dir = create_results_directory()
     def _prepare_dataset(self):
         # Load full training dataset
         return datasets.CIFAR10(root='./data', train=True, download=True)
@@ -273,10 +278,11 @@ class CIFAR10Trainer:
                 # Save best model
                 if val_metrics['accuracy'] > best_val_acc:
                     best_val_acc = val_metrics['accuracy']
-                    torch.save(model.state_dict(), f'best_model_fold{fold}.pth')
+                    model_path = os.path.join(self.results_dir, 'models', f'best_model_fold{fold}.pth')
+                    torch.save(model.state_dict(), model_path)
 
             # Test evaluation
-            model.load_state_dict(torch.load(f'best_model_fold{fold}.pth'))
+            model.load_state_dict(torch.load(model_path))
             test_metrics = self._evaluate(model, test_loader, criterion)
 
             # Store results
