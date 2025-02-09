@@ -31,13 +31,11 @@ Our comprehensive evaluation demonstrates the effectiveness of BioLogicalNeuron 
 |----------|------|--------------------|-----------------------------------|---------------|----------|
 | AIDS     | 10   | **99.80 ± 0.004**  | **99.63 ± 0.007**                | 99.55         | +0.25    |
 | HIV      | 5    | **96.95 ± 0.0013** | **97.15 ± 0.001**                | 96.86         | +0.29    |
-| COX2     | 5    | 79.57 ± 0.017      | **83.25 ± 0.031**                | 82.86         | +0.39    |
+| COX2     | 5    | 80.85 ± 0.017      | **82.71 ± 0.031**                | 82.6         | +0.11    |
 | Protein  | 10   | **75.89 ± 0.04**   | **74.65 ± 0.045**                | 72.07         | +3.89    |
 | DD       | 10   | 80.33 ± 0.06       | 76.94 ± 0.059                    | **95.67**     | -19.00   |
 | MUTAG    | 10   | 83.33 ± 0.07       | 78.00 ± 0.12                     | **100.00**    | -22.00   |
-| Cora     | 15   | --                 | **90.48 ± 0.019**                | 90.16         | +0.32    |
-| Citeseer | 10   | --                 | 78.58 ± 0.02                     | **82.07**     | -4.00    |
-| PubMed   | 10   | --                 | 87.88 ± 0.01                     | **91.64**     | -4.64    |
+
 
 
 
@@ -45,10 +43,17 @@ Our comprehensive evaluation demonstrates the effectiveness of BioLogicalNeuron 
 
 | Dataset | Fold | Without BioLogicalNeuron | BioLogicalNeuron + Attention | Performance Gain (Base) |
 |---------|------|-------------------------|----------------------------|----------------------|
-| CIFAR-10 | 2 | 86.43 ± 0.064 | **90.42 ± 0.196** | +0.33 |
+| CIFAR-10 | 2 | 86.65 ± 0.064 | **90.42 ± 0.196** | +0.77 |
 | MNIST | 2 | -- | **99.43 ± 0.002** | -- |
 | Fashion-MNIST | 2 | -- | **93.27 ± 0.20** | -- |
 
+### performance Analysis for Citation Datasets
+
+| Dataset | Fold | BaseBioLayer | BioLayer + GAT Attention | Performance Gain | SOTA Result | Performance vs. Base | Performance vs. SOTA |
+|---------|------|--------------|-------------------------|------------------|-------------|---------------------|---------------------|
+| Cora | 15 | 74.53 | **88.56** | +14.02 | 90.26 | +14.02 | -1.70 |
+| Citeseer | 10 | 72.37 | **76.87** | +3.67 | 82.07 | +3.67 | -5.20 |
+| PubMed | 10 | 88.18 | **88.28** | +0.10 | 91.67 | +0.10 | -3.39 |
 
 
 **Key Findings:**
@@ -95,6 +100,12 @@ git clone https://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@github.com/logicsame/
 
 cd bio-logical-self-healing-neural-system
 ```
+
+3. **Download and install Microsoft Visual C++ Redistributable**
+```bash
+https://aka.ms/vs/16/release/vc_redist.x64.exe
+```
+
 
 3. **Install Required Dependencies**
 ```bash
@@ -386,12 +397,7 @@ Run the full architecture experiment on the Cora dataset:
 python experiments/cora/cora_experiment.py --enable-monitoring
 ```
 
-Run only with gat attention architecture experiment on the Cora dataset:
-```bash
-python experiments/cora/with_gatconnection_only_cora.py --enable-monitoring
-```
-
-Run only with gat attention architecture experiment on the Cora dataset:
+Run only with base_bio layer experiment on the Cora dataset:
 ```bash
 python experiments/cora/base_bio_layer_cora_experiment.py --enable-monitoring
 ```
@@ -402,15 +408,25 @@ python experiments/cora/base_bio_layer_cora_experiment.py --enable-monitoring
 
 Run the full architecture experiment on the Citeseer dataset:
 ```bash
-python experiments/CiteSeer/citeseer_experiment.py
+python experiments/CiteSeer/citeseer_experiment_with_full_architecture.py --enable-monitoring
+```
+
+Run the only base bio layer experiment on the Citeseer dataset:
+```bash
+python experiments/CiteSeer/citeseer_experiment_with_full_architecture.py --enable-monitoring
 ```
 
 ### Pubmed Dataset Experiment
 
 Run the full architecture experiment on the Pubmed dataset:
 ```bash
-python experiments/PubMed/full_architecture_pubmed_experiment.py
+python experiments/PubMed/full_architecture_pubmed_experiment.py --enable-monitoring
 ```
+Run the full architecture experiment on the Pubmed dataset:
+```bash
+python experiments/PubMed/base_bio_layer_pubmed_experiment.py --enable-monitoring
+```
+*Note: For the citation dataset experiment, the biological layer's behavior visualization will not be generated, but the biological layer's log file will be generated.*
 
 ### Cifar10 Dataset Experiments
 
