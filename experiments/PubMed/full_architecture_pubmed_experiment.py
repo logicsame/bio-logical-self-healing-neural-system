@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import matplotlib
 matplotlib.use('Agg')
-
+import shutil
 import torch.nn as nn
 from bioneural.core.biololgicallayer import BioLogicalNeuron
 import torch.nn.functional as F
@@ -53,7 +53,7 @@ from sklearn.model_selection import train_test_split
 
 
 def create_results_directory():
-    results_dir = 'pubmed_results_Gat_attention_only'
+    results_dir = 'pubmed_results_full_architecture'
     os.makedirs(results_dir, exist_ok=True)
     os.makedirs(os.path.join(results_dir, 'models'), exist_ok=True)
     os.makedirs(os.path.join(results_dir, 'logs'), exist_ok=True)
@@ -482,6 +482,15 @@ class PUBMEDTrainer:
         # Save best model state
         best_model_path = os.path.join(self.results_dir, 'models', 'best_model_final.pth')
         torch.save(best_model_state, best_model_path)
+    
+        #Move bio_vis folder if it exists
+        if self.enable_monitoring:
+            bio_vis_src = 'bio_vis'
+            if os.path.exists(bio_vis_src):
+                bio_vis_dest = os.path.join(self.results_dir, 'bio_vis')
+                if os.path.exists(bio_vis_dest):
+                    shutil.rmtree(bio_vis_dest)
+                shutil.move(bio_vis_src, bio_vis_dest)    
 
         # Print final results
         print("\nCross-Validation Results")

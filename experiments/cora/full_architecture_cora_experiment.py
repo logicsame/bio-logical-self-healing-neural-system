@@ -49,7 +49,7 @@ from sklearn.metrics import (
     roc_auc_score
 )
 from sklearn.model_selection import train_test_split
-
+import shutil
 
 def create_results_directory():
     results_dir = 'cora_results_witout_bio_layers'
@@ -479,6 +479,16 @@ class CoraCVTrainer:
         results_path = os.path.join(self.results_dir, 'cora_cv_results.json')
         with open(results_path, 'w') as f:
             json.dump(final_results, f, indent=4)
+
+
+         #Move bio_vis folder if it exists
+        if self.enable_monitoring:
+            bio_vis_src = 'bio_vis'
+            if os.path.exists(bio_vis_src):
+                bio_vis_dest = os.path.join(self.results_dir, 'bio_vis')
+                if os.path.exists(bio_vis_dest):
+                    shutil.rmtree(bio_vis_dest)
+                shutil.move(bio_vis_src, bio_vis_dest)
 
         # Save best model state
         best_model_path = os.path.join(self.results_dir, 'models', 'best_model_final.pth')

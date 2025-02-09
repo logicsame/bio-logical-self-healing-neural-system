@@ -2,13 +2,14 @@ import os
 import torch
 import numpy as np
 import wandb
+import datetime
 import json
 from tqdm import tqdm
 import matplotlib.pyplot as plt
 import seaborn as sns
 import matplotlib
 matplotlib.use('Agg')
-import argparse
+import shutil
 import torch.nn as nn
 from bioneural.core.biololgicallayer import BioLogicalNeuron
 import torch.nn.functional as F
@@ -52,7 +53,7 @@ from sklearn.model_selection import train_test_split
 
 
 def create_results_directory():
-    results_dir = 'cora_results_full_architecture'
+    results_dir = 'pubmed_results_base_bio_layers'
     os.makedirs(results_dir, exist_ok=True)
     os.makedirs(os.path.join(results_dir, 'models'), exist_ok=True)
     os.makedirs(os.path.join(results_dir, 'logs'), exist_ok=True)
@@ -60,66 +61,58 @@ def create_results_directory():
 
 
 class GraphBioNetwork(nn.Module):
-    def __init__(self, num_node_features, num_classes=7, enable_monitoring=False, disable_monitoring=False, results_dir='cora_results_full_architecture'):
+    def __init__(self, num_node_features, num_classes=7, enable_monitoring=False, disable_monitoring=False, results_dir = 'pubmed_results_base_bio_layers'):
         super().__init__()
         
-        # Increased capacity with wider hidden dimensions
-        hidden_dim = 768
+        monitoring_state = enable_monitoring and not disable_monitoring
+        log_base_path = os.path.join(results_dir, 'logs')
         
-        # Deeper architecture with residual connections
-        self.gat1 = GATConv(num_node_features, hidden_dim // 8, heads=8, dropout=0.2)
-        self.gat2 = GATConv(hidden_dim, hidden_dim // 8, heads=8, dropout=0.2)
-        self.gat3 = GATConv(hidden_dim, hidden_dim // 8, heads=8, dropout=0.2)
-        self.gat4 = GATConv(hidden_dim, hidden_dim // 8, heads=8, dropout=0.2)
-        self.gat5 = GATConv(hidden_dim, hidden_dim // 8, heads=8, dropout=0.2)
-        self.gat6 = GATConv(hidden_dim, hidden_dim // 8, heads=8, dropout=0.2)
+        # Direct biological processing of input features
+        self.bio_layers = nn.ModuleList([
+            BioLogicalNeuron(
+                num_node_features, 1024, 
+                repair_threshold=0.95, 
+                repair_intensity=0.015, 
+                plasticity_rate=0.0015,
+                summary_interval=5,
+                enable_monitoring=monitoring_state,
+                log_file=os.path.join(log_base_path, 'bio_layer1')
+            ),
+            BioLogicalNeuron(
+                1024, 512, 
+                repair_threshold=0.95, 
+                repair_intensity=0.015, 
+                plasticity_rate=0.0015,
+                summary_interval=5,
+                enable_monitoring=monitoring_state,
+                log_file=os.path.join(log_base_path, 'bio_layer2')
+            ),
+            BioLogicalNeuron(
+                512, 256, 
+                repair_threshold=0.95, 
+                repair_intensity=0.015, 
+                plasticity_rate=0.0015,
+                summary_interval=5,
+                enable_monitoring=monitoring_state,
+                log_file=os.path.join(log_base_path, 'bio_layer3')
+            )
+        ])
         
-        # Layer normalization instead of batch normalization for better stability
-        self.layer_norm1 = nn.LayerNorm(hidden_dim)
-        self.layer_norm2 = nn.LayerNorm(hidden_dim)
-        self.layer_norm3 = nn.LayerNorm(hidden_dim)
-        self.layer_norm4 = nn.LayerNorm(hidden_dim)
-        self.layer_norm5 = nn.LayerNorm(hidden_dim)
-        self.layer_norm6 = nn.LayerNorm(hidden_dim)
-        
-        # Added concatenation-based JK connection
-        self.jk = JumpingKnowledge(mode='cat', channels=hidden_dim, num_layers=6)
-        
-        # Enhanced classifier with deeper architecture
-        self.classifier = nn.Sequential(
-            nn.LayerNorm(hidden_dim * 6),  # Adjusted input dimension
-            spectral_norm(nn.Linear(hidden_dim * 6, 1024)),
-            nn.GELU(),
-            nn.Dropout(0.2),
-            nn.LayerNorm(1024),
-            spectral_norm(nn.Linear(1024, 512)),
-            nn.GELU(),
-            nn.Dropout(0.2),
-            nn.LayerNorm(512),
-            spectral_norm(nn.Linear(512, 256)),
-            nn.GELU(),
-            nn.Dropout(0.1),
-            nn.LayerNorm(256),
-            nn.Linear(256, num_classes)
-        )
+        # Final classification layer
+        self.classifier = nn.Linear(256, num_classes)
 
     def forward(self, data):
         x, edge_index = data.x, data.edge_index
         
-        # Enhanced forward pass with residual connections
-        x1 = self.layer_norm1(F.elu(self.gat1(x, edge_index)))
-        x2 = self.layer_norm2(F.elu(self.gat2(x1, edge_index))) + x1
-        x3 = self.layer_norm3(F.elu(self.gat3(x2, edge_index))) + x2
-        x4 = self.layer_norm4(F.elu(self.gat4(x3, edge_index))) + x3
-        x5 = self.layer_norm5(F.elu(self.gat5(x4, edge_index))) + x4
-        x6 = self.layer_norm6(F.elu(self.gat6(x5, edge_index))) + x5
-        
-        # Concatenative aggregation of multi-scale features
-        x = self.jk([x1, x2, x3, x4, x5, x6])
+        # Process through biological layers
+        health_reports = []
+        for bio_layer in self.bio_layers:
+            x, health_report = bio_layer(x)
+            health_reports.append(health_report)
         
         # Final classification
         x = self.classifier(x)
-        return x, None  # Return None for health_reports to maintain compatibility
+        return x, health_reports
 
 def get_training_components(model):
     # Use weighted cross entropy if classes are imbalanced
@@ -166,23 +159,21 @@ class EarlyStopping:
         
         return self.early_stop
 
-class CoraCVTrainer:
-    def __init__(self, n_splits=15, seed=42, wandb_logging=False, enable_monitoring=False, disable_monitoring=False):
+class PUBMEDTrainer:
+    def __init__(self, n_splits=10, seed=42, wandb_logging=False, enable_monitoring=False, disable_monitoring=False):
         self.n_splits = n_splits
         self.seed = seed
         self.wandb_logging = wandb_logging
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         self.enable_monitoring = enable_monitoring
         self.disable_monitoring = disable_monitoring
-        
         # Load dataset
-        self.dataset = Planetoid(root='/tmp/Cora', name='Cora')
+        self.dataset = Planetoid(root='/tmp/PubMed', name='PubMed')
         self.data = self.dataset[0].to(self.device)
         self.results_dir = create_results_directory()
-
         # Training parameters
         self.gradient_clip = 0.5
-        self.epochs = 200
+        self.epochs = 300
         
         torch.manual_seed(seed)
         np.random.seed(seed)
@@ -466,9 +457,19 @@ class CoraCVTrainer:
             wandb.finish()
 
         # Save results to JSON
-        results_path = os.path.join(self.results_dir, 'cora_cv_results.json')
+        results_path = os.path.join(self.results_dir, 'pubmed_cv_results.json')
         with open(results_path, 'w') as f:
             json.dump(final_results, f, indent=4)
+
+        #Move bio_vis folder if it exists
+        if self.enable_monitoring:
+            bio_vis_src = 'bio_vis'
+            if os.path.exists(bio_vis_src):
+                bio_vis_dest = os.path.join(self.results_dir, 'bio_vis')
+                if os.path.exists(bio_vis_dest):
+                    shutil.rmtree(bio_vis_dest)
+                shutil.move(bio_vis_src, bio_vis_dest)
+
 
         # Save best model state
         best_model_path = os.path.join(self.results_dir, 'models', 'best_model_final.pth')
@@ -488,6 +489,7 @@ class CoraCVTrainer:
         return final_results
 
 
+import argparse
 def main():
     # Create argument parser
     parser = argparse.ArgumentParser(description='Publication Trainer with Biological Neural Network')
@@ -500,7 +502,6 @@ def main():
                         help='Explicitly disable monitoring for biological layers')
     
     # Other existing arguments can be added here
-    
     parser.add_argument('--n-splits', type=int, default=10, 
                         help='Number of cross-validation splits')
     parser.add_argument('--wandb', action='store_true', 
@@ -509,8 +510,8 @@ def main():
     # Parse arguments
     args = parser.parse_args()
 
-    trainer = CoraCVTrainer(
-        n_splits=15, 
+    trainer = PUBMEDTrainer(
+        n_splits=args.n_splits, 
         wandb_logging=args.wandb, 
         enable_monitoring=args.enable_monitoring, 
         disable_monitoring=args.disable_monitoring
