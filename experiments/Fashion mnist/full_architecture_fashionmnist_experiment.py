@@ -7,7 +7,7 @@ from bioneural.core.biololgicallayer import BioLogicalNeuron
 import shutil
 
 def create_results_directory():
-    results_dir = 'fashionmnsit_results_full_architecture'
+    results_dir = 'fashionmnist_results_full_architecture'
     os.makedirs(results_dir, exist_ok=True)
     os.makedirs(os.path.join(results_dir, 'models'), exist_ok=True)
     os.makedirs(os.path.join(results_dir, 'logs'), exist_ok=True)
