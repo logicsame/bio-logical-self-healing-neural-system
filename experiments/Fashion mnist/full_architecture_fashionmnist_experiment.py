@@ -7,10 +7,20 @@ from bioneural.core.biololgicallayer import BioLogicalNeuron
 import shutil
 
 def create_results_directory():
-    results_dir = 'fashionmnist_results_full_architecture'
+    """Create all necessary directories for results and logs"""
+    # Get the current working directory
+    base_dir = os.getcwd()
+    
+    # Create the main results directory
+    results_dir = os.path.join(base_dir, 'fashionmnist_results_full_architecture')
     os.makedirs(results_dir, exist_ok=True)
-    os.makedirs(os.path.join(results_dir, 'models'), exist_ok=True)
-    os.makedirs(os.path.join(results_dir, 'logs'), exist_ok=True)
+    
+    # Create subdirectories
+    models_dir = os.path.join(results_dir, 'models')
+    logs_dir = os.path.join(results_dir, 'logs')
+    os.makedirs(models_dir, exist_ok=True)
+    os.makedirs(logs_dir, exist_ok=True)
+    
     return results_dir
 
 
@@ -68,11 +78,16 @@ class ResidualBioBlock(nn.Module):
     
 class ModernBioNetwork(nn.Module):
     """Enhanced Bio-Inspired Network with improved architecture"""
-    def __init__(self, num_classes=10,enable_monitoring = False,disable_monitoring = False,results_dir = 'fashionmnsit_results_full_architecture'):
+    def __init__(self, num_classes=10, enable_monitoring=False, disable_monitoring=False, results_dir=None):
         super().__init__()
         
+        if results_dir is None:
+            results_dir = create_results_directory()
+            
         monitoring_state = enable_monitoring and not disable_monitoring
-        log_base_paath = os.path.join(results_dir, 'logs')
+        log_base_path = os.path.join(results_dir, 'logs')
+        os.makedirs(log_base_path, exist_ok=True)  # Ensure log directory exists
+        
         # Enhanced Feature Extractor
         self.features = nn.Sequential(
             ConvBioBlock(3, 64),
@@ -91,12 +106,27 @@ class ModernBioNetwork(nn.Module):
         
         # Biological Layers with increased width
         self.bio_layers = nn.ModuleList([
-            BioLogicalNeuron(4096, 2048, repair_threshold=0.8, log_file=os.path.join(log_base_paath, 'bio_layer_fashionmnsit1.log'), repair_intensity=0.015, plasticity_rate=0.0015,enable_monitoring =monitoring_state),
-            BioLogicalNeuron(2048, 1024,repair_threshold=0.8, log_file=os.path.join(log_base_paath, 'bio_layer_fashionmnsit2.log'),repair_intensity=0.015, plasticity_rate=0.0015,enable_monitoring =monitoring_state),
-            BioLogicalNeuron(1024, 512,repair_threshold=0.8, log_file=os.path.join(log_base_paath, 'bio_layer_fashionmnsit3.log'),repair_intensity=0.015, plasticity_rate=0.0015,enable_monitoring =monitoring_state)
+            BioLogicalNeuron(4096, 2048, 
+                repair_threshold=0.8, 
+                log_file=os.path.join(log_base_path, 'bio_layer_fashionmnist1.log'),
+                repair_intensity=0.015, 
+                plasticity_rate=0.0015,
+                enable_monitoring=monitoring_state),
+            BioLogicalNeuron(2048, 1024,
+                repair_threshold=0.8, 
+                log_file=os.path.join(log_base_path, 'bio_layer_fashionmnist2.log'),
+                repair_intensity=0.015, 
+                plasticity_rate=0.0015,
+                enable_monitoring=monitoring_state),
+            BioLogicalNeuron(1024, 512,
+                repair_threshold=0.8, 
+                log_file=os.path.join(log_base_path, 'bio_layer_fashionmnist3.log'),
+                repair_intensity=0.015, 
+                plasticity_rate=0.0015,
+                enable_monitoring=monitoring_state)
         ])
         
-        # Enhanced classifier
+        # Rest of the initialization remains the same
         self.classifier = nn.Sequential(
             nn.Linear(512, 256),
             nn.GELU(),
@@ -337,7 +367,7 @@ class FashionMNISTrainer:
         }
 
         # Save results
-        with open('cifar10_results.json', 'w') as f:
+        with open('fashionmnist_results.json', 'w') as f:
             json.dump(final_results, f, indent=4)
 
         #Move bio_vis folder if it exists
