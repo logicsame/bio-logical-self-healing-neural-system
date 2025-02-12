@@ -334,7 +334,7 @@ class MNISTrainer:
         }
 
         # Save results
-        with open('cifar10_results.json', 'w') as f:
+        with open('mnist_results.json', 'w') as f:
             json.dump(final_results, f, indent=4)
 
         #Move bio_vis folder if it exists
