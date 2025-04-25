@@ -23,7 +23,7 @@ class BioLogicalNeuron(nn.Module):
         plasticity_rate: float = 0.008,
         repair_threshold: float = 0.5,
         repair_intensity: float = 0.08,
-        calcium_threshold: float = 0.7,  # New parameter: optimal calcium threshold
+        calcium_threshold: float = 0.9,  
         enable_monitoring: bool = True,
         log_file: Optional[str] = "bioneuron_health.log",
         summary_interval: int = 100,  
