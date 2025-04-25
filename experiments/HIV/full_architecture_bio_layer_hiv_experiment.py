@@ -12,11 +12,11 @@ from ogb.graphproppred import PygGraphPropPredDataset
 import torch.nn as nn
 import torch.nn.functional as F
 from torch_geometric.nn import GATConv, global_mean_pool, global_add_pool, JumpingKnowledge, BatchNorm
-from torch.nn.utils import spectral_norm
-from torch_geometric.data import DataLoader
+import torch.nn.utils.parametrizations as parametrizations
+from torch_geometric.loader import DataLoader  # Updated import
 from torch.utils.data import random_split, Subset
-from bioneural.core.biololgicallayer import BioLogicalNeuron
 from torch_geometric.datasets import TUDataset
+from bioneural.core.biololgicallayer import BioLogicalNeuron
 
 from sklearn.model_selection import StratifiedKFold
 from sklearn.metrics import (
@@ -26,8 +26,9 @@ from sklearn.metrics import (
     roc_auc_score
 )
 import shutil
-# Set default tensor type to float to prevent dtype issues
-torch.set_default_tensor_type(torch.FloatTensor)
+
+# Set default dtype instead of default tensor type
+torch.set_default_dtype(torch.float32)
 
 import random
 def augment_batch(batch):
@@ -85,20 +86,15 @@ def create_results_directory():
     return results_dir
 
 
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
-from torch_geometric.nn import GATConv, global_mean_pool, global_add_pool, JumpingKnowledge
-from torch.nn.utils import spectral_norm
-
 class GraphBioNetwork(nn.Module):
-    def __init__(self, num_node_features, num_classes=2,enable_monitoring=False, disable_monitoring=False,results_dir = 'hiv_results_full_architecture'):
+    def __init__(self, num_node_features, num_classes=2, enable_monitoring=False, disable_monitoring=False, results_dir='hiv_results_full_architecture'):
         super().__init__()
         
         # Increased complexity and capacity
         hidden_dim = 512  # Doubled hidden dimension
         monitoring_state = enable_monitoring and not disable_monitoring
         log_base_path = os.path.join(results_dir, 'logs')
+        
         # Deeper GAT layers with more heads
         self.gat1 = GATConv(num_node_features, hidden_dim // 16, heads=16, dropout=0.15)
         self.gat2 = GATConv(hidden_dim, hidden_dim // 16, heads=16, dropout=0.15)
@@ -119,25 +115,25 @@ class GraphBioNetwork(nn.Module):
         # Enhanced biological layers with finer-tuned parameters
         jk_dim = hidden_dim * 2
         self.bio_layers = nn.ModuleList([
-            BioLogicalNeuron(jk_dim, 2048, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001,enable_monitoring=monitoring_state,log_file=os.path.join(log_base_path,'full_architecture_hiv.log')),
-            BioLogicalNeuron(2048, 1024, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001,enable_monitoring=monitoring_state,log_file=os.path.join(log_base_path,'full_architecture_hiv.log')),
-            BioLogicalNeuron(1024, 512, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001,enable_monitoring=monitoring_state,log_file=os.path.join(log_base_path,'full_architecture_hiv.log')),
-            BioLogicalNeuron(512, 256, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001,enable_monitoring=monitoring_state,log_file=os.path.join(log_base_path,'full_architecture_hiv.log')),
-            BioLogicalNeuron(256, 128, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001,enable_monitoring=monitoring_state,log_file=os.path.join(log_base_path,'full_architecture_hiv.log')),
+            BioLogicalNeuron(jk_dim, 2048, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001, enable_monitoring=monitoring_state, log_file=os.path.join(log_base_path, 'full_architecture_hiv.log')),
+            BioLogicalNeuron(2048, 1024, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001, enable_monitoring=monitoring_state, log_file=os.path.join(log_base_path, 'full_architecture_hiv.log')),
+            BioLogicalNeuron(1024, 512, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001, enable_monitoring=monitoring_state, log_file=os.path.join(log_base_path, 'full_architecture_hiv.log')),
+            BioLogicalNeuron(512, 256, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001, enable_monitoring=monitoring_state, log_file=os.path.join(log_base_path, 'full_architecture_hiv.log')),
+            BioLogicalNeuron(256, 128, repair_threshold=0.95, repair_intensity=0.02, plasticity_rate=0.001, enable_monitoring=monitoring_state, log_file=os.path.join(log_base_path, 'full_architecture_hiv.log')),
         ])
         
-        # Advanced classifier with skip connections
+        # Advanced classifier with skip connections using parametrizations.weight_norm instead of spectral_norm
         self.classifier = nn.Sequential(
             nn.LayerNorm(128),
-            spectral_norm(nn.Linear(128, 512)),
+            parametrizations.weight_norm(nn.Linear(128, 512)),
             nn.GELU(),
             nn.Dropout(0.1),
             nn.LayerNorm(512),
-            spectral_norm(nn.Linear(512, 256)),
+            parametrizations.weight_norm(nn.Linear(512, 256)),
             nn.GELU(),
             nn.Dropout(0.1),
             nn.LayerNorm(256),
-            spectral_norm(nn.Linear(256, num_classes))
+            parametrizations.weight_norm(nn.Linear(256, num_classes))
         )
 
     def forward(self, data):
@@ -291,7 +287,8 @@ class HIVTrainer:
                 num_node_features=self.dataset.num_node_features, 
                 num_classes=self.dataset.num_classes,
                 enable_monitoring=self.enable_monitoring,
-                disable_monitoring=self.disable_monitoring
+                disable_monitoring=self.disable_monitoring,
+                results_dir=self.results_dir
             ).to(self.device)
 
             # Use get_training_components to get criterion, optimizer, and scheduler
@@ -303,6 +300,7 @@ class HIVTrainer:
             # Training loop with progress bar
             best_val_acc = 0
             best_val_loss = float('inf')
+            model_path = os.path.join(self.results_dir, 'models', f'best_model_fold{fold}.pth')
             epoch_progress = tqdm(range(100), desc=f"Fold {fold+1} Training", leave=False)
 
             for epoch in epoch_progress:
@@ -332,42 +330,48 @@ class HIVTrainer:
                     print(f"Early stopping triggered in fold {fold+1} at epoch {epoch}")
                     break
 
-                # Model checkpoint
+                # Model checkpoint - FIXED: Save model before trying to load it
                 if val_metrics['accuracy'] > best_val_acc:
                     best_val_acc = val_metrics['accuracy']
                     best_val_loss = val_metrics['loss']
-                    model_path = os.path.join(self.results_dir, 'models', f'best_model_fold{fold}.pth')
-                    model.load_state_dict(torch.load(model_path))
+                    torch.save(model.state_dict(), model_path)
 
                 # Step the scheduler
                 scheduler.step()
 
             # Test evaluation with best model
-            model.load_state_dict(torch.load(model_path))
-            test_progress = tqdm(desc=f"Fold {fold+1} Testing", total=1)
-            test_metrics = self._evaluate(model, test_loader, criterion)
-            test_progress.update(1)
-            test_progress.close()
+            try:
+                model.load_state_dict(torch.load(model_path, weights_only=True))
+                test_progress = tqdm(desc=f"Fold {fold+1} Testing", total=1)
+                test_metrics = self._evaluate(model, test_loader, criterion)
+                test_progress.update(1)
+                test_progress.close()
 
-            # Store results
-            for metric in results:
-                results[metric].append(test_metrics[metric])
+                # Store results
+                for metric in results:
+                    results[metric].append(test_metrics[metric])
 
-            # Update cross-validation progress
-            cv_progress.set_postfix({
-                'Best Val Acc': f'{best_val_acc:.4f}',
-                'Test Acc': f'{test_metrics["accuracy"]:.4f}'
-            })
-
-            # Wandb log test metrics if enabled
-            if self.wandb_logging:
-                wandb.log({
-                    f"Fold_{fold+1}/Test_Accuracy": test_metrics['accuracy'],
-                    f"Fold_{fold+1}/Test_Precision": test_metrics['precision'],
-                    f"Fold_{fold+1}/Test_Recall": test_metrics['recall'],
-                    f"Fold_{fold+1}/Test_F1_Score": test_metrics['f1_score'],
-                    f"Fold_{fold+1}/Test_AUC": test_metrics['auc']
+                # Update cross-validation progress
+                cv_progress.set_postfix({
+                    'Best Val Acc': f'{best_val_acc:.4f}',
+                    'Test Acc': f'{test_metrics["accuracy"]:.4f}'
                 })
+
+                # Wandb log test metrics if enabled
+                if self.wandb_logging:
+                    wandb.log({
+                        f"Fold_{fold+1}/Test_Accuracy": test_metrics['accuracy'],
+                        f"Fold_{fold+1}/Test_Precision": test_metrics['precision'],
+                        f"Fold_{fold+1}/Test_Recall": test_metrics['recall'],
+                        f"Fold_{fold+1}/Test_F1_Score": test_metrics['f1_score'],
+                        f"Fold_{fold+1}/Test_AUC": test_metrics['auc'] if 'auc' in test_metrics else 0.0
+                    })
+            except FileNotFoundError:
+                print(f"Warning: Model file not found for fold {fold}. Using current model state for testing.")
+                test_metrics = self._evaluate(model, test_loader, criterion)
+                # Continue with storing results as above...
+                for metric in results:
+                    results[metric].append(test_metrics[metric])
 
         # Compute final statistics
         publication_results = {
@@ -385,9 +389,8 @@ class HIVTrainer:
             wandb.finish()
 
         # Save results to JSON
-        with open('publication_results.json', 'w') as f:
+        with open(os.path.join(self.results_dir, 'publication_results.json'), 'w') as f:
             json.dump(publication_results, f, indent=4)
-
 
         # Move bio_vis folder if it exists
         if self.enable_monitoring:
@@ -409,6 +412,10 @@ class HIVTrainer:
         
             # Ensure x is float
             batch.x = batch.x.float()
+        
+            # Apply augmentation (optional)
+            if random.random() < 0.5:  # Apply augmentation with 50% probability
+                batch = augment_batch(batch)
         
             optimizer.zero_grad()
             outputs, _ = model(batch)
@@ -444,7 +451,11 @@ class HIVTrainer:
                 y_pred.extend(pred.cpu().numpy())
         
         accuracy = np.mean(np.array(y_true) == np.array(y_pred))
-        precision, recall, f1, _ = precision_recall_fscore_support(y_true, y_pred, average='weighted')
+        
+        # Handle zero_division in precision/recall metrics
+        precision, recall, f1, _ = precision_recall_fscore_support(
+            y_true, y_pred, average='weighted', zero_division=0
+        )
         
         return {
             'loss': total_loss / len(loader),
@@ -458,6 +469,7 @@ class HIVTrainer:
         model.eval()
         total_loss = 0
         y_true, y_pred = [], []
+        y_probs = []  # For AUC calculation
         
         with torch.no_grad():
             for batch in loader:
@@ -470,15 +482,43 @@ class HIVTrainer:
                 loss = criterion(outputs, batch.y)
                 total_loss += loss.item()
                 
+                # Get predictions
                 pred = outputs.argmax(dim=1)
+                probs = F.softmax(outputs, dim=1)
+                
                 y_true.extend(batch.y.cpu().numpy())
                 y_pred.extend(pred.cpu().numpy())
+                y_probs.extend(probs.cpu().numpy())
         
+        # Convert to numpy arrays for metric calculations
+        y_true = np.array(y_true)
+        y_pred = np.array(y_pred)
+        y_probs = np.array(y_probs)
         
+        accuracy = np.mean(y_true == y_pred)
         
-        accuracy = np.mean(np.array(y_true) == np.array(y_pred))
-        precision, recall, f1, _ = precision_recall_fscore_support(y_true, y_pred, average='weighted')
-        auc = roc_auc_score(y_true, y_pred, multi_class='ovr')
+        # Handle zero_division in precision/recall metrics
+        precision, recall, f1, _ = precision_recall_fscore_support(
+            y_true, y_pred, average='weighted', zero_division=0
+        )
+        
+        # Calculate AUC if possible
+        try:
+            # For binary classification
+            if y_probs.shape[1] == 2:
+                auc = roc_auc_score(y_true, y_probs[:, 1])
+            # For multiclass
+            else:
+                auc = roc_auc_score(
+                    np.eye(y_probs.shape[1])[y_true.astype(int)], 
+                    y_probs, 
+                    multi_class='ovr',
+                    average='weighted'
+                )
+        except ValueError:
+            # If AUC calculation fails, set it to 0.5 (random chance)
+            auc = 0.5
+            print("Warning: AUC calculation failed, setting to 0.5")
         
         return {
             'loss': total_loss / len(loader),
@@ -488,9 +528,8 @@ class HIVTrainer:
             'f1_score': f1,
             'auc': auc
         }
+
 import argparse
-
-
 
 def main():
     # Create argument parser

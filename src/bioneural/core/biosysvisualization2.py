@@ -33,7 +33,6 @@ class BioNeuronVisualizer:
         sns.set_theme(style="whitegrid")
         sns.set_palette("husl")
         
-        
     def update(self, step: int, health_report: Dict, calcium_level: torch.Tensor, repair_strategies: Dict = None):
         """Update histories with new data including repair strategies"""
         self.steps.append(step)
@@ -44,14 +43,32 @@ class BioNeuronVisualizer:
         # Track repair strategies
         if repair_strategies:
             for strategy, count in repair_strategies.items():
-                self.repair_strategy_history[strategy].append(count)
+                if strategy in self.repair_strategy_history:
+                    self.repair_strategy_history[strategy].append(count)
+                else:
+                    # If strategy doesn't exist in our tracking dict, initialize it
+                    self.repair_strategy_history[strategy] = [count]
         
         if health_report.get('repair_performed', False):
             self.repair_events.append((step, health_report['current_health'].mean().item()))
             
-            
     def plot_repair_strategies(self):
         """Visualize repair strategy distribution and evolution"""
+        # Check if we have steps and repair strategy data
+        if not self.steps or all(len(data) == 0 for data in self.repair_strategy_history.values()):
+            # Skip plotting if no data is available
+            print("No repair strategy data available for plotting")
+            return
+            
+        # Ensure all strategy arrays have the same length as steps
+        for strategy in self.repair_strategy_history:
+            # If strategy data is empty or shorter than steps, pad with zeros
+            if len(self.repair_strategy_history[strategy]) == 0:
+                self.repair_strategy_history[strategy] = [0] * len(self.steps)
+            elif len(self.repair_strategy_history[strategy]) < len(self.steps):
+                padding = [0] * (len(self.steps) - len(self.repair_strategy_history[strategy]))
+                self.repair_strategy_history[strategy].extend(padding)
+        
         fig, ax = plt.subplots(figsize=(15, 7))
         
         strategies = list(self.repair_strategy_history.keys())
@@ -71,6 +88,11 @@ class BioNeuronVisualizer:
             
     def plot_health_metrics(self):
         """Plot health and stability trends"""
+        if not self.steps or not self.health_history:
+            # Skip plotting if no data is available
+            print("No health metrics data available for plotting")
+            return
+            
         fig, ax = plt.subplots(figsize=(12, 6))
         
         # Plot health trend
@@ -95,6 +117,11 @@ class BioNeuronVisualizer:
         
     def plot_calcium_dynamics(self):
         """Plot calcium level trends"""
+        if not self.steps or not self.calcium_history:
+            # Skip plotting if no data is available
+            print("No calcium data available for plotting")
+            return
+            
         fig, ax = plt.subplots(figsize=(12, 6))
         
         # Plot calcium levels
@@ -121,6 +148,7 @@ class BioNeuronVisualizer:
     def plot_phase_diagram(self):
         """Generate phase diagram showing relationship between health and calcium levels"""
         if not self.health_history or not self.calcium_history:
+            print("No phase diagram data available for plotting")
             return
         
         plt.figure(figsize=(12, 8))
@@ -161,6 +189,11 @@ class BioNeuronVisualizer:
         
     def generate_comprehensive_summary(self):
         """Generate a comprehensive summary plot with repair strategies"""
+        if not self.steps or not self.health_history:
+            # Skip plotting if no data is available
+            print("No data available for comprehensive summary")
+            return
+            
         fig, axs = plt.subplots(2, 2, figsize=(20, 15))
         
         # Health and Stability
@@ -184,11 +217,27 @@ class BioNeuronVisualizer:
         axs[0, 1].legend()
         
         # Repair Strategies Cumulative Plot
+        # Ensure all strategy arrays have the same length as steps
+        for strategy in self.repair_strategy_history:
+            # If strategy data is empty or shorter than steps, pad with zeros
+            if len(self.repair_strategy_history[strategy]) == 0:
+                self.repair_strategy_history[strategy] = [0] * len(self.steps)
+            elif len(self.repair_strategy_history[strategy]) < len(self.steps):
+                padding = [0] * (len(self.steps) - len(self.repair_strategy_history[strategy]))
+                self.repair_strategy_history[strategy].extend(padding)
+                
         strategies = list(self.repair_strategy_history.keys())
         strategy_data = [self.repair_strategy_history[strategy] for strategy in strategies]
-        axs[1, 0].stackplot(self.steps, strategy_data, labels=strategies, alpha=0.7)
-        axs[1, 0].set_title('Repair Strategy Distribution', fontsize=12)
-        axs[1, 0].legend(loc='upper left')
+        
+        # Check if we have strategies to plot
+        if strategies and all(len(data) > 0 for data in strategy_data):
+            axs[1, 0].stackplot(self.steps, strategy_data, labels=strategies, alpha=0.7)
+            axs[1, 0].set_title('Repair Strategy Distribution', fontsize=12)
+            axs[1, 0].legend(loc='upper left')
+        else:
+            axs[1, 0].text(0.5, 0.5, "No repair strategy data available", 
+                          horizontalalignment='center', verticalalignment='center',
+                          transform=axs[1, 0].transAxes, fontsize=12)
         
         # Health-Calcium Phase Space
         scatter = axs[1, 1].scatter(self.health_history, self.calcium_history, 
@@ -204,8 +253,17 @@ class BioNeuronVisualizer:
         
     def save_all_plots(self):
         """Generate and save all visualization plots"""
-        self.plot_health_metrics()
-        self.plot_calcium_dynamics()
-        self.plot_phase_diagram()
-        self.plot_repair_strategies()  # New method
-        self.generate_comprehensive_summary()  # Enhanced summary
+        try:
+            # Check if we have any data to plot
+            if not self.steps:
+                print("No data available for plotting. Skipping all plots.")
+                return
+                
+            self.plot_health_metrics()
+            self.plot_calcium_dynamics()
+            self.plot_phase_diagram()
+            self.plot_repair_strategies()  # New method
+            self.generate_comprehensive_summary()  # Enhanced summary
+        except Exception as e:
+            print(f"Error during plot generation: {str(e)}")
+            # Continue execution even if plotting fails

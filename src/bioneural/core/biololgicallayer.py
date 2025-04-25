@@ -1,30 +1,21 @@
-from dataclasses import dataclass
-import torch
-import torch.nn as nn
-from typing import Optional, Dict, List, Union
-from ..core.homeostasis import HomeostaticRegulation
-from torch.nn.utils import weight_norm
-import torch.nn.functional as F
-from ..utils.logging import HealthLogger
-from ..metrics.healthtracker import HealthTracker
-import logging
-from ..visualization.biosysvisualization import BioNeuronVisualizer
+# Modified BioLogicalNeuron Implementation
+
 from dataclasses import dataclass
 import torch
 import torch.nn as nn
 from typing import Optional, Dict, List, Union
 from collections import defaultdict
 import numpy as np
-from ..core.homeostasis import HomeostaticRegulation
 from torch.nn.utils import weight_norm
 import torch.nn.functional as F
 from ..utils.logging import HealthLogger
 from ..metrics.healthtracker import HealthTracker
 import logging
 from ..visualization.biosysvisualization2 import BioNeuronVisualizer
+from .homeostasis import HomeostaticRegulation
 
 class BioLogicalNeuron(nn.Module):
-    """Enhanced Biological Neuron with advanced repair mechanisms and multi-strategy monitoring"""
+    """Enhanced Biological Neuron with biologically plausible homeostatic regulation and repair mechanisms"""
     def __init__(
         self,
         in_features: int,
@@ -32,6 +23,7 @@ class BioLogicalNeuron(nn.Module):
         plasticity_rate: float = 0.008,
         repair_threshold: float = 0.5,
         repair_intensity: float = 0.08,
+        calcium_threshold: float = 0.7,  # New parameter: optimal calcium threshold
         enable_monitoring: bool = True,
         log_file: Optional[str] = "bioneuron_health.log",
         summary_interval: int = 100,  
@@ -40,7 +32,11 @@ class BioLogicalNeuron(nn.Module):
         super().__init__()
         self.linear = weight_norm(nn.Linear(in_features, out_features))
         self.η = plasticity_rate
+        
+        # Pass calcium_threshold to homeostasis
+        kwargs['calcium_threshold'] = calcium_threshold
         self.homeostasis = HomeostaticRegulation(**kwargs)
+        
         self.repair_threshold = repair_threshold
         self.repair_intensity = repair_intensity
         self.repair_count = 0
@@ -56,12 +52,12 @@ class BioLogicalNeuron(nn.Module):
         self.current_epoch = 0
         self.epoch_metrics = defaultdict(list)
         
-        # New advanced repair tracking
+        # Renamed repair strategies to reflect biological mechanisms
         self.repair_strategies = {
-            'adaptive_noise': 0,
-            'targeted_repair': 0,
-            'gradient_aware_repair': 0,
-            'periodic_reset': 0
+            'synaptic_scaling': 0,
+            'selective_reinforcement': 0,
+            'activity_dependent_pruning': 0,
+            'homeostatic_adjustment': 0
         }
         
     def _setup_logger(self, log_file: Optional[str]) -> logging.Logger:
@@ -114,10 +110,8 @@ class BioLogicalNeuron(nn.Module):
         if self.health_tracker and self.logger:
             self.health_tracker.log_health(health_report, self.step_counter)
             
-            
             self._update_epoch_metrics(health_report)
             
-  
             health = health_report["current_health"].mean().item() if isinstance(health_report["current_health"], torch.Tensor) else health_report["current_health"]
             stability = health_report["stability"].mean().item() if isinstance(health_report["stability"], torch.Tensor) else health_report["stability"]
             
@@ -199,44 +193,65 @@ class BioLogicalNeuron(nn.Module):
         # Reset metrics for next epoch
         self.epoch_metrics = defaultdict(list)
 
-    def adaptive_repair(self, health_report: Dict[str, torch.Tensor], gradients: Optional[torch.Tensor] = None) -> bool:
+    def biologically_plausible_repair(self, health_report: Dict[str, torch.Tensor], gradients: Optional[torch.Tensor] = None) -> bool:
+        """
+        Implement biologically plausible repair mechanisms based on synaptic scaling and selective reinforcement.
+        In biological systems, repair involves structured processes rather than random noise injection.
+        """
         if self.repair_cooldown > 0:
             self.repair_cooldown -= 1
             return False 
         
         current_health = health_report['current_health'].mean().item()
         if current_health < self.repair_threshold:
-            # 1. Adaptive Noise Injection
-            noise_scale = 1.0 - health_report['stability'].item()
-            training_progress = min(1.0, self.step_counter / 10000)
-            adaptive_noise_intensity = self.repair_intensity * (1 - training_progress * 0.5)
-        
-            repair_noise = torch.randn_like(self.linear.weight, device=self.linear.weight.device)
-            repair_noise = repair_noise * noise_scale * adaptive_noise_intensity
-            self.repair_strategies['adaptive_noise'] += 1
-        
-            # 2. Targeted Repair Zones
+            # 1. Activity-Dependent Synaptic Scaling
+            # In biological systems, synaptic scaling reduces weights after periods of high activity
+            calcium_level = self.homeostasis.calcium_levels[-1]
+            high_calcium_mask = calcium_level > self.homeostasis.calcium_threshold
+            
+            # Scale down weights for neurons with high calcium (overactive)
+            if high_calcium_mask.any():
+                scaling_factor = 1.0 - self.repair_intensity * (1.0 - health_report['stability'].item())
+                self.linear.weight.data[high_calcium_mask] *= scaling_factor
+                self.repair_strategies['synaptic_scaling'] += 1
+            
+            # 2. Selective Synaptic Reinforcement
+            # Biological neurons selectively reinforce important connections while pruning weak ones
             weight_variance = torch.var(self.linear.weight, dim=1)
-            low_variance_mask = weight_variance < self.repair_threshold
-            targeted_repair_noise = torch.randn_like(self.linear.weight)
-            targeted_repair_noise[low_variance_mask] *= 0.5
-            self.repair_strategies['targeted_repair'] += 1
-
-            # Apply combined repairs
-            self.linear.weight.data += repair_noise + targeted_repair_noise
-        
+            weight_mean = torch.mean(torch.abs(self.linear.weight), dim=1)
+            
+            # Identify weak and strong synapses
+            weak_synapse_mask = (torch.abs(self.linear.weight) < 0.1 * weight_mean.unsqueeze(1))
+            strong_synapse_mask = (torch.abs(self.linear.weight) > 2.0 * weight_mean.unsqueeze(1))
+            
+            # Selectively prune weak synapses
+            if weak_synapse_mask.any():
+                pruning_factor = 0.9  # Reduce by 10%
+                self.linear.weight.data[weak_synapse_mask] *= pruning_factor
+                self.repair_strategies['activity_dependent_pruning'] += 1
+            
+            # Selectively reinforce strong synapses
+            if strong_synapse_mask.any():
+                reinforcement_factor = 1.05  # Increase by 5%
+                self.linear.weight.data[strong_synapse_mask] *= reinforcement_factor
+                self.repair_strategies['selective_reinforcement'] += 1
+            
+            # 3. Homeostatic Adjustment
+            # Apply global normalization to prevent runaway excitation
+            if torch.norm(self.linear.weight) > 2.0 * self.linear.weight.numel():
+                self.linear.weight.data = self.linear.weight.data / torch.norm(self.linear.weight) * self.linear.weight.numel()
+                self.repair_strategies['homeostatic_adjustment'] += 1
+            
             # Repair tracking
             self.repair_cooldown = 40
             self.repair_count += 1
         
             self.homeostasis.repair_history.append({
-                'intensity': adaptive_noise_intensity,
                 'health': current_health,
                 'stability': health_report['stability'].item()
             })
             return True
         return False
-    
     
     def get_adaptive_learning_rate(self, health_report):
         """Dynamically adjust learning rate based on neuron health"""
@@ -249,7 +264,7 @@ class BioLogicalNeuron(nn.Module):
         return adaptive_lr
 
     def forward(self, x: torch.Tensor, gradients: Optional[torch.Tensor] = None) -> tuple[torch.Tensor, Dict[str, float]]:
-        """Forward pass with advanced health monitoring and multi-strategy repair"""
+        """Forward pass with biologically plausible homeostatic regulation and repair"""
         pre_synaptic = x
         post_synaptic = F.gelu(self.linear(x))
         
@@ -262,7 +277,7 @@ class BioLogicalNeuron(nn.Module):
                 self.homeostasis.synaptic_strengths = self.homeostasis.synaptic_strengths[-self.homeostasis.window:]
             
             health_report = self.homeostasis.predict_health()
-            performed_repair = self.adaptive_repair(health_report, gradients)
+            performed_repair = self.biologically_plausible_repair(health_report, gradients)
             health_report['repair_performed'] = performed_repair
             
             # Compute adaptive learning rate

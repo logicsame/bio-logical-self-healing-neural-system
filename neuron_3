@@ -1,0 +1,1446 @@
+[2025-04-23 18:56:15] INFO - Step 0 | Health: 1.072 | Stability: 1.000
+[2025-04-23 18:56:15] INFO - 
+Health Summary (Steps -49 - 0):
+  Average Health: 1.072
+  Average Stability: 1.000
+  Average Base Health: 0.715
+  Total Repairs: 0
+  Repair Rate: 0.00%
+[2025-04-23 18:56:16] INFO - Step 1 | Health: 1.071 | Stability: 1.000
+[2025-04-23 18:56:16] INFO - Step 2 | Health: 1.070 | Stability: 0.999
+[2025-04-23 18:56:16] INFO - Step 3 | Health: 1.069 | Stability: 0.999
+[2025-04-23 18:56:16] INFO - Step 4 | Health: 1.069 | Stability: 0.998
+[2025-04-23 18:56:16] INFO - Step 5 | Health: 1.068 | Stability: 0.998
+[2025-04-23 18:56:16] INFO - Step 6 | Health: 1.069 | Stability: 0.998
+[2025-04-23 18:56:16] INFO - Step 7 | Health: 1.068 | Stability: 0.998
+[2025-04-23 18:56:16] INFO - Step 8 | Health: 1.067 | Stability: 0.998
+[2025-04-23 18:56:16] INFO - Step 9 | Health: 1.068 | Stability: 0.998
+[2025-04-23 18:56:16] INFO - Step 10 | Health: 1.067 | Stability: 0.998
+[2025-04-23 18:56:17] INFO - Step 11 | Health: 1.066 | Stability: 0.997
+[2025-04-23 18:56:17] INFO - Step 12 | Health: 1.066 | Stability: 0.997
+[2025-04-23 18:56:17] INFO - Step 13 | Health: 1.067 | Stability: 0.997
+[2025-04-23 18:56:17] INFO - Step 14 | Health: 1.065 | Stability: 0.996
+[2025-04-23 18:56:17] INFO - Step 15 | Health: 1.064 | Stability: 0.996
+[2025-04-23 18:56:17] INFO - Step 16 | Health: 1.063 | Stability: 0.996
+[2025-04-23 18:56:17] INFO - Step 17 | Health: 1.063 | Stability: 0.995
+[2025-04-23 18:56:17] INFO - Step 18 | Health: 1.062 | Stability: 0.995
+[2025-04-23 18:56:17] INFO - Step 19 | Health: 1.062 | Stability: 0.995
+[2025-04-23 18:56:17] INFO - Step 20 | Health: 1.063 | Stability: 0.994
+[2025-04-23 18:56:17] INFO - Step 21 | Health: 1.060 | Stability: 0.994
+[2025-04-23 18:56:17] INFO - Step 22 | Health: 1.060 | Stability: 0.993
+[2025-04-23 18:56:18] INFO - Step 23 | Health: 1.059 | Stability: 0.993
+[2025-04-23 18:56:18] INFO - Step 24 | Health: 1.058 | Stability: 0.993
+[2025-04-23 18:56:18] INFO - Step 25 | Health: 1.058 | Stability: 0.992
+[2025-04-23 18:56:18] INFO - Step 26 | Health: 1.057 | Stability: 0.992
+[2025-04-23 18:56:18] INFO - Step 27 | Health: 1.057 | Stability: 0.991
+[2025-04-23 18:56:18] INFO - Step 28 | Health: 1.056 | Stability: 0.991
+[2025-04-23 18:56:18] INFO - Step 29 | Health: 1.056 | Stability: 0.991
+[2025-04-23 18:56:18] INFO - Step 30 | Health: 1.054 | Stability: 0.990
+[2025-04-23 18:56:18] INFO - Step 31 | Health: 1.054 | Stability: 0.990
+[2025-04-23 18:56:18] INFO - Step 32 | Health: 1.054 | Stability: 0.990
+[2025-04-23 18:56:18] INFO - Step 33 | Health: 1.054 | Stability: 0.989
+[2025-04-23 18:56:18] INFO - Step 34 | Health: 1.054 | Stability: 0.989
+[2025-04-23 18:56:19] INFO - Step 35 | Health: 1.052 | Stability: 0.989
+[2025-04-23 18:56:19] INFO - Step 36 | Health: 1.052 | Stability: 0.989
+[2025-04-23 18:56:19] INFO - Step 37 | Health: 1.052 | Stability: 0.988
+[2025-04-23 18:56:19] INFO - Step 38 | Health: 1.051 | Stability: 0.988
+[2025-04-23 18:56:19] INFO - Step 39 | Health: 1.051 | Stability: 0.988
+[2025-04-23 18:56:19] INFO - Step 40 | Health: 1.050 | Stability: 0.987
+[2025-04-23 18:56:19] INFO - Step 41 | Health: 1.051 | Stability: 0.987
+[2025-04-23 18:56:19] INFO - Step 42 | Health: 1.049 | Stability: 0.987
+[2025-04-23 18:56:19] INFO - Step 43 | Health: 1.049 | Stability: 0.987
+[2025-04-23 18:56:19] INFO - Step 44 | Health: 1.049 | Stability: 0.986
+[2025-04-23 18:56:19] INFO - Step 45 | Health: 1.049 | Stability: 0.986
+[2025-04-23 18:56:19] INFO - Step 46 | Health: 1.048 | Stability: 0.986
+[2025-04-23 18:56:20] INFO - Step 47 | Health: 1.047 | Stability: 0.986
+[2025-04-23 18:56:20] INFO - Step 48 | Health: 1.049 | Stability: 0.986
+[2025-04-23 18:56:20] INFO - Step 49 | Health: 1.048 | Stability: 0.986
+[2025-04-23 18:56:20] INFO - Step 50 | Health: 1.047 | Stability: 0.985
+[2025-04-23 18:56:20] INFO - 
+Health Summary (Steps 1 - 50):
+  Average Health: 1.058
+  Average Stability: 0.992
+  Average Base Health: 0.711
+  Total Repairs: 0
+  Repair Rate: 0.00%
+[2025-04-23 18:56:20] INFO - Step 51 | Health: 1.048 | Stability: 0.985
+[2025-04-23 18:56:20] INFO - Step 52 | Health: 1.047 | Stability: 0.985
+[2025-04-23 18:56:20] INFO - Step 53 | Health: 1.047 | Stability: 0.985
+[2025-04-23 18:56:20] INFO - Step 54 | Health: 1.047 | Stability: 0.985
+[2025-04-23 18:56:20] INFO - Step 55 | Health: 1.047 | Stability: 0.985
+[2025-04-23 18:56:20] INFO - Step 56 | Health: 1.046 | Stability: 0.985
+[2025-04-23 18:56:20] INFO - Step 57 | Health: 1.045 | Stability: 0.985
+[2025-04-23 18:56:20] INFO - Step 58 | Health: 1.046 | Stability: 0.985
+[2025-04-23 18:56:20] INFO - Step 59 | Health: 1.045 | Stability: 0.985
+[2025-04-23 18:56:21] INFO - Step 60 | Health: 1.045 | Stability: 0.984
+[2025-04-23 18:56:21] INFO - Step 61 | Health: 1.044 | Stability: 0.984
+[2025-04-23 18:56:21] INFO - Step 62 | Health: 1.044 | Stability: 0.984
+[2025-04-23 18:56:21] INFO - Step 63 | Health: 1.044 | Stability: 0.984
+[2025-04-23 18:56:21] INFO - Step 64 | Health: 1.044 | Stability: 0.984
+[2025-04-23 18:56:21] INFO - Step 65 | Health: 1.043 | Stability: 0.983
+[2025-04-23 18:56:21] INFO - Step 66 | Health: 1.042 | Stability: 0.983
+[2025-04-23 18:56:21] INFO - Step 67 | Health: 1.042 | Stability: 0.983
+[2025-04-23 18:56:21] INFO - Step 68 | Health: 1.042 | Stability: 0.982
+[2025-04-23 18:56:21] INFO - Step 69 | Health: 1.041 | Stability: 0.982
+[2025-04-23 18:56:21] INFO - Step 70 | Health: 1.040 | Stability: 0.982
+[2025-04-23 18:56:21] INFO - Step 71 | Health: 1.039 | Stability: 0.982
+[2025-04-23 18:56:22] INFO - Step 72 | Health: 1.040 | Stability: 0.981
+[2025-04-23 18:56:22] INFO - Step 73 | Health: 1.039 | Stability: 0.981
+[2025-04-23 18:56:22] INFO - Step 74 | Health: 1.039 | Stability: 0.981
+[2025-04-23 18:56:22] INFO - Step 75 | Health: 1.039 | Stability: 0.981
+[2025-04-23 18:56:22] INFO - Step 76 | Health: 1.038 | Stability: 0.980
+[2025-04-23 18:56:22] INFO - Step 77 | Health: 1.038 | Stability: 0.980
+[2025-04-23 18:56:22] INFO - Step 78 | Health: 1.037 | Stability: 0.980
+[2025-04-23 18:56:22] INFO - Step 79 | Health: 1.038 | Stability: 0.980
+[2025-04-23 18:56:22] INFO - Step 80 | Health: 1.037 | Stability: 0.980
+[2025-04-23 18:56:22] INFO - Step 81 | Health: 1.037 | Stability: 0.979
+[2025-04-23 18:56:22] INFO - Step 82 | Health: 1.037 | Stability: 0.979
+[2025-04-23 18:56:22] INFO - Step 83 | Health: 1.036 | Stability: 0.979
+[2025-04-23 18:56:23] INFO - Step 84 | Health: 1.036 | Stability: 0.979
+[2025-04-23 18:56:23] INFO - Step 85 | Health: 1.036 | Stability: 0.979
+[2025-04-23 18:56:23] INFO - Step 86 | Health: 1.035 | Stability: 0.978
+[2025-04-23 18:56:23] INFO - Step 87 | Health: 1.035 | Stability: 0.978
+[2025-04-23 18:56:23] INFO - Step 88 | Health: 1.035 | Stability: 0.978
+[2025-04-23 18:56:23] INFO - Step 89 | Health: 1.035 | Stability: 0.978
+[2025-04-23 18:56:23] INFO - Step 90 | Health: 1.034 | Stability: 0.978
+[2025-04-23 18:56:23] INFO - Step 91 | Health: 1.034 | Stability: 0.978
+[2025-04-23 18:56:23] INFO - Step 92 | Health: 1.034 | Stability: 0.978
+[2025-04-23 18:56:23] INFO - Step 93 | Health: 1.035 | Stability: 0.978
+[2025-04-23 18:56:23] INFO - Step 94 | Health: 1.034 | Stability: 0.978
+[2025-04-23 18:56:24] INFO - Step 95 | Health: 1.034 | Stability: 0.977
+[2025-04-23 18:56:24] INFO - Step 96 | Health: 1.034 | Stability: 0.977
+[2025-04-23 18:56:24] INFO - Step 97 | Health: 1.033 | Stability: 0.977
+[2025-04-23 18:56:24] INFO - Step 98 | Health: 1.034 | Stability: 0.977
+[2025-04-23 18:56:24] INFO - Step 99 | Health: 1.034 | Stability: 0.977
+[2025-04-23 18:56:24] INFO - Step 100 | Health: 1.034 | Stability: 0.977
+[2025-04-23 18:56:24] INFO - 
+Health Summary (Steps 51 - 100):
+  Average Health: 1.049
+  Average Stability: 0.987
+  Average Base Health: 0.709
+  Total Repairs: 0
+  Repair Rate: 0.00%
+[2025-04-23 18:56:24] INFO - Step 101 | Health: 1.034 | Stability: 0.977
+[2025-04-23 18:56:24] INFO - Step 102 | Health: 1.034 | Stability: 0.977
+[2025-04-23 18:56:24] INFO - Step 103 | Health: 1.034 | Stability: 0.977
+[2025-04-23 18:56:24] INFO - Step 104 | Health: 1.034 | Stability: 0.977
+[2025-04-23 18:56:24] INFO - Step 105 | Health: 1.035 | Stability: 0.977
+[2025-04-23 18:56:24] INFO - Step 106 | Health: 1.035 | Stability: 0.977
+[2025-04-23 18:56:25] INFO - Step 107 | Health: 1.034 | Stability: 0.977
+[2025-04-23 18:56:25] INFO - Step 108 | Health: 1.035 | Stability: 0.977
+[2025-04-23 18:56:25] INFO - Step 109 | Health: 1.035 | Stability: 0.978
+[2025-04-23 18:56:25] INFO - Step 110 | Health: 1.036 | Stability: 0.978
+[2025-04-23 18:56:25] INFO - Step 111 | Health: 1.035 | Stability: 0.978
+[2025-04-23 18:56:25] INFO - Step 112 | Health: 1.035 | Stability: 0.978
+[2025-04-23 18:56:25] INFO - Step 113 | Health: 1.036 | Stability: 0.978
+[2025-04-23 18:56:25] INFO - Step 114 | Health: 1.036 | Stability: 0.978
+[2025-04-23 18:56:25] INFO - Step 115 | Health: 1.036 | Stability: 0.978
+[2025-04-23 18:56:25] INFO - Step 116 | Health: 1.035 | Stability: 0.978
+[2025-04-23 18:56:25] INFO - Step 117 | Health: 1.035 | Stability: 0.978
+[2025-04-23 18:56:26] INFO - Step 118 | Health: 1.035 | Stability: 0.978
+[2025-04-23 18:56:26] INFO - Step 119 | Health: 1.035 | Stability: 0.978
+[2025-04-23 18:56:26] INFO - Step 120 | Health: 1.035 | Stability: 0.978
+[2025-04-23 18:56:26] INFO - Step 121 | Health: 1.034 | Stability: 0.978
+[2025-04-23 18:56:26] INFO - Step 122 | Health: 1.034 | Stability: 0.978
+[2025-04-23 18:56:26] INFO - Step 123 | Health: 1.034 | Stability: 0.977
+[2025-04-23 18:56:26] INFO - Step 124 | Health: 1.034 | Stability: 0.977
+[2025-04-23 18:56:26] INFO - Step 125 | Health: 1.033 | Stability: 0.977
+[2025-04-23 18:56:26] INFO - Step 126 | Health: 1.033 | Stability: 0.977
+[2025-04-23 18:56:26] INFO - Step 127 | Health: 1.032 | Stability: 0.977
+[2025-04-23 18:56:27] INFO - Step 128 | Health: 1.032 | Stability: 0.977
+[2025-04-23 18:56:27] INFO - Step 129 | Health: 1.033 | Stability: 0.976
+[2025-04-23 18:56:27] INFO - Step 130 | Health: 1.032 | Stability: 0.976
+[2025-04-23 18:56:27] INFO - Step 131 | Health: 1.033 | Stability: 0.976
+[2025-04-23 18:56:27] INFO - Step 132 | Health: 1.032 | Stability: 0.976
+[2025-04-23 18:56:27] INFO - Step 133 | Health: 1.031 | Stability: 0.976
+[2025-04-23 18:56:27] INFO - Step 134 | Health: 1.032 | Stability: 0.976
+[2025-04-23 18:56:27] INFO - Step 135 | Health: 1.031 | Stability: 0.976
+[2025-04-23 18:56:27] INFO - Step 136 | Health: 1.031 | Stability: 0.976
+[2025-04-23 18:56:28] INFO - Step 137 | Health: 1.031 | Stability: 0.975
+[2025-04-23 18:56:28] INFO - Step 138 | Health: 1.032 | Stability: 0.975
+[2025-04-23 18:56:28] INFO - Step 139 | Health: 1.031 | Stability: 0.975
+[2025-04-23 18:56:28] INFO - Step 140 | Health: 1.032 | Stability: 0.975
+[2025-04-23 18:56:28] INFO - Step 141 | Health: 1.032 | Stability: 0.975
+[2025-04-23 18:56:28] INFO - Step 142 | Health: 1.032 | Stability: 0.975
+[2025-04-23 18:56:28] INFO - Step 143 | Health: 1.032 | Stability: 0.976
+[2025-04-23 18:56:28] INFO - Step 144 | Health: 1.032 | Stability: 0.976
+[2025-04-23 18:56:28] INFO - Step 145 | Health: 1.033 | Stability: 0.976
+[2025-04-23 18:56:28] INFO - Step 146 | Health: 1.033 | Stability: 0.976
+[2025-04-23 18:56:29] INFO - Step 147 | Health: 1.034 | Stability: 0.976
+[2025-04-23 18:56:29] INFO - Step 148 | Health: 1.034 | Stability: 0.976
+[2025-04-23 18:56:29] INFO - Step 149 | Health: 1.034 | Stability: 0.976
+[2025-04-23 18:56:29] INFO - Step 150 | Health: 1.034 | Stability: 0.977
+[2025-04-23 18:56:29] INFO - 
+Health Summary (Steps 101 - 150):
+  Average Health: 1.044
+  Average Stability: 0.983
+  Average Base Health: 0.708
+  Total Repairs: 0
+  Repair Rate: 0.00%
+[2025-04-23 18:56:29] INFO - Step 151 | Health: 1.034 | Stability: 0.977
+[2025-04-23 18:56:29] INFO - Step 152 | Health: 1.034 | Stability: 0.977
+[2025-04-23 18:56:29] INFO - Step 153 | Health: 1.034 | Stability: 0.977
+[2025-04-23 18:56:29] INFO - Step 154 | Health: 1.035 | Stability: 0.977
+[2025-04-23 18:56:29] INFO - Step 155 | Health: 1.035 | Stability: 0.977
+[2025-04-23 18:56:30] INFO - Step 156 | Health: 1.035 | Stability: 0.977
+[2025-04-23 18:56:30] INFO - Step 157 | Health: 1.035 | Stability: 0.977
+[2025-04-23 18:56:30] INFO - Step 158 | Health: 1.035 | Stability: 0.977
+[2025-04-23 18:56:30] INFO - Step 159 | Health: 1.034 | Stability: 0.977
+[2025-04-23 18:56:30] INFO - Step 160 | Health: 1.034 | Stability: 0.977
+[2025-04-23 18:56:30] INFO - Step 161 | Health: 1.033 | Stability: 0.977
+[2025-04-23 18:56:30] INFO - Step 162 | Health: 1.034 | Stability: 0.977
+[2025-04-23 18:56:30] INFO - Step 163 | Health: 1.033 | Stability: 0.977
+[2025-04-23 18:56:30] INFO - Step 164 | Health: 1.033 | Stability: 0.977
+[2025-04-23 18:56:30] INFO - Step 165 | Health: 1.033 | Stability: 0.977
+[2025-04-23 18:56:30] INFO - Step 166 | Health: 1.034 | Stability: 0.977
+[2025-04-23 18:56:31] INFO - Step 167 | Health: 1.033 | Stability: 0.976
+[2025-04-23 18:56:31] INFO - Step 168 | Health: 1.033 | Stability: 0.976
+[2025-04-23 18:56:31] INFO - Step 169 | Health: 1.033 | Stability: 0.976
+[2025-04-23 18:56:31] INFO - Step 170 | Health: 1.033 | Stability: 0.976
+[2025-04-23 18:56:31] INFO - Step 171 | Health: 1.034 | Stability: 0.976
+[2025-04-23 18:56:31] INFO - Step 172 | Health: 1.033 | Stability: 0.976
+[2025-04-23 18:56:31] INFO - Step 173 | Health: 1.034 | Stability: 0.976
+[2025-04-23 18:56:31] INFO - Step 174 | Health: 1.033 | Stability: 0.976
+[2025-04-23 18:56:31] INFO - Step 175 | Health: 1.033 | Stability: 0.976
+[2025-04-23 18:56:32] INFO - Step 176 | Health: 1.033 | Stability: 0.976
+[2025-04-23 18:56:32] INFO - Step 177 | Health: 1.034 | Stability: 0.976
+[2025-04-23 18:56:32] INFO - Step 178 | Health: 1.035 | Stability: 0.976
+[2025-04-23 18:56:32] INFO - Step 179 | Health: 1.033 | Stability: 0.976
+[2025-04-23 18:56:32] INFO - Step 180 | Health: 1.033 | Stability: 0.976
+[2025-04-23 18:56:32] INFO - Step 181 | Health: 1.032 | Stability: 0.976
+[2025-04-23 18:56:32] INFO - Step 182 | Health: 1.033 | Stability: 0.976
+[2025-04-23 18:56:32] INFO - Step 183 | Health: 1.032 | Stability: 0.976
+[2025-04-23 18:56:32] INFO - Step 184 | Health: 1.032 | Stability: 0.976
+[2025-04-23 18:56:32] INFO - Step 185 | Health: 1.032 | Stability: 0.976
+[2025-04-23 18:56:32] INFO - Step 186 | Health: 1.032 | Stability: 0.975
+[2025-04-23 18:56:33] INFO - Step 187 | Health: 1.031 | Stability: 0.975
+[2025-04-23 18:56:33] INFO - Step 188 | Health: 1.032 | Stability: 0.975
+[2025-04-23 18:56:33] INFO - Step 189 | Health: 1.031 | Stability: 0.975
+[2025-04-23 18:56:33] INFO - Step 190 | Health: 1.032 | Stability: 0.975
+[2025-04-23 18:56:33] INFO - Step 191 | Health: 1.032 | Stability: 0.975
+[2025-04-23 18:56:33] INFO - Step 192 | Health: 1.032 | Stability: 0.975
+[2025-04-23 18:56:33] INFO - Step 193 | Health: 1.032 | Stability: 0.975
+[2025-04-23 18:56:33] INFO - Step 194 | Health: 1.032 | Stability: 0.975
+[2025-04-23 18:56:33] INFO - Step 195 | Health: 1.032 | Stability: 0.975
+[2025-04-23 18:56:33] INFO - Step 196 | Health: 1.032 | Stability: 0.975
+[2025-04-23 18:56:34] INFO - Step 197 | Health: 1.032 | Stability: 0.975
+[2025-04-23 18:56:34] INFO - Step 198 | Health: 1.033 | Stability: 0.975
+[2025-04-23 18:56:34] INFO - Step 199 | Health: 1.033 | Stability: 0.975
+[2025-04-23 18:56:34] INFO - Step 200 | Health: 1.033 | Stability: 0.975
+[2025-04-23 18:56:34] INFO - 
+Health Summary (Steps 151 - 200):
+  Average Health: 1.041
+  Average Stability: 0.982
+  Average Base Health: 0.707
+  Total Repairs: 0
+  Repair Rate: 0.00%
+[2025-04-23 18:56:34] INFO - Step 201 | Health: 1.034 | Stability: 0.975
+[2025-04-23 18:56:34] INFO - Step 202 | Health: 1.033 | Stability: 0.975
+[2025-04-23 18:56:34] INFO - Step 203 | Health: 1.034 | Stability: 0.976
+[2025-04-23 18:56:34] INFO - Step 204 | Health: 1.034 | Stability: 0.976
+[2025-04-23 18:56:34] INFO - Step 205 | Health: 1.034 | Stability: 0.976
+[2025-04-23 18:56:34] INFO - Step 206 | Health: 1.035 | Stability: 0.976
+[2025-04-23 18:56:34] INFO - Step 207 | Health: 1.034 | Stability: 0.976
+[2025-04-23 18:56:35] INFO - Step 208 | Health: 1.035 | Stability: 0.976
+[2025-04-23 18:56:35] INFO - Step 209 | Health: 1.035 | Stability: 0.976
+[2025-04-23 18:56:35] INFO - Step 210 | Health: 1.035 | Stability: 0.976
+[2025-04-23 18:56:35] INFO - Step 211 | Health: 1.035 | Stability: 0.976
+[2025-04-23 18:56:35] INFO - Step 212 | Health: 1.035 | Stability: 0.977
+[2025-04-23 18:56:35] INFO - Step 213 | Health: 1.035 | Stability: 0.977
+[2025-04-23 18:56:35] INFO - Step 214 | Health: 1.035 | Stability: 0.977
+[2025-04-23 18:56:35] INFO - Step 215 | Health: 1.035 | Stability: 0.977
+[2025-04-23 18:56:35] INFO - Step 216 | Health: 1.034 | Stability: 0.977
+[2025-04-23 18:56:35] INFO - Step 217 | Health: 1.035 | Stability: 0.977
+[2025-04-23 18:56:36] INFO - Step 218 | Health: 1.035 | Stability: 0.977
+[2025-04-23 18:56:36] INFO - Step 219 | Health: 1.035 | Stability: 0.976
+[2025-04-23 18:56:36] INFO - Step 220 | Health: 1.035 | Stability: 0.976
+[2025-04-23 18:56:36] INFO - Step 221 | Health: 1.034 | Stability: 0.976
+[2025-04-23 18:56:36] INFO - Step 222 | Health: 1.034 | Stability: 0.976
+[2025-04-23 18:56:36] INFO - Step 223 | Health: 1.033 | Stability: 0.976
+[2025-04-23 18:56:36] INFO - Step 224 | Health: 1.034 | Stability: 0.976
+[2025-04-23 18:56:36] INFO - Step 225 | Health: 1.033 | Stability: 0.976
+[2025-04-23 18:56:37] INFO - Step 226 | Health: 1.033 | Stability: 0.976
+[2025-04-23 18:56:37] INFO - Step 227 | Health: 1.033 | Stability: 0.975
+[2025-04-23 18:56:37] INFO - Step 228 | Health: 1.032 | Stability: 0.975
+[2025-04-23 18:56:37] INFO - Step 229 | Health: 1.032 | Stability: 0.975
+[2025-04-23 18:56:37] INFO - Step 230 | Health: 1.032 | Stability: 0.975
+[2025-04-23 18:56:37] INFO - Step 231 | Health: 1.032 | Stability: 0.975
+[2025-04-23 18:56:37] INFO - Step 232 | Health: 1.032 | Stability: 0.975
+[2025-04-23 18:56:37] INFO - Step 233 | Health: 1.032 | Stability: 0.975
+[2025-04-23 18:56:37] INFO - Step 234 | Health: 1.032 | Stability: 0.975
+[2025-04-23 18:56:38] INFO - Step 235 | Health: 1.032 | Stability: 0.975
+[2025-04-23 18:56:38] INFO - Step 236 | Health: 1.032 | Stability: 0.975
+[2025-04-23 18:56:38] INFO - Step 237 | Health: 1.031 | Stability: 0.975
+[2025-04-23 18:56:38] INFO - Step 238 | Health: 1.032 | Stability: 0.974
+[2025-04-23 18:56:38] INFO - Step 239 | Health: 1.032 | Stability: 0.974
+[2025-04-23 18:56:38] INFO - Step 240 | Health: 1.032 | Stability: 0.974
+[2025-04-23 18:56:38] INFO - Step 241 | Health: 1.032 | Stability: 0.974
+[2025-04-23 18:56:38] INFO - Step 242 | Health: 1.031 | Stability: 0.974
+[2025-04-23 18:56:38] INFO - Step 243 | Health: 1.032 | Stability: 0.974
+[2025-04-23 18:56:38] INFO - Step 244 | Health: 1.031 | Stability: 0.974
+[2025-04-23 18:56:39] INFO - Step 245 | Health: 1.033 | Stability: 0.974
+[2025-04-23 18:56:39] INFO - Step 246 | Health: 1.031 | Stability: 0.974
+[2025-04-23 18:56:39] INFO - Step 247 | Health: 1.032 | Stability: 0.974
+[2025-04-23 18:56:39] INFO - Step 248 | Health: 1.032 | Stability: 0.974
+[2025-04-23 18:56:39] INFO - Step 249 | Health: 1.032 | Stability: 0.974
+[2025-04-23 18:56:39] INFO - Step 250 | Health: 1.032 | Stability: 0.974
+[2025-04-23 18:56:39] INFO - 
+Health Summary (Steps 201 - 250):
+  Average Health: 1.040
+  Average Stability: 0.980
+  Average Base Health: 0.707
+  Total Repairs: 0
+  Repair Rate: 0.00%
+[2025-04-23 18:56:39] INFO - Step 251 | Health: 1.032 | Stability: 0.975
+[2025-04-23 18:56:39] INFO - Step 252 | Health: 1.033 | Stability: 0.975
+[2025-04-23 18:56:39] INFO - Step 253 | Health: 1.032 | Stability: 0.975
+[2025-04-23 18:56:40] INFO - Step 254 | Health: 1.033 | Stability: 0.975
+[2025-04-23 18:56:40] INFO - Step 255 | Health: 1.032 | Stability: 0.975
+[2025-04-23 18:56:40] INFO - Step 256 | Health: 1.033 | Stability: 0.975
+[2025-04-23 18:56:40] INFO - Step 257 | Health: 1.033 | Stability: 0.975
+[2025-04-23 18:56:40] INFO - Step 258 | Health: 1.033 | Stability: 0.975
+[2025-04-23 18:56:40] INFO - Step 259 | Health: 1.033 | Stability: 0.975
+[2025-04-23 18:56:40] INFO - Step 260 | Health: 1.034 | Stability: 0.976
+[2025-04-23 18:56:40] INFO - Step 261 | Health: 1.034 | Stability: 0.976
+[2025-04-23 18:56:40] INFO - Step 262 | Health: 1.034 | Stability: 0.976
+[2025-04-23 18:56:40] INFO - Step 263 | Health: 1.034 | Stability: 0.976
+[2025-04-23 18:56:41] INFO - Step 264 | Health: 1.034 | Stability: 0.976
+[2025-04-23 18:56:41] INFO - Step 265 | Health: 1.033 | Stability: 0.976
+[2025-04-23 18:56:41] INFO - Step 266 | Health: 1.034 | Stability: 0.976
+[2025-04-23 18:56:41] INFO - Step 267 | Health: 1.033 | Stability: 0.976
+[2025-04-23 18:56:41] INFO - Step 268 | Health: 1.034 | Stability: 0.976
+[2025-04-23 18:56:41] INFO - Step 269 | Health: 1.034 | Stability: 0.976
+[2025-04-23 18:56:41] INFO - Step 270 | Health: 1.033 | Stability: 0.976
+[2025-04-23 18:56:41] INFO - Step 271 | Health: 1.034 | Stability: 0.976
+[2025-04-23 18:56:41] INFO - Step 272 | Health: 1.033 | Stability: 0.976
+[2025-04-23 18:56:41] INFO - Step 273 | Health: 1.034 | Stability: 0.976
+[2025-04-23 18:56:42] INFO - Step 274 | Health: 1.033 | Stability: 0.976
+[2025-04-23 18:56:42] INFO - Step 275 | Health: 1.034 | Stability: 0.976
+[2025-04-23 18:56:42] INFO - Step 276 | Health: 1.035 | Stability: 0.976
+[2025-04-23 18:56:42] INFO - Step 277 | Health: 1.033 | Stability: 0.976
+[2025-04-23 18:56:42] INFO - Step 278 | Health: 1.034 | Stability: 0.976
+[2025-04-23 18:56:42] INFO - Step 279 | Health: 1.034 | Stability: 0.976
+[2025-04-23 18:56:42] INFO - Step 280 | Health: 1.034 | Stability: 0.976
+[2025-04-23 18:56:42] INFO - Step 281 | Health: 1.034 | Stability: 0.976
+[2025-04-23 18:56:42] INFO - Step 282 | Health: 1.034 | Stability: 0.976
+[2025-04-23 18:56:42] INFO - Step 283 | Health: 1.034 | Stability: 0.976
+[2025-04-23 18:56:43] INFO - Step 284 | Health: 1.034 | Stability: 0.976
+[2025-04-23 18:56:43] INFO - Step 285 | Health: 1.035 | Stability: 0.976
+[2025-04-23 18:56:43] INFO - Step 286 | Health: 1.035 | Stability: 0.976
+[2025-04-23 18:56:43] INFO - Step 287 | Health: 1.035 | Stability: 0.976
+[2025-04-23 18:56:43] INFO - Step 0 | Health: 1.072 | Stability: 1.000
+[2025-04-23 18:56:43] INFO - 
+Health Summary (Steps -49 - 0):
+  Average Health: 1.072
+  Average Stability: 1.000
+  Average Base Health: 0.715
+  Total Repairs: 0
+  Repair Rate: 0.00%
+[2025-04-23 18:56:43] INFO - Step 1 | Health: 1.071 | Stability: 1.000
+[2025-04-23 18:56:43] INFO - Step 2 | Health: 1.070 | Stability: 0.999
+[2025-04-23 18:56:43] INFO - Step 3 | Health: 1.070 | Stability: 0.999
+[2025-04-23 18:56:44] INFO - Step 4 | Health: 1.069 | Stability: 0.999
+[2025-04-23 18:56:44] INFO - Step 5 | Health: 1.069 | Stability: 0.998
+[2025-04-23 18:56:44] INFO - Step 6 | Health: 1.070 | Stability: 0.998
+[2025-04-23 18:56:44] INFO - Step 7 | Health: 1.068 | Stability: 0.998
+[2025-04-23 18:56:44] INFO - Step 8 | Health: 1.067 | Stability: 0.998
+[2025-04-23 18:56:44] INFO - Step 9 | Health: 1.067 | Stability: 0.998
+[2025-04-23 18:56:44] INFO - Step 10 | Health: 1.066 | Stability: 0.997
+[2025-04-23 18:56:44] INFO - Step 11 | Health: 1.066 | Stability: 0.997
+[2025-04-23 18:56:45] INFO - Step 12 | Health: 1.065 | Stability: 0.996
+[2025-04-23 18:56:45] INFO - Step 13 | Health: 1.066 | Stability: 0.996
+[2025-04-23 18:56:45] INFO - Step 14 | Health: 1.064 | Stability: 0.996
+[2025-04-23 18:56:45] INFO - Step 15 | Health: 1.063 | Stability: 0.995
+[2025-04-23 18:56:45] INFO - Step 16 | Health: 1.062 | Stability: 0.995
+[2025-04-23 18:56:45] INFO - Step 17 | Health: 1.061 | Stability: 0.994
+[2025-04-23 18:56:45] INFO - Step 18 | Health: 1.060 | Stability: 0.994
+[2025-04-23 18:56:45] INFO - Step 19 | Health: 1.059 | Stability: 0.993
+[2025-04-23 18:56:46] INFO - Step 20 | Health: 1.060 | Stability: 0.993
+[2025-04-23 18:56:46] INFO - Step 21 | Health: 1.059 | Stability: 0.992
+[2025-04-23 18:56:46] INFO - Step 22 | Health: 1.058 | Stability: 0.992
+[2025-04-23 18:56:46] INFO - Step 23 | Health: 1.057 | Stability: 0.992
+[2025-04-23 18:56:46] INFO - Step 24 | Health: 1.056 | Stability: 0.991
+[2025-04-23 18:56:46] INFO - Step 25 | Health: 1.056 | Stability: 0.991
+[2025-04-23 18:56:46] INFO - Step 26 | Health: 1.055 | Stability: 0.990
+[2025-04-23 18:56:46] INFO - Step 27 | Health: 1.056 | Stability: 0.990
+[2025-04-23 18:56:47] INFO - Step 28 | Health: 1.054 | Stability: 0.990
+[2025-04-23 18:56:47] INFO - Step 29 | Health: 1.053 | Stability: 0.989
+[2025-04-23 18:56:47] INFO - Step 30 | Health: 1.053 | Stability: 0.989
+[2025-04-23 18:56:47] INFO - Step 31 | Health: 1.052 | Stability: 0.989
+[2025-04-23 18:56:47] INFO - Step 32 | Health: 1.052 | Stability: 0.988
+[2025-04-23 18:56:47] INFO - Step 33 | Health: 1.051 | Stability: 0.988
+[2025-04-23 18:56:47] INFO - Step 34 | Health: 1.052 | Stability: 0.987
+[2025-04-23 18:56:47] INFO - Step 35 | Health: 1.050 | Stability: 0.987
+[2025-04-23 18:56:47] INFO - Step 36 | Health: 1.049 | Stability: 0.987
+[2025-04-23 18:56:48] INFO - Step 37 | Health: 1.048 | Stability: 0.986
+[2025-04-23 18:56:48] INFO - Step 38 | Health: 1.048 | Stability: 0.986
+[2025-04-23 18:56:48] INFO - Step 39 | Health: 1.047 | Stability: 0.985
+[2025-04-23 18:56:48] INFO - Step 40 | Health: 1.046 | Stability: 0.985
+[2025-04-23 18:56:48] INFO - Step 41 | Health: 1.047 | Stability: 0.984
+[2025-04-23 18:56:48] INFO - Step 42 | Health: 1.045 | Stability: 0.984
+[2025-04-23 18:56:48] INFO - Step 43 | Health: 1.045 | Stability: 0.984
+[2025-04-23 18:56:48] INFO - Step 44 | Health: 1.044 | Stability: 0.983
+[2025-04-23 18:56:48] INFO - Step 45 | Health: 1.044 | Stability: 0.983
+[2025-04-23 18:56:48] INFO - Step 46 | Health: 1.043 | Stability: 0.983
+[2025-04-23 18:56:49] INFO - Step 47 | Health: 1.042 | Stability: 0.982
+[2025-04-23 18:56:49] INFO - Step 48 | Health: 1.044 | Stability: 0.982
+[2025-04-23 18:56:49] INFO - Step 49 | Health: 1.042 | Stability: 0.982
+[2025-04-23 18:56:49] INFO - Step 50 | Health: 1.042 | Stability: 0.982
+[2025-04-23 18:56:49] INFO - 
+Health Summary (Steps 1 - 50):
+  Average Health: 1.056
+  Average Stability: 0.991
+  Average Base Health: 0.711
+  Total Repairs: 0
+  Repair Rate: 0.00%
+[2025-04-23 18:56:49] INFO - Step 51 | Health: 1.042 | Stability: 0.982
+[2025-04-23 18:56:49] INFO - Step 52 | Health: 1.042 | Stability: 0.981
+[2025-04-23 18:56:49] INFO - Step 53 | Health: 1.041 | Stability: 0.981
+[2025-04-23 18:56:49] INFO - Step 54 | Health: 1.041 | Stability: 0.981
+[2025-04-23 18:56:49] INFO - Step 55 | Health: 1.042 | Stability: 0.981
+[2025-04-23 18:56:49] INFO - Step 56 | Health: 1.040 | Stability: 0.981
+[2025-04-23 18:56:50] INFO - Step 57 | Health: 1.041 | Stability: 0.981
+[2025-04-23 18:56:50] INFO - Step 58 | Health: 1.040 | Stability: 0.981
+[2025-04-23 18:56:50] INFO - Step 59 | Health: 1.041 | Stability: 0.981
+[2025-04-23 18:56:50] INFO - Step 60 | Health: 1.041 | Stability: 0.981
+[2025-04-23 18:56:50] INFO - Step 61 | Health: 1.041 | Stability: 0.981
+[2025-04-23 18:56:50] INFO - Step 62 | Health: 1.041 | Stability: 0.981
+[2025-04-23 18:56:50] INFO - Step 63 | Health: 1.041 | Stability: 0.981
+[2025-04-23 18:56:50] INFO - Step 64 | Health: 1.041 | Stability: 0.981
+[2025-04-23 18:56:50] INFO - Step 65 | Health: 1.040 | Stability: 0.981
+[2025-04-23 18:56:50] INFO - Step 66 | Health: 1.041 | Stability: 0.981
+[2025-04-23 18:56:51] INFO - Step 67 | Health: 1.041 | Stability: 0.981
+[2025-04-23 18:56:51] INFO - Step 68 | Health: 1.041 | Stability: 0.981
+[2025-04-23 18:56:51] INFO - Step 69 | Health: 1.041 | Stability: 0.981
+[2025-04-23 18:56:51] INFO - Step 70 | Health: 1.041 | Stability: 0.981
+[2025-04-23 18:56:51] INFO - Step 71 | Health: 1.041 | Stability: 0.981
+[2025-04-23 18:56:51] INFO - Step 72 | Health: 1.041 | Stability: 0.981
+[2025-04-23 18:56:51] INFO - Step 73 | Health: 1.041 | Stability: 0.981
+[2025-04-23 18:56:51] INFO - Step 74 | Health: 1.041 | Stability: 0.981
+[2025-04-23 18:56:51] INFO - Step 75 | Health: 1.041 | Stability: 0.981
+[2025-04-23 18:56:51] INFO - Step 76 | Health: 1.041 | Stability: 0.981
+[2025-04-23 18:56:52] INFO - Step 77 | Health: 1.041 | Stability: 0.981
+[2025-04-23 18:56:52] INFO - Step 78 | Health: 1.041 | Stability: 0.981
+[2025-04-23 18:56:52] INFO - Step 79 | Health: 1.041 | Stability: 0.981
+[2025-04-23 18:56:52] INFO - Step 80 | Health: 1.041 | Stability: 0.981
+[2025-04-23 18:56:52] INFO - Step 81 | Health: 1.042 | Stability: 0.981
+[2025-04-23 18:56:52] INFO - Step 82 | Health: 1.041 | Stability: 0.981
+[2025-04-23 18:56:52] INFO - Step 83 | Health: 1.041 | Stability: 0.981
+[2025-04-23 18:56:52] INFO - Step 84 | Health: 1.041 | Stability: 0.981
+[2025-04-23 18:56:52] INFO - Step 85 | Health: 1.041 | Stability: 0.981
+[2025-04-23 18:56:52] INFO - Step 86 | Health: 1.041 | Stability: 0.981
+[2025-04-23 18:56:52] INFO - Step 87 | Health: 1.040 | Stability: 0.981
+[2025-04-23 18:56:53] INFO - Step 88 | Health: 1.040 | Stability: 0.981
+[2025-04-23 18:56:53] INFO - Step 89 | Health: 1.041 | Stability: 0.981
+[2025-04-23 18:56:53] INFO - Step 90 | Health: 1.039 | Stability: 0.981
+[2025-04-23 18:56:53] INFO - Step 91 | Health: 1.039 | Stability: 0.981
+[2025-04-23 18:56:53] INFO - Step 92 | Health: 1.040 | Stability: 0.980
+[2025-04-23 18:56:53] INFO - Step 93 | Health: 1.039 | Stability: 0.980
+[2025-04-23 18:56:53] INFO - Step 94 | Health: 1.039 | Stability: 0.980
+[2025-04-23 18:56:54] INFO - Step 95 | Health: 1.040 | Stability: 0.980
+[2025-04-23 18:56:54] INFO - Step 96 | Health: 1.039 | Stability: 0.980
+[2025-04-23 18:56:54] INFO - Step 97 | Health: 1.039 | Stability: 0.980
+[2025-04-23 18:56:54] INFO - Step 98 | Health: 1.039 | Stability: 0.980
+[2025-04-23 18:56:54] INFO - Step 99 | Health: 1.038 | Stability: 0.980
+[2025-04-23 18:56:54] INFO - Step 100 | Health: 1.038 | Stability: 0.980
+[2025-04-23 18:56:54] INFO - 
+Health Summary (Steps 51 - 100):
+  Average Health: 1.049
+  Average Stability: 0.986
+  Average Base Health: 0.709
+  Total Repairs: 0
+  Repair Rate: 0.00%
+[2025-04-23 18:56:54] INFO - Step 101 | Health: 1.039 | Stability: 0.980
+[2025-04-23 18:56:54] INFO - Step 102 | Health: 1.038 | Stability: 0.980
+[2025-04-23 18:56:54] INFO - Step 103 | Health: 1.039 | Stability: 0.980
+[2025-04-23 18:56:55] INFO - Step 104 | Health: 1.037 | Stability: 0.980
+[2025-04-23 18:56:55] INFO - Step 105 | Health: 1.037 | Stability: 0.980
+[2025-04-23 18:56:55] INFO - Step 106 | Health: 1.037 | Stability: 0.980
+[2025-04-23 18:56:55] INFO - Step 107 | Health: 1.037 | Stability: 0.979
+[2025-04-23 18:56:55] INFO - Step 108 | Health: 1.037 | Stability: 0.979
+[2025-04-23 18:56:55] INFO - Step 109 | Health: 1.037 | Stability: 0.979
+[2025-04-23 18:56:55] INFO - Step 110 | Health: 1.036 | Stability: 0.979
+[2025-04-23 18:56:56] INFO - Step 111 | Health: 1.035 | Stability: 0.979
+[2025-04-23 18:56:56] INFO - Step 112 | Health: 1.036 | Stability: 0.978
+[2025-04-23 18:56:56] INFO - Step 113 | Health: 1.036 | Stability: 0.978
+[2025-04-23 18:56:56] INFO - Step 114 | Health: 1.036 | Stability: 0.978
+[2025-04-23 18:56:56] INFO - Step 115 | Health: 1.035 | Stability: 0.978
+[2025-04-23 18:56:56] INFO - Step 116 | Health: 1.036 | Stability: 0.978
+[2025-04-23 18:56:56] INFO - Step 117 | Health: 1.035 | Stability: 0.978
+[2025-04-23 18:56:56] INFO - Step 118 | Health: 1.035 | Stability: 0.978
+[2025-04-23 18:56:57] INFO - Step 119 | Health: 1.035 | Stability: 0.978
+[2025-04-23 18:56:57] INFO - Step 120 | Health: 1.036 | Stability: 0.978
+[2025-04-23 18:56:57] INFO - Step 121 | Health: 1.037 | Stability: 0.978
+[2025-04-23 18:56:57] INFO - Step 122 | Health: 1.036 | Stability: 0.978
+[2025-04-23 18:56:57] INFO - Step 123 | Health: 1.036 | Stability: 0.978
+[2025-04-23 18:56:57] INFO - Step 124 | Health: 1.037 | Stability: 0.978
+[2025-04-23 18:56:57] INFO - Step 125 | Health: 1.036 | Stability: 0.978
+[2025-04-23 18:56:58] INFO - Step 126 | Health: 1.037 | Stability: 0.978
+[2025-04-23 18:56:58] INFO - Step 127 | Health: 1.038 | Stability: 0.979
+[2025-04-23 18:56:58] INFO - Step 128 | Health: 1.038 | Stability: 0.979
+[2025-04-23 18:56:58] INFO - Step 129 | Health: 1.038 | Stability: 0.979
+[2025-04-23 18:56:58] INFO - Step 130 | Health: 1.038 | Stability: 0.979
+[2025-04-23 18:56:58] INFO - Step 131 | Health: 1.038 | Stability: 0.979
+[2025-04-23 18:56:58] INFO - Step 132 | Health: 1.037 | Stability: 0.979
+[2025-04-23 18:56:58] INFO - Step 133 | Health: 1.038 | Stability: 0.979
+[2025-04-23 18:56:58] INFO - Step 134 | Health: 1.038 | Stability: 0.979
+[2025-04-23 18:56:58] INFO - Step 135 | Health: 1.038 | Stability: 0.980
+[2025-04-23 18:56:59] INFO - Step 136 | Health: 1.039 | Stability: 0.980
+[2025-04-23 18:56:59] INFO - Step 137 | Health: 1.038 | Stability: 0.980
+[2025-04-23 18:56:59] INFO - Step 138 | Health: 1.038 | Stability: 0.980
+[2025-04-23 18:56:59] INFO - Step 139 | Health: 1.038 | Stability: 0.980
+[2025-04-23 18:56:59] INFO - Step 140 | Health: 1.039 | Stability: 0.980
+[2025-04-23 18:56:59] INFO - Step 141 | Health: 1.039 | Stability: 0.980
+[2025-04-23 18:56:59] INFO - Step 142 | Health: 1.039 | Stability: 0.980
+[2025-04-23 18:56:59] INFO - Step 143 | Health: 1.039 | Stability: 0.980
+[2025-04-23 18:56:59] INFO - Step 144 | Health: 1.039 | Stability: 0.980
+[2025-04-23 18:57:00] INFO - Step 145 | Health: 1.039 | Stability: 0.979
+[2025-04-23 18:57:00] INFO - Step 146 | Health: 1.038 | Stability: 0.979
+[2025-04-23 18:57:00] INFO - Step 147 | Health: 1.039 | Stability: 0.979
+[2025-04-23 18:57:00] INFO - Step 148 | Health: 1.039 | Stability: 0.979
+[2025-04-23 18:57:00] INFO - Step 149 | Health: 1.039 | Stability: 0.980
+[2025-04-23 18:57:00] INFO - Step 150 | Health: 1.040 | Stability: 0.980
+[2025-04-23 18:57:00] INFO - 
+Health Summary (Steps 101 - 150):
+  Average Health: 1.045
+  Average Stability: 0.984
+  Average Base Health: 0.708
+  Total Repairs: 0
+  Repair Rate: 0.00%
+[2025-04-23 18:57:00] INFO - Step 151 | Health: 1.040 | Stability: 0.980
+[2025-04-23 18:57:01] INFO - Step 152 | Health: 1.040 | Stability: 0.980
+[2025-04-23 18:57:01] INFO - Step 153 | Health: 1.039 | Stability: 0.980
+[2025-04-23 18:57:01] INFO - Step 154 | Health: 1.040 | Stability: 0.980
+[2025-04-23 18:57:01] INFO - Step 155 | Health: 1.040 | Stability: 0.980
+[2025-04-23 18:57:01] INFO - Step 156 | Health: 1.040 | Stability: 0.980
+[2025-04-23 18:57:01] INFO - Step 157 | Health: 1.041 | Stability: 0.980
+[2025-04-23 18:57:01] INFO - Step 158 | Health: 1.040 | Stability: 0.981
+[2025-04-23 18:57:01] INFO - Step 159 | Health: 1.041 | Stability: 0.981
+[2025-04-23 18:57:01] INFO - Step 160 | Health: 1.040 | Stability: 0.981
+[2025-04-23 18:57:02] INFO - Step 161 | Health: 1.041 | Stability: 0.981
+[2025-04-23 18:57:02] INFO - Step 162 | Health: 1.040 | Stability: 0.981
+[2025-04-23 18:57:02] INFO - Step 163 | Health: 1.041 | Stability: 0.981
+[2025-04-23 18:57:02] INFO - Step 164 | Health: 1.040 | Stability: 0.981
+[2025-04-23 18:57:02] INFO - Step 165 | Health: 1.041 | Stability: 0.981
+[2025-04-23 18:57:02] INFO - Step 166 | Health: 1.041 | Stability: 0.980
+[2025-04-23 18:57:02] INFO - Step 167 | Health: 1.039 | Stability: 0.980
+[2025-04-23 18:57:02] INFO - Step 168 | Health: 1.040 | Stability: 0.980
+[2025-04-23 18:57:02] INFO - Step 169 | Health: 1.040 | Stability: 0.980
+[2025-04-23 18:57:02] INFO - Step 170 | Health: 1.040 | Stability: 0.980
+[2025-04-23 18:57:02] INFO - Step 171 | Health: 1.040 | Stability: 0.980
+[2025-04-23 18:57:03] INFO - Step 172 | Health: 1.040 | Stability: 0.980
+[2025-04-23 18:57:03] INFO - Step 173 | Health: 1.040 | Stability: 0.980
+[2025-04-23 18:57:03] INFO - Step 174 | Health: 1.039 | Stability: 0.980
+[2025-04-23 18:57:03] INFO - Step 175 | Health: 1.040 | Stability: 0.980
+[2025-04-23 18:57:03] INFO - Step 176 | Health: 1.039 | Stability: 0.980
+[2025-04-23 18:57:03] INFO - Step 177 | Health: 1.040 | Stability: 0.980
+[2025-04-23 18:57:03] INFO - Step 178 | Health: 1.040 | Stability: 0.980
+[2025-04-23 18:57:03] INFO - Step 179 | Health: 1.040 | Stability: 0.980
+[2025-04-23 18:57:03] INFO - Step 180 | Health: 1.040 | Stability: 0.980
+[2025-04-23 18:57:04] INFO - Step 181 | Health: 1.039 | Stability: 0.980
+[2025-04-23 18:57:04] INFO - Step 182 | Health: 1.040 | Stability: 0.980
+[2025-04-23 18:57:04] INFO - Step 183 | Health: 1.040 | Stability: 0.980
+[2025-04-23 18:57:04] INFO - Step 184 | Health: 1.040 | Stability: 0.980
+[2025-04-23 18:57:04] INFO - Step 185 | Health: 1.039 | Stability: 0.980
+[2025-04-23 18:57:04] INFO - Step 186 | Health: 1.040 | Stability: 0.980
+[2025-04-23 18:57:04] INFO - Step 187 | Health: 1.040 | Stability: 0.980
+[2025-04-23 18:57:04] INFO - Step 188 | Health: 1.039 | Stability: 0.980
+[2025-04-23 18:57:04] INFO - Step 189 | Health: 1.039 | Stability: 0.980
+[2025-04-23 18:57:04] INFO - Step 190 | Health: 1.039 | Stability: 0.980
+[2025-04-23 18:57:05] INFO - Step 191 | Health: 1.039 | Stability: 0.980
+[2025-04-23 18:57:05] INFO - Step 192 | Health: 1.039 | Stability: 0.980
+[2025-04-23 18:57:05] INFO - Step 193 | Health: 1.038 | Stability: 0.980
+[2025-04-23 18:57:05] INFO - Step 194 | Health: 1.038 | Stability: 0.980
+[2025-04-23 18:57:05] INFO - Step 195 | Health: 1.037 | Stability: 0.979
+[2025-04-23 18:57:05] INFO - Step 196 | Health: 1.038 | Stability: 0.979
+[2025-04-23 18:57:05] INFO - Step 197 | Health: 1.038 | Stability: 0.979
+[2025-04-23 18:57:05] INFO - Step 198 | Health: 1.037 | Stability: 0.979
+[2025-04-23 18:57:05] INFO - Step 199 | Health: 1.037 | Stability: 0.979
+[2025-04-23 18:57:05] INFO - Step 200 | Health: 1.037 | Stability: 0.978
+[2025-04-23 18:57:05] INFO - 
+Health Summary (Steps 151 - 200):
+  Average Health: 1.044
+  Average Stability: 0.983
+  Average Base Health: 0.708
+  Total Repairs: 0
+  Repair Rate: 0.00%
+[2025-04-23 18:57:05] INFO - Step 201 | Health: 1.037 | Stability: 0.978
+[2025-04-23 18:57:06] INFO - Step 202 | Health: 1.037 | Stability: 0.978
+[2025-04-23 18:57:06] INFO - Step 203 | Health: 1.037 | Stability: 0.978
+[2025-04-23 18:57:06] INFO - Step 204 | Health: 1.037 | Stability: 0.978
+[2025-04-23 18:57:06] INFO - Step 205 | Health: 1.036 | Stability: 0.978
+[2025-04-23 18:57:06] INFO - Step 206 | Health: 1.037 | Stability: 0.978
+[2025-04-23 18:57:06] INFO - Step 207 | Health: 1.037 | Stability: 0.978
+[2025-04-23 18:57:06] INFO - Step 208 | Health: 1.037 | Stability: 0.978
+[2025-04-23 18:57:06] INFO - Step 209 | Health: 1.037 | Stability: 0.979
+[2025-04-23 18:57:06] INFO - Step 210 | Health: 1.038 | Stability: 0.979
+[2025-04-23 18:57:07] INFO - Step 211 | Health: 1.038 | Stability: 0.979
+[2025-04-23 18:57:07] INFO - Step 212 | Health: 1.038 | Stability: 0.979
+[2025-04-23 18:57:07] INFO - Step 213 | Health: 1.039 | Stability: 0.979
+[2025-04-23 18:57:07] INFO - Step 214 | Health: 1.038 | Stability: 0.979
+[2025-04-23 18:57:07] INFO - Step 215 | Health: 1.038 | Stability: 0.979
+[2025-04-23 18:57:07] INFO - Step 216 | Health: 1.038 | Stability: 0.979
+[2025-04-23 18:57:07] INFO - Step 217 | Health: 1.040 | Stability: 0.979
+[2025-04-23 18:57:07] INFO - Step 0 | Health: 1.072 | Stability: 1.000
+[2025-04-23 18:57:07] INFO - 
+Health Summary (Steps -49 - 0):
+  Average Health: 1.072
+  Average Stability: 1.000
+  Average Base Health: 0.715
+  Total Repairs: 0
+  Repair Rate: 0.00%
+[2025-04-23 18:57:07] INFO - Step 1 | Health: 1.072 | Stability: 1.000
+[2025-04-23 18:57:08] INFO - Step 2 | Health: 1.070 | Stability: 0.999
+[2025-04-23 18:57:08] INFO - Step 3 | Health: 1.070 | Stability: 0.999
+[2025-04-23 18:57:08] INFO - Step 4 | Health: 1.071 | Stability: 0.999
+[2025-04-23 18:57:08] INFO - Step 5 | Health: 1.070 | Stability: 0.998
+[2025-04-23 18:57:08] INFO - Step 6 | Health: 1.070 | Stability: 0.998
+[2025-04-23 18:57:08] INFO - Step 7 | Health: 1.070 | Stability: 0.998
+[2025-04-23 18:57:08] INFO - Step 8 | Health: 1.069 | Stability: 0.998
+[2025-04-23 18:57:08] INFO - Step 9 | Health: 1.069 | Stability: 0.998
+[2025-04-23 18:57:09] INFO - Step 10 | Health: 1.069 | Stability: 0.998
+[2025-04-23 18:57:09] INFO - Step 11 | Health: 1.069 | Stability: 0.998
+[2025-04-23 18:57:09] INFO - Step 12 | Health: 1.069 | Stability: 0.998
+[2025-04-23 18:57:09] INFO - Step 13 | Health: 1.068 | Stability: 0.998
+[2025-04-23 18:57:09] INFO - Step 14 | Health: 1.069 | Stability: 0.997
+[2025-04-23 18:57:09] INFO - Step 15 | Health: 1.068 | Stability: 0.997
+[2025-04-23 18:57:09] INFO - Step 16 | Health: 1.067 | Stability: 0.997
+[2025-04-23 18:57:09] INFO - Step 17 | Health: 1.068 | Stability: 0.997
+[2025-04-23 18:57:10] INFO - Step 18 | Health: 1.068 | Stability: 0.997
+[2025-04-23 18:57:10] INFO - Step 19 | Health: 1.067 | Stability: 0.997
+[2025-04-23 18:57:10] INFO - Step 20 | Health: 1.068 | Stability: 0.997
+[2025-04-23 18:57:10] INFO - Step 21 | Health: 1.067 | Stability: 0.997
+[2025-04-23 18:57:10] INFO - Step 22 | Health: 1.068 | Stability: 0.997
+[2025-04-23 18:57:10] INFO - Step 23 | Health: 1.067 | Stability: 0.997
+[2025-04-23 18:57:10] INFO - Step 24 | Health: 1.067 | Stability: 0.996
+[2025-04-23 18:57:10] INFO - Step 25 | Health: 1.066 | Stability: 0.996
+[2025-04-23 18:57:11] INFO - Step 26 | Health: 1.066 | Stability: 0.996
+[2025-04-23 18:57:11] INFO - Step 27 | Health: 1.066 | Stability: 0.996
+[2025-04-23 18:57:11] INFO - Step 28 | Health: 1.066 | Stability: 0.996
+[2025-04-23 18:57:11] INFO - Step 29 | Health: 1.065 | Stability: 0.996
+[2025-04-23 18:57:11] INFO - Step 30 | Health: 1.064 | Stability: 0.995
+[2025-04-23 18:57:11] INFO - Step 31 | Health: 1.064 | Stability: 0.995
+[2025-04-23 18:57:11] INFO - Step 32 | Health: 1.064 | Stability: 0.995
+[2025-04-23 18:57:11] INFO - Step 33 | Health: 1.064 | Stability: 0.995
+[2025-04-23 18:57:11] INFO - Step 34 | Health: 1.064 | Stability: 0.995
+[2025-04-23 18:57:12] INFO - Step 35 | Health: 1.063 | Stability: 0.995
+[2025-04-23 18:57:12] INFO - Step 36 | Health: 1.063 | Stability: 0.994
+[2025-04-23 18:57:12] INFO - Step 37 | Health: 1.063 | Stability: 0.994
+[2025-04-23 18:57:12] INFO - Step 38 | Health: 1.062 | Stability: 0.994
+[2025-04-23 18:57:12] INFO - Step 39 | Health: 1.063 | Stability: 0.994
+[2025-04-23 18:57:12] INFO - Step 40 | Health: 1.062 | Stability: 0.994
+[2025-04-23 18:57:12] INFO - Step 41 | Health: 1.062 | Stability: 0.993
+[2025-04-23 18:57:12] INFO - Step 42 | Health: 1.061 | Stability: 0.993
+[2025-04-23 18:57:13] INFO - Step 43 | Health: 1.061 | Stability: 0.993
+[2025-04-23 18:57:13] INFO - Step 44 | Health: 1.060 | Stability: 0.993
+[2025-04-23 18:57:13] INFO - Step 45 | Health: 1.060 | Stability: 0.993
+[2025-04-23 18:57:13] INFO - Step 46 | Health: 1.060 | Stability: 0.992
+[2025-04-23 18:57:13] INFO - Step 47 | Health: 1.060 | Stability: 0.992
+[2025-04-23 18:57:13] INFO - Step 48 | Health: 1.059 | Stability: 0.992
+[2025-04-23 18:57:13] INFO - Step 49 | Health: 1.059 | Stability: 0.992
+[2025-04-23 18:57:13] INFO - Step 50 | Health: 1.059 | Stability: 0.991
+[2025-04-23 18:57:13] INFO - 
+Health Summary (Steps 1 - 50):
+  Average Health: 1.066
+  Average Stability: 0.996
+  Average Base Health: 0.713
+  Total Repairs: 0
+  Repair Rate: 0.00%
+[2025-04-23 18:57:14] INFO - Step 51 | Health: 1.058 | Stability: 0.991
+[2025-04-23 18:57:14] INFO - Step 52 | Health: 1.058 | Stability: 0.991
+[2025-04-23 18:57:14] INFO - Step 53 | Health: 1.058 | Stability: 0.991
+[2025-04-23 18:57:14] INFO - Step 54 | Health: 1.057 | Stability: 0.991
+[2025-04-23 18:57:14] INFO - Step 55 | Health: 1.057 | Stability: 0.990
+[2025-04-23 18:57:14] INFO - Step 56 | Health: 1.057 | Stability: 0.990
+[2025-04-23 18:57:14] INFO - Step 57 | Health: 1.057 | Stability: 0.990
+[2025-04-23 18:57:15] INFO - Step 58 | Health: 1.056 | Stability: 0.990
+[2025-04-23 18:57:15] INFO - Step 59 | Health: 1.056 | Stability: 0.990
+[2025-04-23 18:57:15] INFO - Step 60 | Health: 1.056 | Stability: 0.990
+[2025-04-23 18:57:15] INFO - Step 61 | Health: 1.057 | Stability: 0.990
+[2025-04-23 18:57:15] INFO - Step 62 | Health: 1.056 | Stability: 0.989
+[2025-04-23 18:57:15] INFO - Step 63 | Health: 1.056 | Stability: 0.989
+[2025-04-23 18:57:15] INFO - Step 64 | Health: 1.057 | Stability: 0.989
+[2025-04-23 18:57:16] INFO - Step 65 | Health: 1.056 | Stability: 0.989
+[2025-04-23 18:57:16] INFO - Step 66 | Health: 1.056 | Stability: 0.989
+[2025-04-23 18:57:16] INFO - Step 67 | Health: 1.056 | Stability: 0.989
+[2025-04-23 18:57:16] INFO - Step 68 | Health: 1.056 | Stability: 0.989
+[2025-04-23 18:57:16] INFO - Step 69 | Health: 1.056 | Stability: 0.989
+[2025-04-23 18:57:16] INFO - Step 70 | Health: 1.056 | Stability: 0.989
+[2025-04-23 18:57:16] INFO - Step 71 | Health: 1.056 | Stability: 0.989
+[2025-04-23 18:57:16] INFO - Step 72 | Health: 1.057 | Stability: 0.989
+[2025-04-23 18:57:17] INFO - Step 73 | Health: 1.056 | Stability: 0.989
+[2025-04-23 18:57:17] INFO - Step 74 | Health: 1.056 | Stability: 0.989
+[2025-04-23 18:57:17] INFO - Step 75 | Health: 1.057 | Stability: 0.990
+[2025-04-23 18:57:17] INFO - Step 76 | Health: 1.057 | Stability: 0.990
+[2025-04-23 18:57:17] INFO - Step 77 | Health: 1.057 | Stability: 0.990
+[2025-04-23 18:57:17] INFO - Step 78 | Health: 1.057 | Stability: 0.990
+[2025-04-23 18:57:17] INFO - Step 79 | Health: 1.057 | Stability: 0.990
+[2025-04-23 18:57:17] INFO - Step 80 | Health: 1.057 | Stability: 0.990
+[2025-04-23 18:57:17] INFO - Step 81 | Health: 1.057 | Stability: 0.990
+[2025-04-23 18:57:18] INFO - Step 82 | Health: 1.057 | Stability: 0.990
+[2025-04-23 18:57:18] INFO - Step 83 | Health: 1.057 | Stability: 0.990
+[2025-04-23 18:57:18] INFO - Step 84 | Health: 1.056 | Stability: 0.989
+[2025-04-23 18:57:18] INFO - Step 85 | Health: 1.057 | Stability: 0.989
+[2025-04-23 18:57:18] INFO - Step 86 | Health: 1.056 | Stability: 0.989
+[2025-04-23 18:57:18] INFO - Step 87 | Health: 1.056 | Stability: 0.989
+[2025-04-23 18:57:18] INFO - Step 88 | Health: 1.056 | Stability: 0.989
+[2025-04-23 18:57:18] INFO - Step 89 | Health: 1.055 | Stability: 0.989
+[2025-04-23 18:57:18] INFO - Step 90 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:18] INFO - Step 91 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:19] INFO - Step 92 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:19] INFO - Step 93 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:19] INFO - Step 94 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:19] INFO - Step 95 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:19] INFO - Step 96 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:19] INFO - Step 97 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:19] INFO - Step 98 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:19] INFO - Step 99 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:19] INFO - Step 100 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:19] INFO - 
+Health Summary (Steps 51 - 100):
+  Average Health: 1.061
+  Average Stability: 0.993
+  Average Base Health: 0.713
+  Total Repairs: 0
+  Repair Rate: 0.00%
+[2025-04-23 18:57:20] INFO - Step 101 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:20] INFO - Step 102 | Health: 1.054 | Stability: 0.988
+[2025-04-23 18:57:20] INFO - Step 103 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:20] INFO - Step 104 | Health: 1.054 | Stability: 0.988
+[2025-04-23 18:57:20] INFO - Step 105 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:20] INFO - Step 106 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:20] INFO - Step 107 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:20] INFO - Step 108 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:20] INFO - Step 109 | Health: 1.054 | Stability: 0.988
+[2025-04-23 18:57:20] INFO - Step 110 | Health: 1.055 | Stability: 0.987
+[2025-04-23 18:57:20] INFO - Step 111 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:21] INFO - Step 112 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:21] INFO - Step 113 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:21] INFO - Step 114 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:21] INFO - Step 115 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:21] INFO - Step 116 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:21] INFO - Step 117 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:21] INFO - Step 118 | Health: 1.053 | Stability: 0.987
+[2025-04-23 18:57:21] INFO - Step 119 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:57:21] INFO - Step 120 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:57:21] INFO - Step 121 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:57:22] INFO - Step 122 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:57:22] INFO - Step 123 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:57:22] INFO - Step 124 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:57:22] INFO - Step 125 | Health: 1.052 | Stability: 0.986
+[2025-04-23 18:57:22] INFO - Step 126 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:57:22] INFO - Step 127 | Health: 1.052 | Stability: 0.986
+[2025-04-23 18:57:22] INFO - Step 128 | Health: 1.052 | Stability: 0.986
+[2025-04-23 18:57:22] INFO - Step 129 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:57:22] INFO - Step 130 | Health: 1.052 | Stability: 0.986
+[2025-04-23 18:57:22] INFO - Step 131 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:57:23] INFO - Step 132 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:57:23] INFO - Step 133 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:57:23] INFO - Step 134 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:57:23] INFO - Step 135 | Health: 1.054 | Stability: 0.986
+[2025-04-23 18:57:23] INFO - Step 136 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:57:23] INFO - Step 137 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:57:23] INFO - Step 138 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:57:23] INFO - Step 139 | Health: 1.053 | Stability: 0.987
+[2025-04-23 18:57:23] INFO - Step 140 | Health: 1.053 | Stability: 0.987
+[2025-04-23 18:57:23] INFO - Step 141 | Health: 1.053 | Stability: 0.987
+[2025-04-23 18:57:24] INFO - Step 142 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:24] INFO - Step 143 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:24] INFO - Step 144 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:24] INFO - Step 145 | Health: 1.053 | Stability: 0.987
+[2025-04-23 18:57:24] INFO - Step 146 | Health: 1.053 | Stability: 0.987
+[2025-04-23 18:57:24] INFO - Step 147 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:24] INFO - Step 148 | Health: 1.053 | Stability: 0.987
+[2025-04-23 18:57:24] INFO - Step 149 | Health: 1.053 | Stability: 0.987
+[2025-04-23 18:57:24] INFO - Step 150 | Health: 1.053 | Stability: 0.987
+[2025-04-23 18:57:24] INFO - 
+Health Summary (Steps 101 - 150):
+  Average Health: 1.059
+  Average Stability: 0.991
+  Average Base Health: 0.712
+  Total Repairs: 0
+  Repair Rate: 0.00%
+[2025-04-23 18:57:25] INFO - Step 151 | Health: 1.053 | Stability: 0.987
+[2025-04-23 18:57:25] INFO - Step 152 | Health: 1.053 | Stability: 0.987
+[2025-04-23 18:57:25] INFO - Step 153 | Health: 1.053 | Stability: 0.987
+[2025-04-23 18:57:25] INFO - Step 154 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:25] INFO - Step 155 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:25] INFO - Step 156 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:25] INFO - Step 157 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:25] INFO - Step 158 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:26] INFO - Step 159 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:26] INFO - Step 160 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:26] INFO - Step 161 | Health: 1.055 | Stability: 0.987
+[2025-04-23 18:57:26] INFO - Step 162 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:26] INFO - Step 163 | Health: 1.054 | Stability: 0.988
+[2025-04-23 18:57:26] INFO - Step 164 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:26] INFO - Step 165 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:26] INFO - Step 166 | Health: 1.054 | Stability: 0.988
+[2025-04-23 18:57:27] INFO - Step 167 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:27] INFO - Step 168 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:27] INFO - Step 169 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:27] INFO - Step 170 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:27] INFO - Step 171 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:27] INFO - Step 172 | Health: 1.056 | Stability: 0.988
+[2025-04-23 18:57:28] INFO - Step 173 | Health: 1.056 | Stability: 0.988
+[2025-04-23 18:57:28] INFO - Step 174 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:28] INFO - Step 175 | Health: 1.056 | Stability: 0.988
+[2025-04-23 18:57:28] INFO - Step 176 | Health: 1.056 | Stability: 0.988
+[2025-04-23 18:57:28] INFO - Step 177 | Health: 1.057 | Stability: 0.988
+[2025-04-23 18:57:28] INFO - Step 178 | Health: 1.056 | Stability: 0.988
+[2025-04-23 18:57:28] INFO - Step 179 | Health: 1.056 | Stability: 0.988
+[2025-04-23 18:57:29] INFO - Step 180 | Health: 1.056 | Stability: 0.988
+[2025-04-23 18:57:29] INFO - Step 181 | Health: 1.056 | Stability: 0.988
+[2025-04-23 18:57:29] INFO - Step 182 | Health: 1.056 | Stability: 0.989
+[2025-04-23 18:57:29] INFO - Step 183 | Health: 1.057 | Stability: 0.989
+[2025-04-23 18:57:29] INFO - Step 184 | Health: 1.057 | Stability: 0.989
+[2025-04-23 18:57:29] INFO - Step 185 | Health: 1.057 | Stability: 0.989
+[2025-04-23 18:57:29] INFO - Step 186 | Health: 1.057 | Stability: 0.989
+[2025-04-23 18:57:29] INFO - Step 187 | Health: 1.057 | Stability: 0.989
+[2025-04-23 18:57:29] INFO - Step 188 | Health: 1.056 | Stability: 0.989
+[2025-04-23 18:57:30] INFO - Step 189 | Health: 1.057 | Stability: 0.989
+[2025-04-23 18:57:30] INFO - Step 190 | Health: 1.057 | Stability: 0.989
+[2025-04-23 18:57:30] INFO - Step 191 | Health: 1.057 | Stability: 0.989
+[2025-04-23 18:57:30] INFO - Step 192 | Health: 1.057 | Stability: 0.989
+[2025-04-23 18:57:30] INFO - Step 193 | Health: 1.057 | Stability: 0.989
+[2025-04-23 18:57:30] INFO - Step 194 | Health: 1.057 | Stability: 0.989
+[2025-04-23 18:57:30] INFO - Step 195 | Health: 1.057 | Stability: 0.989
+[2025-04-23 18:57:30] INFO - Step 196 | Health: 1.057 | Stability: 0.989
+[2025-04-23 18:57:30] INFO - Step 197 | Health: 1.057 | Stability: 0.989
+[2025-04-23 18:57:31] INFO - Step 198 | Health: 1.058 | Stability: 0.989
+[2025-04-23 18:57:31] INFO - Step 199 | Health: 1.057 | Stability: 0.989
+[2025-04-23 18:57:31] INFO - Step 200 | Health: 1.058 | Stability: 0.989
+[2025-04-23 18:57:31] INFO - 
+Health Summary (Steps 151 - 200):
+  Average Health: 1.058
+  Average Stability: 0.990
+  Average Base Health: 0.712
+  Total Repairs: 0
+  Repair Rate: 0.00%
+[2025-04-23 18:57:31] INFO - Step 201 | Health: 1.058 | Stability: 0.989
+[2025-04-23 18:57:31] INFO - Step 202 | Health: 1.058 | Stability: 0.989
+[2025-04-23 18:57:31] INFO - Step 203 | Health: 1.058 | Stability: 0.989
+[2025-04-23 18:57:31] INFO - Step 204 | Health: 1.058 | Stability: 0.989
+[2025-04-23 18:57:31] INFO - Step 205 | Health: 1.058 | Stability: 0.989
+[2025-04-23 18:57:32] INFO - Step 206 | Health: 1.058 | Stability: 0.989
+[2025-04-23 18:57:32] INFO - Step 207 | Health: 1.058 | Stability: 0.989
+[2025-04-23 18:57:32] INFO - Step 208 | Health: 1.058 | Stability: 0.989
+[2025-04-23 18:57:32] INFO - Step 209 | Health: 1.057 | Stability: 0.989
+[2025-04-23 18:57:32] INFO - Step 210 | Health: 1.058 | Stability: 0.989
+[2025-04-23 18:57:32] INFO - Step 211 | Health: 1.057 | Stability: 0.989
+[2025-04-23 18:57:32] INFO - Step 212 | Health: 1.057 | Stability: 0.989
+[2025-04-23 18:57:32] INFO - Step 213 | Health: 1.057 | Stability: 0.989
+[2025-04-23 18:57:32] INFO - Step 214 | Health: 1.057 | Stability: 0.989
+[2025-04-23 18:57:32] INFO - Step 215 | Health: 1.056 | Stability: 0.989
+[2025-04-23 18:57:32] INFO - Step 216 | Health: 1.056 | Stability: 0.988
+[2025-04-23 18:57:33] INFO - Step 217 | Health: 1.056 | Stability: 0.988
+[2025-04-23 18:57:33] INFO - Step 218 | Health: 1.056 | Stability: 0.988
+[2025-04-23 18:57:33] INFO - Step 219 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:33] INFO - Step 220 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:33] INFO - Step 221 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:33] INFO - Step 222 | Health: 1.055 | Stability: 0.987
+[2025-04-23 18:57:33] INFO - Step 223 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:33] INFO - Step 224 | Health: 1.055 | Stability: 0.987
+[2025-04-23 18:57:33] INFO - Step 225 | Health: 1.055 | Stability: 0.987
+[2025-04-23 18:57:33] INFO - Step 226 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:33] INFO - Step 227 | Health: 1.055 | Stability: 0.987
+[2025-04-23 18:57:33] INFO - Step 228 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:33] INFO - Step 229 | Health: 1.055 | Stability: 0.987
+[2025-04-23 18:57:33] INFO - Step 230 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:33] INFO - Step 231 | Health: 1.055 | Stability: 0.987
+[2025-04-23 18:57:33] INFO - Step 232 | Health: 1.055 | Stability: 0.987
+[2025-04-23 18:57:33] INFO - Step 233 | Health: 1.055 | Stability: 0.987
+[2025-04-23 18:57:33] INFO - Step 234 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:34] INFO - Step 235 | Health: 1.055 | Stability: 0.987
+[2025-04-23 18:57:34] INFO - Step 236 | Health: 1.055 | Stability: 0.987
+[2025-04-23 18:57:34] INFO - Step 237 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:34] INFO - Step 238 | Health: 1.055 | Stability: 0.987
+[2025-04-23 18:57:34] INFO - Step 239 | Health: 1.055 | Stability: 0.987
+[2025-04-23 18:57:34] INFO - Step 240 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:34] INFO - Step 241 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:34] INFO - Step 242 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:34] INFO - Step 243 | Health: 1.054 | Stability: 0.988
+[2025-04-23 18:57:34] INFO - Step 244 | Health: 1.054 | Stability: 0.988
+[2025-04-23 18:57:34] INFO - Step 245 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:34] INFO - Step 246 | Health: 1.055 | Stability: 0.987
+[2025-04-23 18:57:34] INFO - Step 247 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:34] INFO - Step 248 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:34] INFO - Step 249 | Health: 1.055 | Stability: 0.987
+[2025-04-23 18:57:34] INFO - Step 250 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:34] INFO - 
+Health Summary (Steps 201 - 250):
+  Average Health: 1.057
+  Average Stability: 0.990
+  Average Base Health: 0.712
+  Total Repairs: 0
+  Repair Rate: 0.00%
+[2025-04-23 18:57:34] INFO - Step 251 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:34] INFO - Step 252 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:34] INFO - Step 253 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:35] INFO - Step 254 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:35] INFO - Step 255 | Health: 1.055 | Stability: 0.987
+[2025-04-23 18:57:35] INFO - Step 256 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:35] INFO - Step 257 | Health: 1.055 | Stability: 0.987
+[2025-04-23 18:57:35] INFO - Step 258 | Health: 1.053 | Stability: 0.987
+[2025-04-23 18:57:35] INFO - Step 259 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:35] INFO - Step 260 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:35] INFO - Step 261 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:35] INFO - Step 262 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:35] INFO - Step 263 | Health: 1.054 | Stability: 0.988
+[2025-04-23 18:57:35] INFO - Step 264 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:35] INFO - Step 265 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:35] INFO - Step 266 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:35] INFO - Step 267 | Health: 1.055 | Stability: 0.987
+[2025-04-23 18:57:35] INFO - Step 268 | Health: 1.055 | Stability: 0.987
+[2025-04-23 18:57:35] INFO - Step 269 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:35] INFO - Step 270 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:35] INFO - Step 271 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:35] INFO - Step 272 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:36] INFO - Step 273 | Health: 1.055 | Stability: 0.987
+[2025-04-23 18:57:36] INFO - Step 274 | Health: 1.055 | Stability: 0.987
+[2025-04-23 18:57:36] INFO - Step 275 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:36] INFO - Step 276 | Health: 1.055 | Stability: 0.987
+[2025-04-23 18:57:36] INFO - Step 277 | Health: 1.055 | Stability: 0.987
+[2025-04-23 18:57:36] INFO - Step 278 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:36] INFO - Step 279 | Health: 1.054 | Stability: 0.988
+[2025-04-23 18:57:36] INFO - Step 280 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:36] INFO - Step 281 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:36] INFO - Step 282 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:36] INFO - Step 283 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:36] INFO - Step 284 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:36] INFO - Step 285 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:36] INFO - Step 286 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:36] INFO - Step 287 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:36] INFO - Step 288 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:36] INFO - Step 289 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:36] INFO - Step 290 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:36] INFO - Step 291 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:36] INFO - Step 292 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:37] INFO - Step 293 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:37] INFO - Step 294 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:37] INFO - Step 295 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:37] INFO - Step 296 | Health: 1.056 | Stability: 0.988
+[2025-04-23 18:57:37] INFO - Step 297 | Health: 1.056 | Stability: 0.988
+[2025-04-23 18:57:37] INFO - Step 298 | Health: 1.056 | Stability: 0.988
+[2025-04-23 18:57:37] INFO - Step 299 | Health: 1.056 | Stability: 0.988
+[2025-04-23 18:57:37] INFO - Step 300 | Health: 1.056 | Stability: 0.988
+[2025-04-23 18:57:37] INFO - 
+Health Summary (Steps 251 - 300):
+  Average Health: 1.057
+  Average Stability: 0.989
+  Average Base Health: 0.712
+  Total Repairs: 0
+  Repair Rate: 0.00%
+[2025-04-23 18:57:37] INFO - Step 301 | Health: 1.056 | Stability: 0.989
+[2025-04-23 18:57:37] INFO - Step 302 | Health: 1.057 | Stability: 0.989
+[2025-04-23 18:57:37] INFO - Step 303 | Health: 1.057 | Stability: 0.989
+[2025-04-23 18:57:37] INFO - Step 304 | Health: 1.057 | Stability: 0.989
+[2025-04-23 18:57:37] INFO - Step 305 | Health: 1.057 | Stability: 0.989
+[2025-04-23 18:57:37] INFO - Step 306 | Health: 1.056 | Stability: 0.989
+[2025-04-23 18:57:37] INFO - Step 307 | Health: 1.056 | Stability: 0.989
+[2025-04-23 18:57:37] INFO - Step 308 | Health: 1.057 | Stability: 0.989
+[2025-04-23 18:57:37] INFO - Step 309 | Health: 1.057 | Stability: 0.989
+[2025-04-23 18:57:37] INFO - Step 310 | Health: 1.056 | Stability: 0.989
+[2025-04-23 18:57:37] INFO - Step 311 | Health: 1.056 | Stability: 0.989
+[2025-04-23 18:57:37] INFO - Step 312 | Health: 1.056 | Stability: 0.989
+[2025-04-23 18:57:37] INFO - Step 313 | Health: 1.056 | Stability: 0.989
+[2025-04-23 18:57:38] INFO - Step 314 | Health: 1.056 | Stability: 0.989
+[2025-04-23 18:57:38] INFO - Step 315 | Health: 1.056 | Stability: 0.988
+[2025-04-23 18:57:38] INFO - Step 316 | Health: 1.056 | Stability: 0.988
+[2025-04-23 18:57:38] INFO - Step 317 | Health: 1.056 | Stability: 0.988
+[2025-04-23 18:57:38] INFO - Step 318 | Health: 1.056 | Stability: 0.988
+[2025-04-23 18:57:38] INFO - Step 319 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:38] INFO - Step 320 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:38] INFO - Step 321 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:38] INFO - Step 322 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:38] INFO - Step 323 | Health: 1.056 | Stability: 0.988
+[2025-04-23 18:57:39] INFO - Step 324 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:39] INFO - Step 325 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:39] INFO - Step 326 | Health: 1.054 | Stability: 0.988
+[2025-04-23 18:57:39] INFO - Step 327 | Health: 1.055 | Stability: 0.988
+[2025-04-23 18:57:39] INFO - Step 328 | Health: 1.054 | Stability: 0.988
+[2025-04-23 18:57:39] INFO - Step 329 | Health: 1.055 | Stability: 0.987
+[2025-04-23 18:57:39] INFO - Step 330 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:39] INFO - Step 331 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:39] INFO - Step 332 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:39] INFO - Step 333 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:40] INFO - Step 334 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:40] INFO - Step 335 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:40] INFO - Step 336 | Health: 1.053 | Stability: 0.987
+[2025-04-23 18:57:40] INFO - Step 337 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:40] INFO - Step 338 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:40] INFO - Step 339 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:40] INFO - Step 340 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:40] INFO - Step 341 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:40] INFO - Step 342 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:40] INFO - Step 343 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:41] INFO - Step 344 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:41] INFO - Step 345 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:41] INFO - Step 346 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:41] INFO - Step 347 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:41] INFO - Step 348 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:41] INFO - Step 349 | Health: 1.053 | Stability: 0.987
+[2025-04-23 18:57:41] INFO - Step 350 | Health: 1.053 | Stability: 0.987
+[2025-04-23 18:57:41] INFO - 
+Health Summary (Steps 301 - 350):
+  Average Health: 1.057
+  Average Stability: 0.989
+  Average Base Health: 0.712
+  Total Repairs: 0
+  Repair Rate: 0.00%
+[2025-04-23 18:57:42] INFO - Step 351 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:42] INFO - Step 352 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:42] INFO - Step 353 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:42] INFO - Step 354 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:42] INFO - Step 355 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:42] INFO - Step 356 | Health: 1.055 | Stability: 0.987
+[2025-04-23 18:57:42] INFO - Step 357 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:42] INFO - Step 358 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:42] INFO - Step 359 | Health: 1.055 | Stability: 0.987
+[2025-04-23 18:57:42] INFO - Step 360 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:43] INFO - Step 361 | Health: 1.055 | Stability: 0.987
+[2025-04-23 18:57:43] INFO - Step 362 | Health: 1.055 | Stability: 0.987
+[2025-04-23 18:57:43] INFO - Step 363 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:43] INFO - Step 364 | Health: 1.055 | Stability: 0.987
+[2025-04-23 18:57:43] INFO - Step 365 | Health: 1.055 | Stability: 0.987
+[2025-04-23 18:57:43] INFO - Step 366 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:43] INFO - Step 367 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:43] INFO - Step 368 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:43] INFO - Step 369 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:43] INFO - Step 370 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:44] INFO - Step 371 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:57:44] INFO - Step 372 | Health: 1.053 | Stability: 0.987
+[2025-04-23 18:57:44] INFO - Step 373 | Health: 1.053 | Stability: 0.987
+[2025-04-23 18:57:44] INFO - Step 374 | Health: 1.054 | Stability: 0.986
+[2025-04-23 18:57:44] INFO - Step 375 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:57:44] INFO - Step 376 | Health: 1.052 | Stability: 0.986
+[2025-04-23 18:57:44] INFO - Step 377 | Health: 1.052 | Stability: 0.986
+[2025-04-23 18:57:44] INFO - Step 378 | Health: 1.052 | Stability: 0.986
+[2025-04-23 18:57:44] INFO - Step 379 | Health: 1.052 | Stability: 0.986
+[2025-04-23 18:57:45] INFO - Step 380 | Health: 1.052 | Stability: 0.986
+[2025-04-23 18:57:45] INFO - Step 381 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:57:45] INFO - Step 382 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:57:45] INFO - Step 383 | Health: 1.052 | Stability: 0.986
+[2025-04-23 18:57:45] INFO - Step 384 | Health: 1.052 | Stability: 0.986
+[2025-04-23 18:57:45] INFO - Step 385 | Health: 1.052 | Stability: 0.986
+[2025-04-23 18:57:45] INFO - Step 386 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:57:45] INFO - Step 387 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:57:45] INFO - Step 388 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:57:45] INFO - Step 389 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:57:46] INFO - Step 390 | Health: 1.052 | Stability: 0.986
+[2025-04-23 18:57:46] INFO - Step 391 | Health: 1.052 | Stability: 0.986
+[2025-04-23 18:57:46] INFO - Step 392 | Health: 1.052 | Stability: 0.986
+[2025-04-23 18:57:46] INFO - Step 393 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:57:46] INFO - Step 394 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:57:46] INFO - Step 395 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:57:46] INFO - Step 396 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:57:46] INFO - Step 397 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:57:46] INFO - Step 398 | Health: 1.052 | Stability: 0.986
+[2025-04-23 18:58:16] INFO - Step 399 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:58:20] INFO - Step 400 | Health: 1.052 | Stability: 0.986
+[2025-04-23 18:58:20] INFO - 
+Health Summary (Steps 351 - 400):
+  Average Health: 1.056
+  Average Stability: 0.989
+  Average Base Health: 0.712
+  Total Repairs: 0
+  Repair Rate: 0.00%
+[2025-04-23 18:58:21] INFO - Step 401 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:58:21] INFO - Step 402 | Health: 1.052 | Stability: 0.986
+[2025-04-23 18:58:21] INFO - Step 403 | Health: 1.052 | Stability: 0.986
+[2025-04-23 18:58:21] INFO - Step 404 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:58:21] INFO - Step 405 | Health: 1.052 | Stability: 0.986
+[2025-04-23 18:58:21] INFO - Step 406 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:58:21] INFO - Step 407 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:58:21] INFO - Step 408 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:58:21] INFO - Step 409 | Health: 1.052 | Stability: 0.986
+[2025-04-23 18:58:22] INFO - Step 410 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:58:22] INFO - Step 411 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:58:22] INFO - Step 412 | Health: 1.052 | Stability: 0.986
+[2025-04-23 18:58:22] INFO - Step 413 | Health: 1.052 | Stability: 0.986
+[2025-04-23 18:58:22] INFO - Step 414 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:58:22] INFO - Step 415 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:58:22] INFO - Step 416 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:58:22] INFO - Step 417 | Health: 1.052 | Stability: 0.986
+[2025-04-23 18:58:22] INFO - Step 418 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:58:22] INFO - Step 419 | Health: 1.052 | Stability: 0.986
+[2025-04-23 18:58:22] INFO - Step 420 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:58:22] INFO - Step 421 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:58:23] INFO - Step 422 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:58:23] INFO - Step 423 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:58:23] INFO - Step 424 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:58:23] INFO - Step 425 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:58:23] INFO - Step 426 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:58:23] INFO - Step 427 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:58:23] INFO - Step 428 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:58:23] INFO - Step 429 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:58:23] INFO - Step 430 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:58:23] INFO - Step 431 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:58:23] INFO - Step 432 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:58:23] INFO - Step 433 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:58:23] INFO - Step 434 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:58:23] INFO - Step 435 | Health: 1.055 | Stability: 0.987
+[2025-04-23 18:58:23] INFO - Step 436 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:58:23] INFO - Step 437 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:58:23] INFO - Step 438 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:58:23] INFO - Step 439 | Health: 1.055 | Stability: 0.987
+[2025-04-23 18:58:23] INFO - Step 440 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:58:24] INFO - Step 441 | Health: 1.054 | Stability: 0.986
+[2025-04-23 18:58:24] INFO - Step 442 | Health: 1.054 | Stability: 0.986
+[2025-04-23 18:58:24] INFO - Step 443 | Health: 1.054 | Stability: 0.986
+[2025-04-23 18:58:24] INFO - Step 444 | Health: 1.054 | Stability: 0.986
+[2025-04-23 18:58:24] INFO - Step 445 | Health: 1.053 | Stability: 0.986
+[2025-04-23 18:58:24] INFO - Step 446 | Health: 1.054 | Stability: 0.986
+[2025-04-23 18:58:24] INFO - Step 447 | Health: 1.053 | Stability: 0.987
+[2025-04-23 18:58:24] INFO - Step 448 | Health: 1.053 | Stability: 0.987
+[2025-04-23 18:58:24] INFO - Step 449 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:58:24] INFO - Step 450 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:58:24] INFO - 
+Health Summary (Steps 401 - 450):
+  Average Health: 1.056
+  Average Stability: 0.988
+  Average Base Health: 0.712
+  Total Repairs: 0
+  Repair Rate: 0.00%
+[2025-04-23 18:58:24] INFO - Step 451 | Health: 1.053 | Stability: 0.987
+[2025-04-23 18:58:24] INFO - Step 452 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:58:24] INFO - Step 453 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:58:24] INFO - Step 454 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:58:24] INFO - Step 455 | Health: 1.053 | Stability: 0.987
+[2025-04-23 18:58:24] INFO - Step 456 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:58:24] INFO - Step 457 | Health: 1.055 | Stability: 0.987
+[2025-04-23 18:58:24] INFO - Step 458 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:58:24] INFO - Step 459 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:58:25] INFO - Step 460 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:58:25] INFO - Step 461 | Health: 1.053 | Stability: 0.987
+[2025-04-23 18:58:25] INFO - Step 462 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:58:25] INFO - Step 463 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:58:25] INFO - Step 464 | Health: 1.055 | Stability: 0.987
+[2025-04-23 18:58:25] INFO - Step 465 | Health: 1.055 | Stability: 0.987
+[2025-04-23 18:58:25] INFO - Step 466 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:58:25] INFO - Step 467 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:58:25] INFO - Step 468 | Health: 1.055 | Stability: 0.987
+[2025-04-23 18:58:25] INFO - Step 469 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:58:25] INFO - Step 470 | Health: 1.055 | Stability: 0.987
+[2025-04-23 18:58:25] INFO - Step 471 | Health: 1.055 | Stability: 0.987
+[2025-04-23 18:58:25] INFO - Step 472 | Health: 1.055 | Stability: 0.987
+[2025-04-23 18:58:25] INFO - Step 473 | Health: 1.055 | Stability: 0.987
+[2025-04-23 18:58:25] INFO - Step 474 | Health: 1.055 | Stability: 0.987
+[2025-04-23 18:58:25] INFO - Step 475 | Health: 1.055 | Stability: 0.987
+[2025-04-23 18:58:25] INFO - Step 476 | Health: 1.054 | Stability: 0.987
+[2025-04-23 18:58:26] INFO - Step 0 | Health: 1.072 | Stability: 1.000
+[2025-04-23 18:58:26] INFO - 
+Health Summary (Steps -49 - 0):
+  Average Health: 1.072
+  Average Stability: 1.000
+  Average Base Health: 0.715
+  Total Repairs: 0
+  Repair Rate: 0.00%
+[2025-04-23 18:58:26] INFO - Step 1 | Health: 1.071 | Stability: 1.000
+[2025-04-23 18:58:26] INFO - Step 2 | Health: 1.070 | Stability: 0.999
+[2025-04-23 18:58:26] INFO - Step 3 | Health: 1.069 | Stability: 0.999
+[2025-04-23 18:58:26] INFO - Step 4 | Health: 1.069 | Stability: 0.998
+[2025-04-23 18:58:26] INFO - Step 5 | Health: 1.068 | Stability: 0.998
+[2025-04-23 18:58:26] INFO - Step 6 | Health: 1.069 | Stability: 0.998
+[2025-04-23 18:58:26] INFO - Step 7 | Health: 1.067 | Stability: 0.998
+[2025-04-23 18:58:26] INFO - Step 8 | Health: 1.067 | Stability: 0.998
+[2025-04-23 18:58:26] INFO - Step 9 | Health: 1.066 | Stability: 0.997
+[2025-04-23 18:58:26] INFO - Step 10 | Health: 1.066 | Stability: 0.997
+[2025-04-23 18:58:26] INFO - Step 11 | Health: 1.064 | Stability: 0.997
+[2025-04-23 18:58:26] INFO - Step 12 | Health: 1.062 | Stability: 0.996
+[2025-04-23 18:58:26] INFO - Step 13 | Health: 1.064 | Stability: 0.995
+[2025-04-23 18:58:26] INFO - Step 14 | Health: 1.060 | Stability: 0.995
+[2025-04-23 18:58:26] INFO - Step 15 | Health: 1.059 | Stability: 0.994
+[2025-04-23 18:58:26] INFO - Step 16 | Health: 1.058 | Stability: 0.993
+[2025-04-23 18:58:27] INFO - Step 17 | Health: 1.056 | Stability: 0.993
+[2025-04-23 18:58:27] INFO - Step 18 | Health: 1.055 | Stability: 0.992
+[2025-04-23 18:58:27] INFO - Step 19 | Health: 1.053 | Stability: 0.991
+[2025-04-23 18:58:27] INFO - Step 20 | Health: 1.056 | Stability: 0.990
+[2025-04-23 18:58:27] INFO - Step 21 | Health: 1.052 | Stability: 0.989
+[2025-04-23 18:58:27] INFO - Step 22 | Health: 1.050 | Stability: 0.989
+[2025-04-23 18:58:27] INFO - Step 23 | Health: 1.048 | Stability: 0.988
+[2025-04-23 18:58:27] INFO - Step 24 | Health: 1.047 | Stability: 0.987
+[2025-04-23 18:58:27] INFO - Step 25 | Health: 1.046 | Stability: 0.986
+[2025-04-23 18:58:27] INFO - Step 26 | Health: 1.045 | Stability: 0.985
+[2025-04-23 18:58:27] INFO - Step 27 | Health: 1.047 | Stability: 0.984
+[2025-04-23 18:58:27] INFO - Step 28 | Health: 1.043 | Stability: 0.984
+[2025-04-23 18:58:27] INFO - Step 29 | Health: 1.042 | Stability: 0.984
+[2025-04-23 18:58:27] INFO - Step 30 | Health: 1.042 | Stability: 0.983
+[2025-04-23 18:58:27] INFO - Step 31 | Health: 1.041 | Stability: 0.982
+[2025-04-23 18:58:27] INFO - Step 32 | Health: 1.040 | Stability: 0.982
+[2025-04-23 18:58:27] INFO - Step 33 | Health: 1.039 | Stability: 0.982
+[2025-04-23 18:58:27] INFO - Step 34 | Health: 1.041 | Stability: 0.981
+[2025-04-23 18:58:27] INFO - Step 35 | Health: 1.038 | Stability: 0.981
+[2025-04-23 18:58:27] INFO - Step 36 | Health: 1.037 | Stability: 0.980
+[2025-04-23 18:58:28] INFO - Step 37 | Health: 1.036 | Stability: 0.980
+[2025-04-23 18:58:28] INFO - Step 38 | Health: 1.035 | Stability: 0.979
+[2025-04-23 18:58:28] INFO - Step 39 | Health: 1.036 | Stability: 0.979
+[2025-04-23 18:58:28] INFO - Step 40 | Health: 1.036 | Stability: 0.979
+[2025-04-23 18:58:28] INFO - Step 41 | Health: 1.037 | Stability: 0.978
+[2025-04-23 18:58:28] INFO - Step 42 | Health: 1.034 | Stability: 0.978
+[2025-04-23 18:58:28] INFO - Step 43 | Health: 1.034 | Stability: 0.978
+[2025-04-23 18:58:28] INFO - Step 44 | Health: 1.033 | Stability: 0.977
+[2025-04-23 18:58:28] INFO - Step 45 | Health: 1.032 | Stability: 0.977
+[2025-04-23 18:58:28] INFO - Step 46 | Health: 1.032 | Stability: 0.977
+[2025-04-23 18:58:28] INFO - Step 47 | Health: 1.032 | Stability: 0.977
+[2025-04-23 18:58:28] INFO - Step 48 | Health: 1.033 | Stability: 0.976
+[2025-04-23 18:58:28] INFO - Step 49 | Health: 1.031 | Stability: 0.976
+[2025-04-23 18:58:28] INFO - Step 50 | Health: 1.030 | Stability: 0.976
+[2025-04-23 18:58:28] INFO - 
+Health Summary (Steps 1 - 50):
+  Average Health: 1.049
+  Average Stability: 0.987
+  Average Base Health: 0.709
+  Total Repairs: 0
+  Repair Rate: 0.00%
+[2025-04-23 18:58:28] INFO - Step 51 | Health: 1.030 | Stability: 0.976
+[2025-04-23 18:58:28] INFO - Step 52 | Health: 1.029 | Stability: 0.975
+[2025-04-23 18:58:28] INFO - Step 53 | Health: 1.029 | Stability: 0.975
+[2025-04-23 18:58:28] INFO - Step 54 | Health: 1.029 | Stability: 0.975
+[2025-04-23 18:58:28] INFO - Step 55 | Health: 1.030 | Stability: 0.975
+[2025-04-23 18:58:29] INFO - Step 56 | Health: 1.029 | Stability: 0.974
+[2025-04-23 18:58:29] INFO - Step 57 | Health: 1.028 | Stability: 0.974
+[2025-04-23 18:58:29] INFO - Step 58 | Health: 1.027 | Stability: 0.974
+[2025-04-23 18:58:29] INFO - Step 59 | Health: 1.027 | Stability: 0.974
+[2025-04-23 18:58:29] INFO - Step 60 | Health: 1.027 | Stability: 0.973
+[2025-04-23 18:58:29] INFO - Step 61 | Health: 1.026 | Stability: 0.973
+[2025-04-23 18:58:29] INFO - Step 62 | Health: 1.027 | Stability: 0.973
+[2025-04-23 18:58:29] INFO - Step 63 | Health: 1.026 | Stability: 0.973
+[2025-04-23 18:58:29] INFO - Step 64 | Health: 1.025 | Stability: 0.972
+[2025-04-23 18:58:29] INFO - Step 65 | Health: 1.024 | Stability: 0.972
+[2025-04-23 18:58:29] INFO - Step 66 | Health: 1.024 | Stability: 0.972
+[2025-04-23 18:58:29] INFO - Step 67 | Health: 1.025 | Stability: 0.971
+[2025-04-23 18:58:29] INFO - Step 68 | Health: 1.023 | Stability: 0.971
+[2025-04-23 18:58:29] INFO - Step 69 | Health: 1.025 | Stability: 0.971
+[2025-04-23 18:58:29] INFO - Step 70 | Health: 1.024 | Stability: 0.971
+[2025-04-23 18:58:29] INFO - Step 71 | Health: 1.023 | Stability: 0.971
+[2025-04-23 18:58:29] INFO - Step 72 | Health: 1.023 | Stability: 0.971
+[2025-04-23 18:58:29] INFO - Step 73 | Health: 1.023 | Stability: 0.971
+[2025-04-23 18:58:30] INFO - Step 74 | Health: 1.022 | Stability: 0.971
+[2025-04-23 18:58:30] INFO - Step 75 | Health: 1.023 | Stability: 0.971
+[2025-04-23 18:58:30] INFO - Step 76 | Health: 1.024 | Stability: 0.970
+[2025-04-23 18:58:30] INFO - Step 77 | Health: 1.023 | Stability: 0.970
+[2025-04-23 18:58:30] INFO - Step 78 | Health: 1.023 | Stability: 0.970
+[2025-04-23 18:58:30] INFO - Step 79 | Health: 1.023 | Stability: 0.970
+[2025-04-23 18:58:30] INFO - Step 80 | Health: 1.022 | Stability: 0.970
+[2025-04-23 18:58:30] INFO - Step 81 | Health: 1.022 | Stability: 0.970
+[2025-04-23 18:58:30] INFO - Step 82 | Health: 1.023 | Stability: 0.970
+[2025-04-23 18:58:30] INFO - Step 83 | Health: 1.024 | Stability: 0.970
+[2025-04-23 18:58:30] INFO - Step 84 | Health: 1.023 | Stability: 0.970
+[2025-04-23 18:58:30] INFO - Step 85 | Health: 1.023 | Stability: 0.970
+[2025-04-23 18:58:30] INFO - Step 86 | Health: 1.024 | Stability: 0.970
+[2025-04-23 18:58:30] INFO - Step 87 | Health: 1.023 | Stability: 0.970
+[2025-04-23 18:58:30] INFO - Step 88 | Health: 1.023 | Stability: 0.970
+[2025-04-23 18:58:30] INFO - Step 89 | Health: 1.023 | Stability: 0.970
+[2025-04-23 18:58:30] INFO - Step 90 | Health: 1.024 | Stability: 0.970
+[2025-04-23 18:58:30] INFO - Step 91 | Health: 1.023 | Stability: 0.971
+[2025-04-23 18:58:30] INFO - Step 92 | Health: 1.023 | Stability: 0.971
+[2025-04-23 18:58:31] INFO - Step 93 | Health: 1.024 | Stability: 0.971
+[2025-04-23 18:58:31] INFO - Step 94 | Health: 1.023 | Stability: 0.971
+[2025-04-23 18:58:31] INFO - Step 95 | Health: 1.023 | Stability: 0.971
+[2025-04-23 18:58:31] INFO - Step 96 | Health: 1.022 | Stability: 0.971
+[2025-04-23 18:58:31] INFO - Step 97 | Health: 1.024 | Stability: 0.971
+[2025-04-23 18:58:31] INFO - Step 98 | Health: 1.023 | Stability: 0.971
+[2025-04-23 18:58:31] INFO - Step 99 | Health: 1.022 | Stability: 0.971
+[2025-04-23 18:58:31] INFO - Step 100 | Health: 1.021 | Stability: 0.970
+[2025-04-23 18:58:31] INFO - 
+Health Summary (Steps 51 - 100):
+  Average Health: 1.037
+  Average Stability: 0.980
+  Average Base Health: 0.706
+  Total Repairs: 0
+  Repair Rate: 0.00%
+[2025-04-23 18:58:31] INFO - Step 101 | Health: 1.023 | Stability: 0.970
+[2025-04-23 18:58:31] INFO - Step 102 | Health: 1.022 | Stability: 0.970
+[2025-04-23 18:58:31] INFO - Step 103 | Health: 1.021 | Stability: 0.970
+[2025-04-23 18:58:31] INFO - Step 104 | Health: 1.023 | Stability: 0.970
+[2025-04-23 18:58:31] INFO - Step 105 | Health: 1.022 | Stability: 0.970
+[2025-04-23 18:58:31] INFO - Step 106 | Health: 1.021 | Stability: 0.970
+[2025-04-23 18:58:31] INFO - Step 107 | Health: 1.022 | Stability: 0.970
+[2025-04-23 18:58:31] INFO - Step 108 | Health: 1.020 | Stability: 0.970
+[2025-04-23 18:58:31] INFO - Step 109 | Health: 1.021 | Stability: 0.970
+[2025-04-23 18:58:31] INFO - Step 110 | Health: 1.021 | Stability: 0.970
+[2025-04-23 18:58:31] INFO - Step 111 | Health: 1.022 | Stability: 0.970
+[2025-04-23 18:58:32] INFO - Step 112 | Health: 1.021 | Stability: 0.970
+[2025-04-23 18:58:32] INFO - Step 113 | Health: 1.021 | Stability: 0.970
+[2025-04-23 18:58:32] INFO - Step 114 | Health: 1.021 | Stability: 0.970
+[2025-04-23 18:58:32] INFO - Step 115 | Health: 1.022 | Stability: 0.970
+[2025-04-23 18:58:32] INFO - Step 116 | Health: 1.022 | Stability: 0.970
+[2025-04-23 18:58:32] INFO - Step 117 | Health: 1.022 | Stability: 0.970
+[2025-04-23 18:58:32] INFO - Step 118 | Health: 1.023 | Stability: 0.970
+[2025-04-23 18:58:32] INFO - Step 119 | Health: 1.022 | Stability: 0.970
+[2025-04-23 18:58:32] INFO - Step 120 | Health: 1.023 | Stability: 0.970
+[2025-04-23 18:58:32] INFO - Step 121 | Health: 1.023 | Stability: 0.970
+[2025-04-23 18:58:32] INFO - Step 122 | Health: 1.024 | Stability: 0.971
+[2025-04-23 18:58:32] INFO - Step 123 | Health: 1.024 | Stability: 0.971
+[2025-04-23 18:58:32] INFO - Step 124 | Health: 1.025 | Stability: 0.971
+[2025-04-23 18:58:32] INFO - Step 125 | Health: 1.026 | Stability: 0.971
+[2025-04-23 18:58:32] INFO - Step 126 | Health: 1.025 | Stability: 0.971
+[2025-04-23 18:58:32] INFO - Step 127 | Health: 1.026 | Stability: 0.972
+[2025-04-23 18:58:32] INFO - Step 128 | Health: 1.027 | Stability: 0.972
+[2025-04-23 18:58:32] INFO - Step 129 | Health: 1.027 | Stability: 0.972
+[2025-04-23 18:58:32] INFO - Step 130 | Health: 1.026 | Stability: 0.973
+[2025-04-23 18:58:32] INFO - Step 131 | Health: 1.027 | Stability: 0.973
+[2025-04-23 18:58:32] INFO - Step 132 | Health: 1.027 | Stability: 0.973
+[2025-04-23 18:58:32] INFO - Step 133 | Health: 1.027 | Stability: 0.973
+[2025-04-23 18:58:33] INFO - Step 134 | Health: 1.029 | Stability: 0.974
+[2025-04-23 18:58:33] INFO - Step 135 | Health: 1.028 | Stability: 0.974
+[2025-04-23 18:58:33] INFO - Step 136 | Health: 1.028 | Stability: 0.974
+[2025-04-23 18:58:33] INFO - Step 137 | Health: 1.028 | Stability: 0.974
+[2025-04-23 18:58:33] INFO - Step 138 | Health: 1.028 | Stability: 0.974
+[2025-04-23 18:58:33] INFO - Step 139 | Health: 1.028 | Stability: 0.974
+[2025-04-23 18:58:33] INFO - Step 140 | Health: 1.028 | Stability: 0.974
+[2025-04-23 18:58:33] INFO - Step 141 | Health: 1.028 | Stability: 0.974
+[2025-04-23 18:58:33] INFO - Step 142 | Health: 1.027 | Stability: 0.974
+[2025-04-23 18:58:33] INFO - Step 143 | Health: 1.028 | Stability: 0.974
+[2025-04-23 18:58:33] INFO - Step 144 | Health: 1.028 | Stability: 0.974
+[2025-04-23 18:58:33] INFO - Step 145 | Health: 1.027 | Stability: 0.974
+[2025-04-23 18:58:33] INFO - Step 146 | Health: 1.028 | Stability: 0.974
+[2025-04-23 18:58:33] INFO - Step 147 | Health: 1.027 | Stability: 0.974
+[2025-04-23 18:58:33] INFO - Step 148 | Health: 1.028 | Stability: 0.974
+[2025-04-23 18:58:33] INFO - Step 149 | Health: 1.027 | Stability: 0.974
+[2025-04-23 18:58:33] INFO - Step 150 | Health: 1.027 | Stability: 0.974
+[2025-04-23 18:58:33] INFO - 
+Health Summary (Steps 101 - 150):
+  Average Health: 1.033
+  Average Stability: 0.977
+  Average Base Health: 0.705
+  Total Repairs: 0
+  Repair Rate: 0.00%
+[2025-04-23 18:58:33] INFO - Step 151 | Health: 1.027 | Stability: 0.974
+[2025-04-23 18:58:34] INFO - Step 152 | Health: 1.028 | Stability: 0.974
+[2025-04-23 18:58:34] INFO - Step 153 | Health: 1.027 | Stability: 0.974
+[2025-04-23 18:58:34] INFO - Step 154 | Health: 1.028 | Stability: 0.974
+[2025-04-23 18:58:34] INFO - Step 155 | Health: 1.028 | Stability: 0.974
+[2025-04-23 18:58:34] INFO - Step 156 | Health: 1.027 | Stability: 0.974
+[2025-04-23 18:58:34] INFO - Step 157 | Health: 1.027 | Stability: 0.974
+[2025-04-23 18:58:34] INFO - Step 158 | Health: 1.028 | Stability: 0.973
+[2025-04-23 18:58:34] INFO - Step 159 | Health: 1.027 | Stability: 0.974
+[2025-04-23 18:58:34] INFO - Step 160 | Health: 1.027 | Stability: 0.974
+[2025-04-23 18:58:34] INFO - Step 161 | Health: 1.027 | Stability: 0.974
+[2025-04-23 18:58:34] INFO - Step 162 | Health: 1.027 | Stability: 0.974
+[2025-04-23 18:58:34] INFO - Step 163 | Health: 1.027 | Stability: 0.974
+[2025-04-23 18:58:34] INFO - Step 164 | Health: 1.028 | Stability: 0.974
+[2025-04-23 18:58:34] INFO - Step 165 | Health: 1.027 | Stability: 0.974
+[2025-04-23 18:58:34] INFO - Step 166 | Health: 1.029 | Stability: 0.974
+[2025-04-23 18:58:34] INFO - Step 167 | Health: 1.027 | Stability: 0.974
+[2025-04-23 18:58:34] INFO - Step 168 | Health: 1.027 | Stability: 0.974
+[2025-04-23 18:58:34] INFO - Step 169 | Health: 1.028 | Stability: 0.974
+[2025-04-23 18:58:34] INFO - Step 170 | Health: 1.027 | Stability: 0.974
+[2025-04-23 18:58:34] INFO - Step 171 | Health: 1.028 | Stability: 0.974
+[2025-04-23 18:58:34] INFO - Step 172 | Health: 1.028 | Stability: 0.974
+[2025-04-23 18:58:35] INFO - Step 173 | Health: 1.027 | Stability: 0.974
+[2025-04-23 18:58:35] INFO - Step 174 | Health: 1.027 | Stability: 0.973
+[2025-04-23 18:58:35] INFO - Step 175 | Health: 1.027 | Stability: 0.973
+[2025-04-23 18:58:35] INFO - Step 176 | Health: 1.028 | Stability: 0.973
+[2025-04-23 18:58:35] INFO - Step 177 | Health: 1.028 | Stability: 0.973
+[2025-04-23 18:58:35] INFO - Step 178 | Health: 1.028 | Stability: 0.973
+[2025-04-23 18:58:35] INFO - Step 179 | Health: 1.028 | Stability: 0.973
+[2025-04-23 18:58:35] INFO - Step 180 | Health: 1.028 | Stability: 0.973
+[2025-04-23 18:58:35] INFO - Step 181 | Health: 1.027 | Stability: 0.973
+[2025-04-23 18:58:35] INFO - Step 182 | Health: 1.028 | Stability: 0.973
+[2025-04-23 18:58:35] INFO - Step 183 | Health: 1.028 | Stability: 0.974
+[2025-04-23 18:58:35] INFO - Step 184 | Health: 1.029 | Stability: 0.974
+[2025-04-23 18:58:35] INFO - Step 185 | Health: 1.028 | Stability: 0.974
+[2025-04-23 18:58:35] INFO - Step 186 | Health: 1.028 | Stability: 0.974
+[2025-04-23 18:58:35] INFO - Step 187 | Health: 1.028 | Stability: 0.974
+[2025-04-23 18:58:35] INFO - Step 188 | Health: 1.028 | Stability: 0.974
+[2025-04-23 18:58:35] INFO - Step 189 | Health: 1.028 | Stability: 0.974
+[2025-04-23 18:58:35] INFO - Step 190 | Health: 1.027 | Stability: 0.974
+[2025-04-23 18:58:35] INFO - Step 191 | Health: 1.028 | Stability: 0.974
+[2025-04-23 18:58:35] INFO - Step 192 | Health: 1.027 | Stability: 0.974
+[2025-04-23 18:58:36] INFO - Step 193 | Health: 1.028 | Stability: 0.973
+[2025-04-23 18:58:36] INFO - Step 194 | Health: 1.027 | Stability: 0.973
+[2025-04-23 18:58:36] INFO - Step 195 | Health: 1.026 | Stability: 0.973
+[2025-04-23 18:58:36] INFO - Step 196 | Health: 1.027 | Stability: 0.973
+[2025-04-23 18:58:36] INFO - Step 197 | Health: 1.026 | Stability: 0.973
+[2025-04-23 18:58:36] INFO - Step 198 | Health: 1.027 | Stability: 0.973
+[2025-04-23 18:58:36] INFO - Step 199 | Health: 1.027 | Stability: 0.972
+[2025-04-23 18:58:36] INFO - Step 200 | Health: 1.027 | Stability: 0.972
+[2025-04-23 18:58:36] INFO - 
+Health Summary (Steps 151 - 200):
+  Average Health: 1.032
+  Average Stability: 0.976
+  Average Base Health: 0.705
+  Total Repairs: 0
+  Repair Rate: 0.00%
+[2025-04-23 18:58:36] INFO - Step 201 | Health: 1.027 | Stability: 0.972
+[2025-04-23 18:58:36] INFO - Step 202 | Health: 1.025 | Stability: 0.972
+[2025-04-23 18:58:36] INFO - Step 203 | Health: 1.027 | Stability: 0.972
+[2025-04-23 18:58:36] INFO - Step 204 | Health: 1.026 | Stability: 0.972
+[2025-04-23 18:58:36] INFO - Step 205 | Health: 1.026 | Stability: 0.972
+[2025-04-23 18:58:36] INFO - Step 206 | Health: 1.027 | Stability: 0.972
+[2025-04-23 18:58:36] INFO - Step 207 | Health: 1.027 | Stability: 0.972
+[2025-04-23 18:58:36] INFO - Step 208 | Health: 1.027 | Stability: 0.972
+[2025-04-23 18:58:36] INFO - Step 209 | Health: 1.026 | Stability: 0.972
+[2025-04-23 18:58:36] INFO - Step 210 | Health: 1.026 | Stability: 0.972
+[2025-04-23 18:58:36] INFO - Step 211 | Health: 1.027 | Stability: 0.972
+[2025-04-23 18:58:37] INFO - Step 212 | Health: 1.028 | Stability: 0.972
+[2025-04-23 18:58:37] INFO - Step 213 | Health: 1.028 | Stability: 0.972
+[2025-04-23 18:58:37] INFO - Step 214 | Health: 1.028 | Stability: 0.973
+[2025-04-23 18:58:37] INFO - Step 215 | Health: 1.029 | Stability: 0.973
+[2025-04-23 18:58:37] INFO - Step 216 | Health: 1.028 | Stability: 0.973
+[2025-04-23 18:58:37] INFO - Step 217 | Health: 1.028 | Stability: 0.973
+[2025-04-23 18:58:37] INFO - Step 218 | Health: 1.029 | Stability: 0.973
+[2025-04-23 18:58:37] INFO - Step 219 | Health: 1.029 | Stability: 0.974
+[2025-04-23 18:58:37] INFO - Step 220 | Health: 1.029 | Stability: 0.974
+[2025-04-23 18:58:37] INFO - Step 221 | Health: 1.029 | Stability: 0.974
+[2025-04-23 18:58:37] INFO - Step 222 | Health: 1.029 | Stability: 0.974
+[2025-04-23 18:58:37] INFO - Step 223 | Health: 1.029 | Stability: 0.974
+[2025-04-23 18:58:37] INFO - Step 224 | Health: 1.029 | Stability: 0.974
+[2025-04-23 18:58:37] INFO - Step 225 | Health: 1.029 | Stability: 0.974
+[2025-04-23 18:58:37] INFO - Step 226 | Health: 1.029 | Stability: 0.974
+[2025-04-23 18:58:37] INFO - Step 227 | Health: 1.029 | Stability: 0.974
+[2025-04-23 18:58:37] INFO - Step 228 | Health: 1.029 | Stability: 0.974
+[2025-04-23 18:58:37] INFO - Step 229 | Health: 1.030 | Stability: 0.974
+[2025-04-23 18:58:37] INFO - Step 230 | Health: 1.028 | Stability: 0.974
+[2025-04-23 18:58:37] INFO - Step 231 | Health: 1.030 | Stability: 0.974
+[2025-04-23 18:58:37] INFO - Step 232 | Health: 1.028 | Stability: 0.974
+[2025-04-23 18:58:38] INFO - Step 233 | Health: 1.028 | Stability: 0.973
+[2025-04-23 18:58:38] INFO - Step 234 | Health: 1.028 | Stability: 0.973
+[2025-04-23 18:58:38] INFO - Step 235 | Health: 1.028 | Stability: 0.973
+[2025-04-23 18:58:38] INFO - Step 236 | Health: 1.028 | Stability: 0.973
+[2025-04-23 18:58:38] INFO - Step 237 | Health: 1.027 | Stability: 0.973
+[2025-04-23 18:58:38] INFO - Step 238 | Health: 1.027 | Stability: 0.973
+[2025-04-23 18:58:38] INFO - Step 239 | Health: 1.028 | Stability: 0.973
+[2025-04-23 18:58:38] INFO - Step 240 | Health: 1.028 | Stability: 0.973
+[2025-04-23 18:58:38] INFO - Step 241 | Health: 1.027 | Stability: 0.973
+[2025-04-23 18:58:38] INFO - Step 242 | Health: 1.028 | Stability: 0.973
+[2025-04-23 18:58:38] INFO - Step 243 | Health: 1.028 | Stability: 0.973
+[2025-04-23 18:58:38] INFO - Step 244 | Health: 1.027 | Stability: 0.973
+[2025-04-23 18:58:38] INFO - Step 245 | Health: 1.027 | Stability: 0.973
+[2025-04-23 18:58:38] INFO - Step 246 | Health: 1.027 | Stability: 0.973
+[2025-04-23 18:58:38] INFO - Step 247 | Health: 1.027 | Stability: 0.973
+[2025-04-23 18:58:38] INFO - Step 248 | Health: 1.027 | Stability: 0.973
+[2025-04-23 18:58:38] INFO - Step 249 | Health: 1.026 | Stability: 0.973
+[2025-04-23 18:58:38] INFO - Step 250 | Health: 1.027 | Stability: 0.973
+[2025-04-23 18:58:38] INFO - 
+Health Summary (Steps 201 - 250):
+  Average Health: 1.031
+  Average Stability: 0.975
+  Average Base Health: 0.705
+  Total Repairs: 0
+  Repair Rate: 0.00%
+[2025-04-23 18:58:38] INFO - Step 251 | Health: 1.027 | Stability: 0.973
+[2025-04-23 18:58:38] INFO - Step 252 | Health: 1.027 | Stability: 0.972
+[2025-04-23 18:58:39] INFO - Step 253 | Health: 1.026 | Stability: 0.972
+[2025-04-23 18:58:39] INFO - Step 254 | Health: 1.026 | Stability: 0.972
+[2025-04-23 18:58:39] INFO - Step 255 | Health: 1.026 | Stability: 0.972
+[2025-04-23 18:58:39] INFO - Step 256 | Health: 1.026 | Stability: 0.972
+[2025-04-23 18:58:39] INFO - Step 257 | Health: 1.026 | Stability: 0.972
+[2025-04-23 18:58:39] INFO - Step 258 | Health: 1.026 | Stability: 0.972
+[2025-04-23 18:58:39] INFO - Step 259 | Health: 1.026 | Stability: 0.972
+[2025-04-23 18:58:39] INFO - Step 260 | Health: 1.027 | Stability: 0.972
+[2025-04-23 18:58:39] INFO - Step 261 | Health: 1.026 | Stability: 0.972
+[2025-04-23 18:58:39] INFO - Step 262 | Health: 1.026 | Stability: 0.972
+[2025-04-23 18:58:39] INFO - Step 263 | Health: 1.026 | Stability: 0.972
+[2025-04-23 18:58:39] INFO - Step 264 | Health: 1.026 | Stability: 0.972
+[2025-04-23 18:58:39] INFO - Step 265 | Health: 1.026 | Stability: 0.972
+[2025-04-23 18:58:39] INFO - Step 266 | Health: 1.026 | Stability: 0.972
+[2025-04-23 18:58:39] INFO - Step 267 | Health: 1.026 | Stability: 0.972
+[2025-04-23 18:58:39] INFO - Step 268 | Health: 1.027 | Stability: 0.973
+[2025-04-23 18:58:39] INFO - Step 269 | Health: 1.027 | Stability: 0.973
+[2025-04-23 18:58:39] INFO - Step 270 | Health: 1.026 | Stability: 0.973
+[2025-04-23 18:58:39] INFO - Step 271 | Health: 1.027 | Stability: 0.973
+[2025-04-23 18:58:39] INFO - Step 272 | Health: 1.026 | Stability: 0.973
+[2025-04-23 18:58:40] INFO - Step 273 | Health: 1.026 | Stability: 0.973
