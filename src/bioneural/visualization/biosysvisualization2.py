@@ -88,11 +88,11 @@ class BioNeuronVisualizer:
         
         ax.set_title('Repair Strategy Distribution', fontsize=15)
         ax.set_xlabel('Training Steps', fontsize=12)
-        ax.set_ylabel('Cumulative Repair Strategies', fontsize=12)
+        ax.set_ylabel('Strategy Count', fontsize=12)  # Added explicit y-axis label
         ax.legend(loc='upper left')
         
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-        plt.savefig(self.save_dir / f'repair_strategies_{timestamp}.png', dpi=300, bbox_inches='tight')
+        plt.savefig(self.save_dir / f'repair_strategies_{timestamp}.png', dpi=600, bbox_inches='tight')
         plt.close()
             
     def plot_health_metrics(self):
@@ -115,13 +115,13 @@ class BioNeuronVisualizer:
                       s=100, label='Repair Events', zorder=5)
             
         ax.set_title('Neuron Health Metrics', pad=20)
-        ax.set_xlabel('Training Steps')
-        ax.set_ylabel('Metric Value')
+        ax.set_xlabel('Training Steps', fontsize=12)  # Added explicit font size
+        ax.set_ylabel('Health Score', fontsize=12)  # More specific y-axis label
         ax.legend(frameon=True)
         
         # Save plot
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-        plt.savefig(self.save_dir / f'health_metrics_{timestamp}.png', dpi=300, bbox_inches='tight')
+        plt.savefig(self.save_dir / f'health_metrics_{timestamp}.png', dpi=600, bbox_inches='tight')
         plt.close()
         
     def plot_calcium_dynamics(self):
@@ -145,13 +145,13 @@ class BioNeuronVisualizer:
                    color='blue', linestyle='--', linewidth=1.5)
         
         ax.set_title('Calcium Level Dynamics', pad=20)
-        ax.set_xlabel('Training Steps')
-        ax.set_ylabel('Calcium Level')
+        ax.set_xlabel('Training Steps', fontsize=12)  # Added explicit font size
+        ax.set_ylabel('Calcium Concentration (μM)', fontsize=12)  # Added units to y-axis label
         ax.legend(frameon=True)
         
         # Save plot
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-        plt.savefig(self.save_dir / f'calcium_dynamics_{timestamp}.png', dpi=300, bbox_inches='tight')
+        plt.savefig(self.save_dir / f'calcium_dynamics_{timestamp}.png', dpi=600, bbox_inches='tight')
         plt.close()
         
     def plot_phase_diagram(self):
@@ -177,8 +177,8 @@ class BioNeuronVisualizer:
                      alpha=0.5)
         
         plt.colorbar(label='Training Steps')
-        plt.xlabel('Health Level')
-        plt.ylabel('Calcium Level')
+        plt.xlabel('Health Score', fontsize=12)  # More specific x-axis label with font size
+        plt.ylabel('Calcium Concentration (μM)', fontsize=12)  # More specific y-axis label with units
         plt.title('Health-Calcium Phase Space', pad=20)
         
         # Add repair event markers if they exist
@@ -193,7 +193,7 @@ class BioNeuronVisualizer:
         
         # Save plot
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-        plt.savefig(self.save_dir / f'phase_diagram_{timestamp}.png', dpi=300, bbox_inches='tight')
+        plt.savefig(self.save_dir / f'phase_diagram_{timestamp}.png', dpi=600, bbox_inches='tight')
         plt.close()
         
     def generate_comprehensive_summary(self):
@@ -205,27 +205,31 @@ class BioNeuronVisualizer:
             
         fig, axs = plt.subplots(2, 2, figsize=(20, 15))
         
-        # Health and Stability
+        # Health and Stability (Top Left)
         axs[0, 0].plot(self.steps, self.health_history, label='Health', linewidth=2)
         axs[0, 0].plot(self.steps, self.stability_history, label='Stability', linewidth=2)
         if self.repair_events:
             repair_steps, repair_health = zip(*self.repair_events)
             axs[0, 0].scatter(repair_steps, repair_health, color='red', marker='*',
                                s=100, label='Repair Events', zorder=5)
-        axs[0, 0].set_title('Neuron Health Metrics', fontsize=12)
+        axs[0, 0].set_title('Neuron Health Metrics', fontsize=14)
+        axs[0, 0].set_xlabel('Training Steps', fontsize=12)  # Added x-axis label
+        axs[0, 0].set_ylabel('Health Score', fontsize=12)  # Added y-axis label
         axs[0, 0].legend()
         
-        # Calcium Dynamics
+        # Calcium Dynamics (Top Right)
         axs[0, 1].plot(self.steps, self.calcium_history, label='Calcium Level', color='purple')
         window = min(50, len(self.calcium_history))
         if window > 1:
             rolling_avg = pd.Series(self.calcium_history).rolling(window=window).mean()
             axs[0, 1].plot(self.steps, rolling_avg, label=f'{window}-step Average', 
                            color='blue', linestyle='--')
-        axs[0, 1].set_title('Calcium Level Dynamics', fontsize=12)
+        axs[0, 1].set_title('Calcium Level Dynamics', fontsize=14)
+        axs[0, 1].set_xlabel('Training Steps', fontsize=12)  # Added x-axis label
+        axs[0, 1].set_ylabel('Calcium Concentration (μM)', fontsize=12)  # Added y-axis label with units
         axs[0, 1].legend()
         
-        # Repair Strategies Cumulative Plot
+        # Repair Strategies Cumulative Plot (Bottom Left)
         # Ensure all strategy arrays have the same length as steps
         for strategy in self.repair_strategy_history:
             # If strategy data is empty or shorter than steps, pad with zeros
@@ -241,23 +245,29 @@ class BioNeuronVisualizer:
         # Check if we have strategies to plot
         if strategies and all(len(data) > 0 for data in strategy_data):
             axs[1, 0].stackplot(self.steps, strategy_data, labels=strategies, alpha=0.7)
-            axs[1, 0].set_title('Repair Strategy Distribution', fontsize=12)
+            axs[1, 0].set_title('Repair Strategy Distribution', fontsize=14)
+            axs[1, 0].set_xlabel('Training Steps', fontsize=12)  # Added x-axis label
+            axs[1, 0].set_ylabel('Strategy Count', fontsize=12)  # Added y-axis label
             axs[1, 0].legend(loc='upper left')
         else:
             axs[1, 0].text(0.5, 0.5, "No repair strategy data available", 
                           horizontalalignment='center', verticalalignment='center',
                           transform=axs[1, 0].transAxes, fontsize=12)
+            axs[1, 0].set_xlabel('Training Steps', fontsize=12)  # Added x-axis label even for empty plot
+            axs[1, 0].set_ylabel('Strategy Count', fontsize=12)  # Added y-axis label even for empty plot
         
-        # Health-Calcium Phase Space
+        # Health-Calcium Phase Space (Bottom Right)
         scatter = axs[1, 1].scatter(self.health_history, self.calcium_history, 
                                     c=self.steps, cmap='viridis', alpha=0.6)
         plt.colorbar(scatter, ax=axs[1, 1], label='Training Steps')
-        axs[1, 1].set_title('Health-Calcium Phase Space', fontsize=12)
+        axs[1, 1].set_title('Health-Calcium Phase Space', fontsize=14)
+        axs[1, 1].set_xlabel('Health Score', fontsize=12)  # Added x-axis label
+        axs[1, 1].set_ylabel('Calcium Concentration (μM)', fontsize=12)  # Added y-axis label with units
         
         plt.tight_layout()
         
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-        plt.savefig(self.save_dir / f'comprehensive_summary_{timestamp}.png', dpi=300, bbox_inches='tight')
+        plt.savefig(self.save_dir / f'comprehensive_summary_{timestamp}.png', dpi=600, bbox_inches='tight')
         plt.close()
         
     def save_all_plots(self):
