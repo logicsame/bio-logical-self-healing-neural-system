@@ -15,7 +15,116 @@ from ..visualization.biosysvisualization2 import BioNeuronVisualizer
 from .homeostasis import HomeostaticRegulation
 
 class BioLogicalNeuron(nn.Module):
-    """Enhanced Biological Neuron with biologically plausible homeostatic regulation and repair mechanisms"""
+    """
+    Biological Neuron with biologically plausible homeostatic regulation and repair mechanisms.
+    
+    This module implements a neural network layer that mimics biological neuron behavior, including
+    calcium-based homeostatic regulation, adaptive repair mechanisms, and comprehensive health monitoring.
+    The neuron employs biologically inspired strategies such as synaptic scaling, selective reinforcement,
+    and activity-dependent pruning to maintain optimal performance and prevent degradation.
+    
+    Args:
+        in_features (int): Number of input features to the neuron layer.
+        out_features (int): Number of output features from the neuron layer.
+        plasticity_rate (float, optional): Rate of synaptic plasticity adaptation. Defaults to 0.008.
+        repair_threshold (float, optional): Health threshold below which repair mechanisms activate. 
+            Range: [0.0, 1.0]. Defaults to 0.5.
+        repair_intensity (float, optional): Intensity of repair operations when triggered. 
+            Higher values result in more aggressive repairs. Defaults to 0.08.
+        calcium_threshold (float, optional): Threshold for calcium-based homeostatic regulation.
+            When exceeded, triggers synaptic scaling mechanisms. Defaults to 0.9.
+        enable_monitoring (bool, optional): Whether to enable health tracking, logging, and 
+            visualization features. Defaults to True.
+        log_file (str, optional): Path to log file for health monitoring. If None, logs to console.
+            Defaults to "bioneuron_health.log".
+        summary_interval (int, optional): Number of steps between health summary reports. 
+            Defaults to 100.
+        **kwargs: Additional keyword arguments passed to HomeostaticRegulation module.
+    
+    Attributes:
+        linear (nn.Linear): Weight-normalized linear transformation layer.
+        η (float): Plasticity rate for synaptic adaptation.
+        homeostasis (HomeostaticRegulation): Homeostatic regulation module managing calcium dynamics.
+        repair_threshold (float): Health threshold for repair activation.
+        repair_intensity (float): Intensity of repair mechanisms.
+        repair_count (int): Total number of repairs performed.
+        repair_cooldown (int): Cooldown counter preventing excessive repair frequency.
+        health_tracker (HealthTracker): Health monitoring and tracking system.
+        logger (logging.Logger): Logger for health status and events.
+        visualizer (BioNeuronVisualizer): Visualization system for neuron dynamics.
+        step_counter (int): Counter tracking forward pass steps.
+        summary_interval (int): Interval for health summary reports.
+        epoch_health_logs (defaultdict): Storage for epoch-wise health statistics.
+        current_epoch (int): Current training epoch number.
+        epoch_metrics (defaultdict): Collection of metrics for current epoch.
+        repair_strategies (dict): Counters for different repair mechanism activations.
+    
+    Methods:
+        forward(x, gradients=None): 
+            Performs forward pass with homeostatic regulation and repair.
+            
+        start_epoch(epoch_num): 
+            Initializes tracking for a new training epoch.
+            
+        end_epoch(): 
+            Generates epoch summary and resets metrics.
+            
+        biologically_plausible_repair(health_report, gradients=None): 
+            Implements biological repair mechanisms including synaptic scaling,
+            selective reinforcement, and activity-dependent pruning.
+            
+        get_adaptive_learning_rate(health_report): 
+            Computes health-based adaptive learning rate.
+            
+        get_health_stats(): 
+            Returns comprehensive health and performance statistics.
+    
+    Repair Mechanisms:
+        - **Synaptic Scaling**: Reduces weights of overactive neurons with high calcium levels
+        - **Selective Reinforcement**: Strengthens important synaptic connections
+        - **Activity-Dependent Pruning**: Weakens or removes underperforming synapses
+        - **Homeostatic Adjustment**: Global weight normalization to prevent runaway excitation
+    
+    Health Monitoring:
+        The neuron continuously monitors its health through multiple metrics including calcium
+        levels, synaptic strength stability, and overall performance. Health reports trigger
+        adaptive behaviors and repair mechanisms when degradation is detected.
+    
+    Example:
+        >>> import torch
+        >>> neuron = BioLogicalNeuron(
+        ...     in_features=128,
+        ...     out_features=64,
+        ...     plasticity_rate=0.01,
+        ...     repair_threshold=0.6,
+        ...     enable_monitoring=True
+        ... )
+        >>> 
+        >>> # Start training epoch
+        >>> neuron.start_epoch(1)
+        >>> 
+        >>> # Forward pass
+        >>> x = torch.randn(32, 128)
+        >>> output, health_report = neuron(x)
+        >>> 
+        >>> # Check health statistics
+        >>> stats = neuron.get_health_stats()
+        >>> print(f"Current health: {stats['current_health']:.3f}")
+        >>> 
+        >>> # End epoch and get summary
+        >>> neuron.end_epoch()
+    
+    Note:
+        This implementation is designed for research and experimental purposes, providing
+        insights into biologically plausible neural network behaviors. The repair mechanisms
+        and homeostatic regulation are based on current understanding of biological neural
+        systems and may require tuning for specific applications.
+    
+    Raises:
+        ValueError: If repair_threshold is not in range [0.0, 1.0].
+        RuntimeError: If homeostatic regulation fails to initialize properly.
+    """
+    
     def __init__(
         self,
         in_features: int,

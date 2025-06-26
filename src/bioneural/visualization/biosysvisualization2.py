@@ -7,7 +7,145 @@ import pandas as pd
 from datetime import datetime
 
 class BioNeuronVisualizer:
-    """Advanced Visualizer for biological neuron metrics with repair strategy insights"""
+    """
+    Advanced visualization system for biological neuron metrics with comprehensive repair strategy analysis.
+    
+    This class provides sophisticated visualization capabilities for monitoring and analyzing the behavior
+    of biological neural networks, including health metrics, calcium dynamics, repair mechanisms, and
+    phase space analysis. The visualizer tracks temporal evolution of neural states and generates
+    publication-quality plots for research and debugging purposes.
+    
+    The visualization system is designed to handle real-time data streams from biological neuron
+    simulations, automatically managing data history and generating insights into neural behavior
+    patterns, homeostatic regulation effectiveness, and repair strategy distributions.
+    
+    Args:
+        save_dir (str, optional): Directory path where visualization plots will be saved.
+            The directory will be created if it doesn't exist. Defaults to "bio_visualizations".
+    
+    Attributes:
+        save_dir (Path): Path object for the save directory with automatic creation.
+        health_history (List[float]): Historical record of neuron health scores over time.
+        stability_history (List[float]): Historical record of synaptic stability measurements.
+        calcium_history (List[float]): Historical record of calcium concentration levels.
+        repair_events (List[tuple]): List of (step, health_score) tuples marking repair occurrences.
+        steps (List[int]): Sequence of training steps corresponding to all measurements.
+        repair_strategy_history (Dict[str, List[int]]): Historical counts for each repair strategy:
+            - 'synaptic_scaling': Frequency of synaptic scaling repair applications
+            - 'selective_reinforcement': Frequency of selective synaptic reinforcement
+            - 'activity_dependent_pruning': Frequency of activity-dependent pruning events
+    
+    Methods:
+        update(step, health_report, calcium_level, repair_strategies=None):
+            Updates all tracking histories with new data from a single training step.
+            Automatically extracts values from tensors and handles repair event detection.
+            
+        plot_health_metrics():
+            Generates time-series plot of health and stability metrics with repair event markers.
+            Creates publication-quality visualization showing neural health evolution.
+            
+        plot_calcium_dynamics():
+            Visualizes calcium concentration changes over time with rolling average overlay.
+            Includes proper biological units and trend analysis for calcium homeostasis.
+            
+        plot_repair_strategies():
+            Creates stacked area plot showing cumulative distribution of repair strategy usage.
+            Provides insights into which repair mechanisms are most frequently activated.
+            
+        plot_phase_diagram():
+            Generates phase space plot showing health vs. calcium relationships over time.
+            Includes directional arrows and repair event markers for trajectory analysis.
+            
+        generate_comprehensive_summary():
+            Creates comprehensive 2x2 subplot figure combining all major visualizations.
+            Ideal for research presentations and comprehensive behavior analysis.
+            
+        save_all_plots():
+            Batch generates and saves all available visualization types with error handling.
+            Automatically timestamps files and manages plotting failures gracefully.
+    
+    Visualization Features:
+        - **Time Series Analysis**: Tracks neural health, stability, and calcium dynamics over training
+        - **Repair Strategy Monitoring**: Visualizes frequency and distribution of different repair mechanisms
+        - **Phase Space Analysis**: Shows relationships between health and calcium in state space
+        - **Event Marking**: Highlights repair events and critical state changes
+        - **Rolling Averages**: Smooths noisy data for trend identification
+        - **Publication Quality**: High DPI output with proper styling and annotations
+    
+    Data Handling:
+        - **Tensor Compatibility**: Automatically extracts values from PyTorch tensors
+        - **Missing Data Tolerance**: Gracefully handles incomplete or missing data streams
+        - **Memory Management**: Maintains reasonable history lengths for long-running experiments
+        - **Error Recovery**: Continues operation even when individual plots fail
+    
+    Example:
+        >>> import torch
+        >>> from datetime import datetime
+        >>> 
+        >>> # Initialize visualizer
+        >>> visualizer = BioNeuronVisualizer(save_dir="neural_analysis")
+        >>> 
+        >>> # Simulate training loop with data updates
+        >>> for step in range(1000):
+        ...     # Generate synthetic health report
+        ...     health_report = {
+        ...         'current_health': torch.tensor(0.8 + 0.1 * np.random.randn()),
+        ...         'stability': torch.tensor(0.7 + 0.1 * np.random.randn()),
+        ...         'repair_performed': step % 100 == 0  # Repair every 100 steps
+        ...     }
+        ...     
+        ...     # Generate synthetic calcium data
+        ...     calcium_level = torch.tensor(0.5 + 0.2 * np.random.randn())
+        ...     
+        ...     # Update repair strategies
+        ...     repair_strategies = {
+        ...         'synaptic_scaling': step // 50,
+        ...         'selective_reinforcement': step // 75,
+        ...         'activity_dependent_pruning': step // 100
+        ...     }
+        ...     
+        ...     # Update visualizer
+        ...     visualizer.update(step, health_report, calcium_level, repair_strategies)
+        ...     
+        ...     # Generate plots periodically
+        ...     if step % 200 == 0:
+        ...         visualizer.save_all_plots()
+        >>> 
+        >>> # Generate final comprehensive summary
+        >>> visualizer.generate_comprehensive_summary()
+    
+    File Naming Convention:
+        All generated plots are automatically timestamped using the format 'YYYYMMDD_HHMMSS'
+        to prevent overwrites and maintain analysis history:
+        - health_metrics_20240615_143022.png
+        - calcium_dynamics_20240615_143022.png
+        - repair_strategies_20240615_143022.png
+        - phase_diagram_20240615_143022.png
+        - comprehensive_summary_20240615_143022.png
+    
+    Styling and Appearance:
+        - Uses seaborn 'whitegrid' style with 'husl' color palette for publication quality
+        - High DPI (600) output for crisp visualization in research papers
+        - Consistent font sizing (12-15pt) and professional layouts
+        - Proper axis labeling with units where applicable (e.g., calcium in μM)
+        - Legend placement optimized for readability
+    
+    Note:
+        This visualizer is designed for research and development environments where
+        detailed analysis of biological neural network behavior is required. The
+        plotting functions are optimized for insight generation rather than real-time
+        performance, making them suitable for offline analysis and research documentation.
+        
+        For long-running experiments, consider periodic saving of plots to capture
+        behavioral evolution over extended training periods. The visualizer automatically
+        handles memory management but very long experiments may benefit from periodic
+        history clearing.
+    
+    Raises:
+        OSError: If save directory cannot be created or accessed.
+        ValueError: If incompatible data types are passed to update methods.
+        RuntimeError: If matplotlib/seaborn plotting operations fail due to backend issues.
+    """
     def __init__(self, save_dir: str = "bio_visualizations"):
         self.save_dir = Path(save_dir)
         self.save_dir.mkdir(exist_ok=True, parents=True)
@@ -69,7 +207,6 @@ class BioNeuronVisualizer:
             print("No repair strategy data available for plotting")
             return
             
-        # Ensure all strategy arrays have the same length as steps
         for strategy in self.repair_strategy_history:
             # If strategy data is empty or shorter than steps, pad with zeros
             if len(self.repair_strategy_history[strategy]) == 0:
@@ -199,7 +336,6 @@ class BioNeuronVisualizer:
     def generate_comprehensive_summary(self):
         """Generate a comprehensive summary plot with repair strategies"""
         if not self.steps or not self.health_history:
-            # Skip plotting if no data is available
             print("No data available for comprehensive summary")
             return
             
@@ -230,7 +366,6 @@ class BioNeuronVisualizer:
         axs[0, 1].legend()
         
         # Repair Strategies Cumulative Plot (Bottom Left)
-        # Ensure all strategy arrays have the same length as steps
         for strategy in self.repair_strategy_history:
             # If strategy data is empty or shorter than steps, pad with zeros
             if len(self.repair_strategy_history[strategy]) == 0:
@@ -282,7 +417,6 @@ class BioNeuronVisualizer:
             self.plot_calcium_dynamics()
             self.plot_phase_diagram()
             self.plot_repair_strategies()  # New method
-            self.generate_comprehensive_summary()  # Enhanced summary
+            self.generate_comprehensive_summary()  
         except Exception as e:
             print(f"Error during plot generation: {str(e)}")
-            # Continue execution even if plotting fails

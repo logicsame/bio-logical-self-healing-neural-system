@@ -8,7 +8,130 @@ from ..utils.logging import HealthLogger
 from typing import Dict, List, Optional
 
 class HomeostaticRegulation:
-    """Biologically accurate Homeostatic Regulation System with improved monitoring"""
+    """
+    Biologically accurate Homeostatic Regulation System with comprehensive neural health monitoring.
+    
+    This class implements calcium-based homeostatic mechanisms inspired by biological neural systems,
+    where calcium levels serve as a key indicator of neuronal health and activity. The system maintains
+    optimal neural function by monitoring calcium dynamics, synaptic weight stability, and overall
+    network health, closely mimicking the homeostatic processes found in living neurons.
+    
+    In biological systems, calcium homeostasis is critical as elevated calcium levels can be cytotoxic,
+    while appropriate calcium signaling is essential for synaptic plasticity and neural communication.
+    This implementation captures these dynamics to provide realistic neural behavior regulation.
+    
+    Args:
+        decay_rate (float, optional): Rate at which calcium levels naturally decay over time.
+            Represents biological calcium clearance mechanisms. Range: [0.01, 0.1]. Defaults to 0.03.
+        activation_scale (float, optional): Scaling factor applied to neural activations when
+            computing calcium influx. Controls sensitivity to neural activity. Defaults to 0.4.
+        stability_scale (float, optional): Scaling factor for synaptic weight stability contributions
+            to overall health computation. Emphasizes importance of stable synaptic connections.
+            Defaults to 0.25.
+        prediction_window (int, optional): Number of time steps used for health prediction and
+            stability calculations. Larger windows provide more stable but less responsive predictions.
+            Defaults to 8.
+        stability_threshold (float, optional): Threshold value used in stability computations to
+            determine acceptable variability levels. Defaults to 0.15.
+        calcium_threshold (float, optional): Optimal calcium level threshold above which neurons
+            are considered to have excessive calcium. In biological systems, maintaining calcium
+            below this threshold is crucial for cell health. Defaults to 0.7.
+        enable_logging (bool, optional): Whether to enable detailed health logging through the
+            HealthLogger system. Useful for debugging and analysis. Defaults to True.
+    
+    Attributes:
+        α (float): Decay rate for calcium clearance mechanisms.
+        β (float): Activation scaling factor for calcium influx.
+        γ (float): Stability scaling factor for health computations.
+        window (int): Size of the prediction and stability analysis window.
+        stability_threshold (float): Threshold for stability determinations.
+        calcium_threshold (float): Optimal calcium level threshold.
+        logger (HealthLogger): Logger instance for health monitoring (if enabled).
+        calcium_levels (List[torch.Tensor]): Historical calcium level measurements.
+        synaptic_strengths (List[torch.Tensor]): Historical synaptic weight measurements.
+        health_scores (List[torch.Tensor]): Historical health score computations.
+        stability_scores (List[torch.Tensor]): Historical stability measurements.
+        repair_history (List[dict]): Record of repair events and their contexts.
+    
+    Methods:
+        reset_history():
+            Clears all historical data and resets tracking systems.
+            
+        update_calcium(activations):
+            Updates calcium levels based on current neural activity with biological
+            momentum and early-training exploration noise.
+            
+        compute_stability(health_scores):
+            Computes stability metric from recent health score variations using
+            coefficient of variation approach.
+            
+        compute_weight_stability(weights):
+            Calculates synaptic weight stability over time, handling different
+            tensor dimensions appropriately.
+            
+        predict_health():
+            Generates comprehensive health prediction including current health,
+            stability metrics, base health, and calcium trend analysis.
+            
+        get_health_summary():
+            Returns summary statistics of current health status and repair history.
+    
+    Health Computation:
+        The health prediction system uses a biologically-inspired approach where:
+        - Lower calcium levels (below threshold) indicate better health
+        - Synaptic weight stability is prioritized over magnitude
+        - Calcium trends are monitored (decreasing calcium is beneficial)
+        - Overall health combines calcium status, weight stability, and temporal consistency
+    
+    Biological Basis:
+        - **Calcium Homeostasis**: Mimics cellular calcium regulation where high levels are toxic
+        - **Synaptic Stability**: Reflects the importance of stable synaptic connections in learning
+        - **Temporal Dynamics**: Captures the time-dependent nature of neural adaptation
+        - **Adaptive Momentum**: Implements experience-dependent calcium handling
+    
+    Example:
+        >>> import torch
+        >>> homeostasis = HomeostaticRegulation(
+        ...     decay_rate=0.05,
+        ...     calcium_threshold=0.8,
+        ...     prediction_window=10,
+        ...     enable_logging=True
+        ... )
+        >>> 
+        >>> # Simulate neural activity
+        >>> activations = torch.randn(32, 64)  # batch_size x features
+        >>> 
+        >>> # Update calcium based on activity
+        >>> calcium_level = homeostasis.update_calcium(activations)
+        >>> 
+        >>> # Record synaptic weights
+        >>> weights = torch.randn(64, 32)
+        >>> homeostasis.synaptic_strengths.append(torch.norm(weights, dim=1))
+        >>> 
+        >>> # Get health prediction
+        >>> health_report = homeostasis.predict_health()
+        >>> print(f"Health: {health_report['current_health'].mean():.3f}")
+        >>> print(f"Stability: {health_report['stability'].mean():.3f}")
+        >>> 
+        >>> # Get summary statistics
+        >>> summary = homeostasis.get_health_summary()
+        >>> print(f"Average health: {summary['health']:.3f}")
+    
+    Note:
+        This implementation prioritizes biological accuracy over computational efficiency.
+        The calcium dynamics and stability computations are designed to reflect real
+        neurobiological processes, making it particularly suitable for research into
+        biologically plausible neural networks and adaptive learning systems.
+        
+        The system maintains historical data within a sliding window to balance
+        responsiveness with computational efficiency. For long-running experiments,
+        consider periodic history reset to manage memory usage.
+    
+    Raises:
+        ValueError: If decay_rate, activation_scale, or stability_scale are outside valid ranges.
+        RuntimeError: If tensor operations fail due to device mismatches.
+        IndexError: If prediction_window is larger than available history.
+    """
     def __init__(
         self,
         decay_rate: float = 0.03,
