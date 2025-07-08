@@ -1,3 +1,6 @@
+[![Published](https://img.shields.io/badge/Published-Scientific%20Reports-blue)](https://doi.org/10.1038/s41598-025-09114-8)
+[![DOI](https://img.shields.io/badge/DOI-10.1038%2Fs41598--025--09114--8-blue)](https://doi.org/10.1038/s41598-025-09114-8)
+
 # BioLogicalNeuron Layer
 
 A sophisticated biological neural network layer implementing advanced homeostatic regulation and self-repair mechanisms, designed for robust and adaptive deep learning systems.
@@ -19,7 +22,32 @@ A sophisticated biological neural network layer implementing advanced homeostati
 
 ## Overview
 
-BioLogicalNeuron is a novel neural network layer that incorporates biological principles of homeostasis and self-repair into deep learning architectures. This implementation provides robust learning capabilities with built-in adaptation mechanisms, making it particularly suitable for complex, long-running applications and research in neuromorphic computing.
+BioLogicalNeuron is a **peer-reviewed, published** neural network layer that incorporates biological principles of homeostasis and self-repair into deep learning architectures. **Published in Scientific Reports (Nature Portfolio, 2025)**, this implementation provides robust learning capabilities with built-in adaptation mechanisms, making it particularly suitable for complex, long-running applications and research in neuromorphic computing.
+
+**Published Research:** This implementation is based on peer-reviewed research published in Scientific Reports, demonstrating significant improvements over state-of-the-art methods across multiple benchmark datasets.
+
+
+## Publication
+
+This research has been published in **Scientific Reports** (Nature Portfolio):
+**Title:** Biologically inspired neural network layer with homeostatic regulation and adaptive repair mechanisms
+
+If you use this work in your research, please cite our paper:
+```bash
+@article{hakim2025biological,
+  title={Biologically inspired neural network layer with homeostatic regulation and adaptive repair mechanisms},
+  author={Hakim, MD Azizul and Alam, Mohammad Ifazul},
+  journal={Scientific Reports},
+  volume={15},
+  pages={9114},
+  year={2025},
+  publisher={Nature Publishing Group},
+  doi={10.1038/s41598-025-09114-8}
+}
+```
+
+
+
 
 ## Experimental Results
 
@@ -470,5 +498,9 @@ MIT License. See [LICENSE](LICENSE) for details.
 
 ## Contact
 
-- **Main Developer**: MD. Azizul Hakim
+- **Lead Author**: MD. Azizul Hakim
 - **Email**: azizulhakim8291@gmail.com
+- **Co-Author**: Mohammad Ifazul Alam
+- **Email**: efazulalam05@gmail.com
+- **Published Paper**: [Scientific Reports](https://doi.org/10.1038/s41598-025-09114-8)
+
