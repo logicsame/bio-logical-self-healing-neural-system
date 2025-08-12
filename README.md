@@ -71,7 +71,7 @@ Our comprehensive evaluation demonstrates the effectiveness of BioLogicalNeuron 
 
 | Dataset | Fold | Without BioLogicalNeuron | BioLogicalNeuron + Attention | Performance Gain (Base) |
 |---------|------|-------------------------|----------------------------|----------------------|
-| CIFAR-10 | 2 | 86.65 ± 0.064 | **90.42 ± 0.196** | +0.77 |
+| CIFAR-10 | 2 | 89.65 ± 0.064 | **90.42 ± 0.196** | +0.77 |
 | MNIST | 2 | -- | **99.43 ± 0.002** | -- |
 | Fashion-MNIST | 2 | -- | **93.27 ± 0.20** | -- |
 
